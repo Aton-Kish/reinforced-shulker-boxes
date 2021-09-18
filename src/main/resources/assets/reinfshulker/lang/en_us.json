@@ -1,0 +1,12 @@
+{
+  "stat.reinfshulker.clean_copper_shulker_box": "Copper Shulker Boxes Cleaned",
+  "stat.reinfshulker.clean_iron_shulker_box": "Iron Shulker Boxes Cleaned",
+  "stat.reinfshulker.clean_gold_shulker_box": "Gold Shulker Boxes Cleaned",
+  "stat.reinfshulker.clean_diamond_shulker_box": "Diamond Shulker Boxes Cleaned",
+  "stat.reinfshulker.clean_netherite_shulker_box": "Netherite Shulker Boxes Cleaned",
+  "stat.reinfshulker.open_copper_shulker_box": "Copper Shulker Boxes Opened",
+  "stat.reinfshulker.open_iron_shulker_box": "Iron Shulker Boxes Opened",
+  "stat.reinfshulker.open_gold_shulker_box": "Gold Shulker Boxes Opened",
+  "stat.reinfshulker.open_diamond_shulker_box": "Diamond Shulker Boxes Opened",
+  "stat.reinfshulker.open_netherite_shulker_box": "Netherite Shulker Boxes Opened"
+}

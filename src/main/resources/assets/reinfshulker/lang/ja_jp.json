@@ -1,0 +1,12 @@
+{
+  "stat.reinfshulker.clean_copper_shulker_box": "銅のシュルカーボックスを脱色した回数",
+  "stat.reinfshulker.clean_iron_shulker_box": "鉄のシュルカーボックスを脱色した回数",
+  "stat.reinfshulker.clean_gold_shulker_box": "金のシュルカーボックスを脱色した回数",
+  "stat.reinfshulker.clean_diamond_shulker_box": "ダイヤモンドのシュルカーボックスを脱色した回数",
+  "stat.reinfshulker.clean_netherite_shulker_box": "ネザライトのシュルカーボックスを脱色した回数",
+  "stat.reinfshulker.open_copper_shulker_box": "銅のシュルカーボックスを開いた回数",
+  "stat.reinfshulker.open_iron_shulker_box": "鉄のシュルカーボックスを開いた回数",
+  "stat.reinfshulker.open_gold_shulker_box": "金のシュルカーボックスを開いた回数",
+  "stat.reinfshulker.open_diamond_shulker_box": "ダイヤモンドのシュルカーボックスを開いた回数",
+  "stat.reinfshulker.open_netherite_shulker_box": "ネザライトのシュルカーボックスを開いた回数"
+}
