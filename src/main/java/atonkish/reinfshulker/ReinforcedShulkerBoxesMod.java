@@ -6,6 +6,8 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import atonkish.reinfshulker.block.ModBlocks;
+import atonkish.reinfshulker.block.cauldron.ModCauldronBehavior;
+import atonkish.reinfshulker.block.dispenser.ModDispenserBehavior;
 import atonkish.reinfshulker.block.entity.ModBlockEntityType;
 import atonkish.reinfshulker.item.ModItems;
 import atonkish.reinfshulker.recipe.ModRecipeSerializer;
@@ -29,5 +31,9 @@ public class ReinforcedShulkerBoxesMod implements ModInitializer {
 
 		// Recipe Serializer
 		ModRecipeSerializer.init();
+
+		// Block Entity Behaviors
+		ModCauldronBehavior.init();
+		ModDispenserBehavior.init();
 	}
 }
