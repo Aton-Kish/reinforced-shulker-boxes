@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "reinfshulker:copper_shulker_box_from_copper_chest"
+    ]
+  },
+  "criteria": {
+    "has_copper_chest": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "tag": "c:copper_chests"
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "reinfshulker:copper_shulker_box_from_copper_chest"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_copper_chest",
+      "has_the_recipe"
+    ]
+  ]
+}
