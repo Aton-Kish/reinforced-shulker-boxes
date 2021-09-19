@@ -3,7 +3,9 @@
   "minVersion": "0.8",
   "package": "atonkish.reinfshulker.mixin",
   "compatibilityLevel": "JAVA_16",
-  "mixins": [],
+  "mixins": [
+    "BlockEntityMixin"
+  ],
   "client": [],
   "injectors": {
     "defaultRequire": 1
