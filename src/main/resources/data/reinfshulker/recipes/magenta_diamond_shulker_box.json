@@ -1,0 +1,19 @@
+{
+  "type": "reinfshulker:crafting_special_reinforcedshulkerbox",
+  "pattern": [
+    "MMM",
+    "MSM",
+    "MMM"
+  ],
+  "key": {
+    "S": {
+      "item": "reinfshulker:magenta_gold_shulker_box"
+    },
+    "M": {
+      "item": "minecraft:diamond"
+    }
+  },
+  "result": {
+    "item": "reinfshulker:magenta_diamond_shulker_box"
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "type": "reinfshulker:crafting_special_reinforcedshulkerbox",
+  "pattern": [
+    "MMM",
+    "MSM",
+    "MMM"
+  ],
+  "key": {
+    "S": {
+      "item": "reinfshulker:black_copper_shulker_box"
+    },
+    "M": {
+      "item": "minecraft:iron_ingot"
+    }
+  },
+  "result": {
+    "item": "reinfshulker:black_iron_shulker_box"
+  }
+}
