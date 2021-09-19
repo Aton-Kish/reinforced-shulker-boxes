@@ -6,7 +6,8 @@
   "mixins": [
     "AbstractCauldronBlockMixin",
     "BlockEntityMixin",
-    "ShulkerBoxBlockMixin"
+    "ShulkerBoxBlockMixin",
+    "TexturedRenderLayersMixin"
   ],
   "client": [],
   "injectors": {
