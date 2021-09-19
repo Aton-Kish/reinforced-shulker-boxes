@@ -8,6 +8,7 @@ import org.apache.logging.log4j.Logger;
 import atonkish.reinfshulker.block.ModBlocks;
 import atonkish.reinfshulker.block.entity.ModBlockEntityType;
 import atonkish.reinfshulker.item.ModItems;
+import atonkish.reinfshulker.recipe.ModRecipeSerializer;
 import atonkish.reinfshulker.stat.ModStats;
 
 public class ReinforcedShulkerBoxesMod implements ModInitializer {
@@ -25,5 +26,8 @@ public class ReinforcedShulkerBoxesMod implements ModInitializer {
 
 		// Items
 		ModItems.init();
+
+		// Recipe Serializer
+		ModRecipeSerializer.init();
 	}
 }
