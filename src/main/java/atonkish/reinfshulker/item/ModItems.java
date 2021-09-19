@@ -39,7 +39,7 @@ public class ModItems {
     }
 
     private static Item.Settings createMaterialSettings(ReinforcingMaterial material) {
-        Item.Settings settings = new Item.Settings().group(ModItemGroup.REINFORCED_STORAGE);
+        Item.Settings settings = new Item.Settings().maxCount(1).group(ModItemGroup.REINFORCED_STORAGE);
         switch (material) {
             default:
             case COPPER:
