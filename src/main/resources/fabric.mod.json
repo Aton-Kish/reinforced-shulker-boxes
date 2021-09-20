@@ -1,31 +1,30 @@
 {
   "schemaVersion": 1,
-  "id": "modid",
+  "id": "reinfshulker",
   "version": "${version}",
-
-  "name": "Example Mod",
-  "description": "This is an example description! Tell everyone what your mod is about!",
+  "name": "Reinforced Shulker Boxes",
+  "description": "Adds reinforced shulker boxes.",
   "authors": [
-    "Me!"
+    "Aton-Kish"
   ],
   "contact": {
-    "homepage": "https://fabricmc.net/",
-    "sources": "https://github.com/FabricMC/fabric-example-mod"
+    "homepage": "https://github.com/Aton-Kish/reinforced-shulker-boxes",
+    "sources": "https://github.com/Aton-Kish/reinforced-shulker-boxes"
   },
-
-  "license": "CC0-1.0",
-  "icon": "assets/modid/icon.png",
-
+  "license": "MIT",
+  "icon": "assets/reinfshulker/icon.png",
   "environment": "*",
   "entrypoints": {
     "main": [
-      "net.fabricmc.example.ExampleMod"
+      "atonkish.reinfshulker.ReinforcedShulkerBoxesMod"
+    ],
+    "client": [
+      "atonkish.reinfshulker.ReinforcedShulkerBoxesClientMod"
     ]
   },
   "mixins": [
-    "modid.mixins.json"
+    "reinfshulker.mixins.json"
   ],
-
   "depends": {
     "fabricloader": ">=0.11.3",
     "fabric": "*",

@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "reinfshulker:netherite_shulker_box_from_netherite_chest"
+    ]
+  },
+  "criteria": {
+    "has_netherite_chest": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "tag": "c:netherite_chests"
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "reinfshulker:netherite_shulker_box_from_netherite_chest"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_netherite_chest",
+      "has_the_recipe"
+    ]
+  ]
+}

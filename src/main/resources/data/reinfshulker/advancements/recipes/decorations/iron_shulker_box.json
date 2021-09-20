@@ -1,0 +1,79 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "reinfshulker:iron_shulker_box",
+      "reinfshulker:white_iron_shulker_box",
+      "reinfshulker:orange_iron_shulker_box",
+      "reinfshulker:magenta_iron_shulker_box",
+      "reinfshulker:light_blue_iron_shulker_box",
+      "reinfshulker:yellow_iron_shulker_box",
+      "reinfshulker:lime_iron_shulker_box",
+      "reinfshulker:pink_iron_shulker_box",
+      "reinfshulker:gray_iron_shulker_box",
+      "reinfshulker:light_gray_iron_shulker_box",
+      "reinfshulker:cyan_iron_shulker_box",
+      "reinfshulker:purple_iron_shulker_box",
+      "reinfshulker:blue_iron_shulker_box",
+      "reinfshulker:brown_iron_shulker_box",
+      "reinfshulker:green_iron_shulker_box",
+      "reinfshulker:red_iron_shulker_box",
+      "reinfshulker:black_iron_shulker_box"
+    ]
+  },
+  "criteria": {
+    "has_copper_shulker_box": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "reinfshulker:copper_shulker_box",
+              "reinfshulker:white_copper_shulker_box",
+              "reinfshulker:orange_copper_shulker_box",
+              "reinfshulker:magenta_copper_shulker_box",
+              "reinfshulker:light_blue_copper_shulker_box",
+              "reinfshulker:yellow_copper_shulker_box",
+              "reinfshulker:lime_copper_shulker_box",
+              "reinfshulker:pink_copper_shulker_box",
+              "reinfshulker:gray_copper_shulker_box",
+              "reinfshulker:light_gray_copper_shulker_box",
+              "reinfshulker:cyan_copper_shulker_box",
+              "reinfshulker:purple_copper_shulker_box",
+              "reinfshulker:blue_copper_shulker_box",
+              "reinfshulker:brown_copper_shulker_box",
+              "reinfshulker:green_copper_shulker_box",
+              "reinfshulker:red_copper_shulker_box",
+              "reinfshulker:black_copper_shulker_box"
+            ]
+          }
+        ]
+      }
+    },
+    "has_iron_ingot": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "minecraft:iron_ingot"
+            ]
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "reinfshulker:iron_shulker_box"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_copper_shulker_box",
+      "has_iron_ingot",
+      "has_the_recipe"
+    ]
+  ]
+}

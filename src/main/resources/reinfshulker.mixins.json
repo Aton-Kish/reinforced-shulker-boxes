@@ -1,0 +1,17 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "atonkish.reinfshulker.mixin",
+  "compatibilityLevel": "JAVA_16",
+  "mixins": [
+    "AbstractCauldronBlockMixin",
+    "BlockEntityMixin",
+    "ShulkerBoxBlockMixin"
+  ],
+  "client": [
+    "TexturedRenderLayersMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}
