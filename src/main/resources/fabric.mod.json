@@ -20,6 +20,9 @@
     ],
     "client": [
       "atonkish.reinfshulker.ReinforcedShulkerBoxesClientMod"
+    ],
+    "shulkerboxtooltip": [
+      "atonkish.reinfshulker.integration.shulkerboxtooltip.ShulkerBoxTooltip"
     ]
   },
   "mixins": [
