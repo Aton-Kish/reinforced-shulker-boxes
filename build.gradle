@@ -12,6 +12,7 @@ group = project.maven_group
 
 ext {
 	reinforcedCoreVersion = "1.0.1"
+	quickShulkerVersion = "1.2.2-1.17"
 	shulkerBoxTooltipVersion = "3.0.1+1.17"
 	modMenuVersion = "2.0.2"
 	clothConfigVersion = '5.0.38'
@@ -29,6 +30,11 @@ repositories {
     maven {
         url "https://raw.githubusercontent.com/Aton-Kish/mcmod/maven"
     }
+
+	// Quick Shulker
+	maven {
+		url "https://maven.kyrptonaught.dev"
+	}
 
 	// Shulker Box Tooltip
 	maven {
@@ -66,6 +72,11 @@ dependencies {
 	// Reinforced Core
 	modImplementation "atonkish.reinfcore:reinforced-core:${reinforcedCoreVersion}"
 	include "atonkish.reinfcore:reinforced-core:${reinforcedCoreVersion}"
+
+	// Quick Shulker
+	modImplementation("net.kyrptonaught:quickshulker:${quickShulkerVersion}") {
+        exclude(group: "net.fabricmc.fabric-api")
+    }
 
 	// Shulker Box Tooltip
 	modImplementation("com.misterpemodder:shulkerboxtooltip:${shulkerBoxTooltipVersion}") {
