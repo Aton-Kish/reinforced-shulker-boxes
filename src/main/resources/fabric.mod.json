@@ -21,6 +21,9 @@
     "client": [
       "atonkish.reinfshulker.ReinforcedShulkerBoxesClientMod"
     ],
+    "quickshulker": [
+      "atonkish.reinfshulker.integration.quickshulker.QuickShulker"
+    ],
     "shulkerboxtooltip": [
       "atonkish.reinfshulker.integration.shulkerboxtooltip.ShulkerBoxTooltip"
     ]
