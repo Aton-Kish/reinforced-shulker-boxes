@@ -11,7 +11,12 @@ version = project.mod_version
 group = project.maven_group
 
 ext {
-	reinforcedCoreVersion = "1.0.1"
+	reinforcedCoreVersion = "1.0.2"
+	quickShulkerVersion = "1.2.2-1.17"
+	shulkerBoxTooltipVersion = "3.0.1+1.17"
+	modMenuVersion = "2.0.2"
+	clothConfigVersion = '5.0.38'
+	fabricAsmVersion = "2.0"
 }
 
 repositories {
@@ -20,9 +25,36 @@ repositories {
 	// Loom adds the essential maven repositories to download Minecraft and libraries from automatically.
 	// See https://docs.gradle.org/current/userguide/declaring_repositories.html
 	// for more information about repositories.
+
+	// Reinforced Core
     maven {
         url "https://raw.githubusercontent.com/Aton-Kish/mcmod/maven"
     }
+
+	// Quick Shulker
+	maven {
+		url "https://maven.kyrptonaught.dev"
+	}
+
+	// Shulker Box Tooltip
+	maven {
+		url "https://maven.misterpemodder.com/libs-release"
+	}
+
+	// Mod Menu (Shulker Box Tooltip deps)
+    maven {
+        url "https://raw.githubusercontent.com/TerraformersMC/Archive/main/releases"
+    }
+
+	// Cloth Config (Shulker Box Tooltip deps)
+	maven {
+        url "https://maven.shedaniel.me"
+    }
+
+	// Fabric ASM (Shulker Box Tooltip deps)
+	maven {
+		url "https://jitpack.io"
+	}
 }
 
 dependencies {
@@ -38,8 +70,35 @@ dependencies {
 	// You may need to force-disable transitiveness on them.
 
 	// Reinforced Core
-	modImplementation "atonkish.reinfcore:reinforced-core:${reinforcedCoreVersion}"
+	modImplementation("atonkish.reinfcore:reinforced-core:${reinforcedCoreVersion}") {
+        exclude(group: "net.fabricmc.fabric-api")
+	}
 	include "atonkish.reinfcore:reinforced-core:${reinforcedCoreVersion}"
+
+	// Quick Shulker
+	modImplementation("net.kyrptonaught:quickshulker:${quickShulkerVersion}") {
+        exclude(group: "net.fabricmc.fabric-api")
+    }
+
+	// Shulker Box Tooltip
+	modImplementation("com.misterpemodder:shulkerboxtooltip:${shulkerBoxTooltipVersion}") {
+        exclude(group: "net.fabricmc.fabric-api")
+	}
+
+	// Mod Menu (Shulker Box Tooltip deps)
+    modImplementation("com.terraformersmc:modmenu:${modMenuVersion}") {
+        exclude(group: "net.fabricmc.fabric-api")
+    }
+
+	// Cloth Config (Shulker Box Tooltip deps)
+	modApi("me.shedaniel.cloth:cloth-config-fabric:${clothConfigVersion}") {
+        exclude(group: "net.fabricmc.fabric-api")
+    }
+
+	// Fabric ASM (Shulker Box Tooltip deps)
+	modImplementation ("com.github.Chocohead:Fabric-ASM:${fabricAsmVersion}") {
+		exclude(group : "net.fabricmc.fabric-api")
+	}
 }
 
 processResources {
