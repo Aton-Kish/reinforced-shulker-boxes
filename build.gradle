@@ -11,7 +11,7 @@ version = project.mod_version
 group = project.maven_group
 
 ext {
-	reinforcedCoreVersion = "1.0.1"
+	reinforcedCoreVersion = "1.0.2"
 	quickShulkerVersion = "1.2.2-1.17"
 	shulkerBoxTooltipVersion = "3.0.1+1.17"
 	modMenuVersion = "2.0.2"
@@ -70,7 +70,9 @@ dependencies {
 	// You may need to force-disable transitiveness on them.
 
 	// Reinforced Core
-	modImplementation "atonkish.reinfcore:reinforced-core:${reinforcedCoreVersion}"
+	modImplementation("atonkish.reinfcore:reinforced-core:${reinforcedCoreVersion}") {
+        exclude(group: "net.fabricmc.fabric-api")
+	}
 	include "atonkish.reinfcore:reinforced-core:${reinforcedCoreVersion}"
 
 	// Quick Shulker
