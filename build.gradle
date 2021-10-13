@@ -15,8 +15,8 @@ ext {
 	quickShulkerVersion = "1.2.2-1.17"
 	shulkerBoxTooltipVersion = "3.0.1+1.17"
 	modMenuVersion = "2.0.2"
-	clothConfigVersion = '5.0.38'
-	fabricAsmVersion = "2.0"
+	clothConfigVersion = "5.0.38"
+	fabricAsmVersion = "v2.2"
 }
 
 repositories {
