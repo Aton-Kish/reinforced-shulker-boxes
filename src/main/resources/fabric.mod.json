@@ -8,8 +8,9 @@
     "Aton-Kish"
   ],
   "contact": {
-    "homepage": "https://github.com/Aton-Kish/reinforced-shulker-boxes",
-    "sources": "https://github.com/Aton-Kish/reinforced-shulker-boxes"
+    "homepage": "https://www.curseforge.com/minecraft/mc-mods/reinforced-shulker-boxes",
+    "sources": "https://github.com/Aton-Kish/reinforced-shulker-boxes",
+    "issues": "https://github.com/Aton-Kish/reinforced-shulker-boxes/issues"
   },
   "license": "MIT",
   "icon": "assets/reinfshulker/icon.png",
@@ -36,8 +37,5 @@
     "fabric": "*",
     "minecraft": "1.17.x",
     "java": ">=16"
-  },
-  "suggests": {
-    "another-mod": "*"
   }
 }
