@@ -13,7 +13,6 @@ import net.minecraft.entity.mob.PiglinBrain;
 import net.minecraft.entity.mob.ShulkerEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NbtCompound;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.DyeColor;
 import net.minecraft.util.Hand;
@@ -88,15 +87,10 @@ public class ReinforcedShulkerBoxBlock extends ShulkerBoxBlock {
             ReinforcedShulkerBoxBlockEntity reinforcedShulkerBoxBlockEntity = (ReinforcedShulkerBoxBlockEntity) blockEntity;
             if (!world.isClient && player.isCreative() && !reinforcedShulkerBoxBlockEntity.isEmpty()) {
                 ItemStack itemStack = getItemStack(this.material, this.getColor());
-                NbtCompound nbtCompound = reinforcedShulkerBoxBlockEntity.writeInventoryNbt(new NbtCompound());
-                if (!nbtCompound.isEmpty()) {
-                    itemStack.setSubNbt("BlockEntityTag", nbtCompound);
-                }
-
+                blockEntity.setStackNbt(itemStack);
                 if (reinforcedShulkerBoxBlockEntity.hasCustomName()) {
                     itemStack.setCustomName(reinforcedShulkerBoxBlockEntity.getCustomName());
                 }
-
                 ItemEntity itemEntity = new ItemEntity(world, (double) pos.getX() + 0.5D, (double) pos.getY() + 0.5D,
                         (double) pos.getZ() + 0.5D, itemStack);
                 itemEntity.setToDefaultPickupDelay();
