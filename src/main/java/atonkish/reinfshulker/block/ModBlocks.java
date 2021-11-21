@@ -3,7 +3,6 @@ package atonkish.reinfshulker.block;
 import java.util.HashMap;
 
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
-import net.fabricmc.fabric.api.tool.attribute.v1.FabricToolTags;
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.Material;
@@ -37,22 +36,22 @@ public class ModBlocks {
                 return shulkerBoxBlockEntity.suffocates();
             }
         };
-        FabricBlockSettings settings = FabricBlockSettings.of(Material.SHULKER_BOX).breakByTool(FabricToolTags.PICKAXES)
-                .dynamicBounds().nonOpaque().suffocates(contextPredicate).blockVision(contextPredicate);
+        FabricBlockSettings settings = FabricBlockSettings.of(Material.SHULKER_BOX).dynamicBounds().nonOpaque()
+                .suffocates(contextPredicate).blockVision(contextPredicate);
         switch (material) {
-            case COPPER:
-                settings = settings.strength(2.0F, 6.0F).sounds(BlockSoundGroup.COPPER);
-                break;
-            case IRON:
-            case GOLD:
-            case DIAMOND:
-                settings = settings.strength(2.0F, 6.0F).sounds(BlockSoundGroup.METAL);
-                break;
-            case NETHERITE:
-                settings = settings.strength(2.0F, 1200.0F).sounds(BlockSoundGroup.NETHERITE);
-                break;
-            default:
-                settings = settings.strength(2.0F);
+        case COPPER:
+            settings = settings.strength(2.0F, 6.0F).sounds(BlockSoundGroup.COPPER);
+            break;
+        case IRON:
+        case GOLD:
+        case DIAMOND:
+            settings = settings.strength(2.0F, 6.0F).sounds(BlockSoundGroup.METAL);
+            break;
+        case NETHERITE:
+            settings = settings.strength(2.0F, 1200.0F).sounds(BlockSoundGroup.NETHERITE);
+            break;
+        default:
+            settings = settings.strength(2.0F);
         }
         return settings;
     }
