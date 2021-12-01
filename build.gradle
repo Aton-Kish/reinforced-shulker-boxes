@@ -24,9 +24,9 @@ repositories {
 	// for more information about repositories.
 
 	// Reinforced Core
-    maven {
-        url "https://raw.githubusercontent.com/Aton-Kish/mcmod/maven"
-    }
+	maven {
+		url "https://raw.githubusercontent.com/Aton-Kish/mcmod/maven"
+	}
 
 	// Quick Shulker
 	maven {
@@ -39,14 +39,14 @@ repositories {
 	}
 
 	// Mod Menu (Shulker Box Tooltip deps)
-    maven {
-        url "https://maven.terraformersmc.com/releases/"
-    }
+	maven {
+		url "https://maven.terraformersmc.com/releases/"
+	}
 
 	// Cloth Config (Shulker Box Tooltip deps)
 	maven {
-        url "https://maven.shedaniel.me"
-    }
+		url "https://maven.shedaniel.me"
+	}
 
 	// Fabric ASM (Shulker Box Tooltip deps)
 	maven {
