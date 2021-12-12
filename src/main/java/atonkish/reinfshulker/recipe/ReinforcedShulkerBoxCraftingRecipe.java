@@ -42,7 +42,7 @@ public class ReinforcedShulkerBoxCraftingRecipe extends ShapedRecipe {
 
     public ItemStack craft(CraftingInventory craftingInventory) {
         ItemStack inputItemStack = craftingInventory.getStack(4);
-        ItemStack outputItemStack = this.getOutput();
+        ItemStack outputItemStack = this.getOutput().copy();
 
         if (inputItemStack.hasNbt()) {
             outputItemStack.setNbt(inputItemStack.getNbt().copy());

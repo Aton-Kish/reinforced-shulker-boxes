@@ -10,12 +10,6 @@ archivesBaseName = project.archives_base_name
 version = project.mod_version
 group = project.maven_group
 
-ext {
-	reinforcedCoreVersion = "1.1.2+1.18"
-	quickShulkerVersion = "1.3.1-1.18"
-	shulkerBoxTooltipVersion = "3.0.5-beta.1+1.18-pre5"
-}
-
 repositories {
 	// Add repositories to retrieve artifacts from in here.
 	// You should only use this when depending on other mods because
@@ -64,14 +58,14 @@ dependencies {
 	modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
 
 	// Reinforced Core
-	modImplementation "atonkish.reinfcore:reinforced-core:${reinforcedCoreVersion}"
-	include "atonkish.reinfcore:reinforced-core:${reinforcedCoreVersion}"
+	modImplementation "atonkish.reinfcore:reinforced-core:${project.reinforced_core_version}"
+	include "atonkish.reinfcore:reinforced-core:${project.reinforced_core_version}"
 
 	// Quick Shulker
-	modImplementation "net.kyrptonaught:quickshulker:${quickShulkerVersion}"
+	modImplementation "net.kyrptonaught:quickshulker:${project.quick_shulker_version}"
 
 	// Shulker Box Tooltip
-	modImplementation "com.misterpemodder:shulkerboxtooltip:${shulkerBoxTooltipVersion}"
+	modImplementation "com.misterpemodder:shulkerboxtooltip:${project.shulker_box_tooltip_version}"
 }
 
 processResources {
