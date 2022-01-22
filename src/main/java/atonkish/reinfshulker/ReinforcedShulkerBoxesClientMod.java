@@ -2,7 +2,6 @@ package atonkish.reinfshulker;
 
 import java.util.HashMap;
 
-import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.client.rendering.v1.BlockEntityRendererRegistry;
@@ -18,6 +17,8 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.DyeColor;
 import net.minecraft.util.math.BlockPos;
 
+import atonkish.reinfcore.api.ReinforcedCoreClientModInitializer;
+import atonkish.reinfcore.api.ReinforcedCoreClientRegistry;
 import atonkish.reinfcore.util.ReinforcingMaterial;
 import atonkish.reinfshulker.block.ModBlocks;
 import atonkish.reinfshulker.block.ReinforcedShulkerBoxBlock;
@@ -26,14 +27,24 @@ import atonkish.reinfshulker.block.entity.ReinforcedShulkerBoxBlockEntity;
 import atonkish.reinfshulker.client.render.block.entity.ReinforcedShulkerBoxBlockEntityRenderer;
 
 @Environment(EnvType.CLIENT)
-public class ReinforcedShulkerBoxesClientMod implements ClientModInitializer {
+public class ReinforcedShulkerBoxesClientMod implements ReinforcedCoreClientModInitializer {
 	@Override
-	public void onInitializeClient() {
+	public void onInitializeReinforcedCoreClient() {
+		// init Reinforced Core
+		initializeReinforcedCoreClient();
+
 		// Block Entity Renderer
 		registerBlockEntityRenderer();
 
 		// Item Renderer
 		registerBuiltinItemRenderer();
+	}
+
+	private static void initializeReinforcedCoreClient() {
+		for (ReinforcingMaterial material : ReinforcedShulkerBoxesMod.MATERIALS) {
+			// Reinforced Storage Screen
+			ReinforcedCoreClientRegistry.registerShulkerBoxScreen(material);
+		}
 	}
 
 	private static void registerBlockEntityRenderer() {

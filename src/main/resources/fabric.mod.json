@@ -16,10 +16,10 @@
   "icon": "assets/reinfshulker/icon.png",
   "environment": "*",
   "entrypoints": {
-    "main": [
+    "reinfcore": [
       "atonkish.reinfshulker.ReinforcedShulkerBoxesMod"
     ],
-    "client": [
+    "reinfcoreclient": [
       "atonkish.reinfshulker.ReinforcedShulkerBoxesClientMod"
     ],
     "quickshulker": [
