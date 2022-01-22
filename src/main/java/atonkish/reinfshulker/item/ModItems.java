@@ -12,13 +12,14 @@ import net.minecraft.util.registry.Registry;
 import atonkish.reinfcore.item.ItemGroupInterface;
 import atonkish.reinfcore.item.ModItemGroup;
 import atonkish.reinfcore.util.ReinforcingMaterial;
+import atonkish.reinfcore.util.ReinforcingMaterials;
 import atonkish.reinfshulker.block.ModBlocks;
 
 public class ModItems {
     public static final HashMap<ReinforcingMaterial, HashMap<DyeColor, Item>> REINFORCED_SHULKER_BOX_MAP;
 
     public static void init() {
-        Item iconItem = REINFORCED_SHULKER_BOX_MAP.get(ReinforcingMaterial.NETHERITE).get((DyeColor) null);
+        Item iconItem = REINFORCED_SHULKER_BOX_MAP.get(ReinforcingMaterials.MAP.get("netherite")).get((DyeColor) null);
         ((ItemGroupInterface) ModItemGroup.REINFORCED_STORAGE).setIcon(iconItem);
     }
 
@@ -40,14 +41,14 @@ public class ModItems {
 
     private static Item.Settings createMaterialSettings(ReinforcingMaterial material) {
         Item.Settings settings = new Item.Settings().maxCount(1).group(ModItemGroup.REINFORCED_STORAGE);
-        switch (material) {
+        switch (material.getName()) {
             default:
-            case COPPER:
-            case IRON:
-            case GOLD:
-            case DIAMOND:
+            case "copper":
+            case "iron":
+            case "gold":
+            case "diamond":
                 break;
-            case NETHERITE:
+            case "netherite":
                 settings = settings.fireproof();
                 break;
         }
@@ -56,7 +57,7 @@ public class ModItems {
 
     static {
         REINFORCED_SHULKER_BOX_MAP = new HashMap<>();
-        for (ReinforcingMaterial material : ReinforcingMaterial.values()) {
+        for (ReinforcingMaterial material : ReinforcingMaterials.MAP.values()) {
             HashMap<DyeColor, Item> materialShulkerBoxMap = new HashMap<>();
             // Non-Color
             Item nonColoredItem = register(

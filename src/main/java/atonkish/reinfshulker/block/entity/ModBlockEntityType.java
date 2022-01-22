@@ -11,6 +11,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.registry.Registry;
 
 import atonkish.reinfcore.util.ReinforcingMaterial;
+import atonkish.reinfcore.util.ReinforcingMaterials;
 import atonkish.reinfshulker.ReinforcedShulkerBoxesMod;
 import atonkish.reinfshulker.block.ModBlocks;
 
@@ -34,7 +35,7 @@ public class ModBlockEntityType {
 
     static {
         REINFORCED_SHULKER_BOX_MAP = new HashMap<>();
-        for (ReinforcingMaterial material : ReinforcingMaterial.values()) {
+        for (ReinforcingMaterial material : ReinforcingMaterials.MAP.values()) {
             Block[] blocks = ModBlocks.REINFORCED_SHULKER_BOX_MAP.get(material).values().toArray(new Block[0]);
             BlockEntityType<ReinforcedShulkerBoxBlockEntity> blockEntityType = create(
                     material.getName() + "_shulker_box",

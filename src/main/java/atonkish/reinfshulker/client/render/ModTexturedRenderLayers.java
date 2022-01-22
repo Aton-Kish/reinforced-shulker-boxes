@@ -14,6 +14,7 @@ import net.minecraft.util.DyeColor;
 import net.minecraft.util.Identifier;
 
 import atonkish.reinfcore.util.ReinforcingMaterial;
+import atonkish.reinfcore.util.ReinforcingMaterials;
 import atonkish.reinfshulker.ReinforcedShulkerBoxesMod;
 
 @Environment(EnvType.CLIENT)
@@ -33,10 +34,10 @@ public class ModTexturedRenderLayers {
         REINFORCED_SHULKER_BOXES_RENDER_LAYER_MAP = new HashMap<>();
         REINFORCED_SHULKER_TEXTURE_ID_MAP = new HashMap<>();
         COLORED_REINFORCED_SHULKER_BOXES_TEXTURES_MAP = new HashMap<>();
-        for (ReinforcingMaterial material : ReinforcingMaterial.values()) {
+        for (ReinforcingMaterial material : ReinforcingMaterials.MAP.values()) {
             // Atlas Texture
             Identifier atlasTexture = new Identifier(ReinforcedShulkerBoxesMod.MOD_ID,
-                    "textures/atlas/" + material + "_shulker_boxes.png");
+                    "textures/atlas/" + material.getName() + "_shulker_boxes.png");
             REINFORCED_SHULKER_BOXES_ATLAS_TEXTURE_MAP.put(material, atlasTexture);
 
             // Render Layer
@@ -47,13 +48,14 @@ public class ModTexturedRenderLayers {
             // Non-Color
             SpriteIdentifier nonColoredTextureId = new SpriteIdentifier(
                     REINFORCED_SHULKER_BOXES_ATLAS_TEXTURE_MAP.get(material), new Identifier(
-                            ReinforcedShulkerBoxesMod.MOD_ID, "entity/reinforced_shulker/" + material + "/shulker"));
+                            ReinforcedShulkerBoxesMod.MOD_ID,
+                            "entity/reinforced_shulker/" + material.getName() + "/shulker"));
             REINFORCED_SHULKER_TEXTURE_ID_MAP.put(material, nonColoredTextureId);
             // Color
             List<SpriteIdentifier> coloredTextureIds = Stream.of(DyeColor.values()).map((color) -> {
                 return new SpriteIdentifier(REINFORCED_SHULKER_BOXES_ATLAS_TEXTURE_MAP.get(material),
                         new Identifier(ReinforcedShulkerBoxesMod.MOD_ID,
-                                "entity/reinforced_shulker/" + material + "/shulker_" + color));
+                                "entity/reinforced_shulker/" + material.getName() + "/shulker_" + color));
             }).collect(ImmutableList.toImmutableList());
             COLORED_REINFORCED_SHULKER_BOXES_TEXTURES_MAP.put(material, coloredTextureIds);
         }

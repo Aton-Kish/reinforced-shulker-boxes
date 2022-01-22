@@ -10,6 +10,7 @@ import net.minecraft.item.Item;
 import net.minecraft.util.Identifier;
 
 import atonkish.reinfcore.util.ReinforcingMaterial;
+import atonkish.reinfcore.util.ReinforcingMaterials;
 import atonkish.reinfshulker.ReinforcedShulkerBoxesMod;
 import atonkish.reinfshulker.item.ModItems;
 
@@ -22,7 +23,7 @@ public class ShulkerBoxTooltip implements ShulkerBoxTooltipApi {
 
     @Override
     public void registerProviders(PreviewProviderRegistry registry) {
-        for (ReinforcingMaterial material : ReinforcingMaterial.values()) {
+        for (ReinforcingMaterial material : ReinforcingMaterials.MAP.values()) {
             register(registry, material.getName() + "_shulker_box", new ReinforcedShulkerBoxPreviewProvider(material),
                     REINFORCED_SHULKER_BOX_ITEMS_MAP.get(material));
         }
@@ -30,7 +31,7 @@ public class ShulkerBoxTooltip implements ShulkerBoxTooltipApi {
 
     static {
         REINFORCED_SHULKER_BOX_ITEMS_MAP = new HashMap<>();
-        for (ReinforcingMaterial material : ReinforcingMaterial.values()) {
+        for (ReinforcingMaterial material : ReinforcingMaterials.MAP.values()) {
             Item[] items = ModItems.REINFORCED_SHULKER_BOX_MAP.get(material).values().toArray(new Item[0]);
             REINFORCED_SHULKER_BOX_ITEMS_MAP.put(material, items);
         }

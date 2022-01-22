@@ -8,6 +8,7 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 
 import atonkish.reinfcore.util.ReinforcingMaterial;
+import atonkish.reinfcore.util.ReinforcingMaterials;
 import atonkish.reinfshulker.ReinforcedShulkerBoxesMod;
 
 public class ModStats {
@@ -27,7 +28,7 @@ public class ModStats {
     static {
         CLEAN_REINFORCED_SHULKER_BOX_MAP = new HashMap<>();
         OPEN_REINFORCED_SHULKER_BOX_MAP = new HashMap<>();
-        for (ReinforcingMaterial material : ReinforcingMaterial.values()) {
+        for (ReinforcingMaterial material : ReinforcingMaterials.MAP.values()) {
             Identifier cleanIdentifier = register("clean_" + material.getName() + "_shulker_box",
                     StatFormatter.DEFAULT);
             Identifier openIdentifier = register("open_" + material.getName() + "_shulker_box", StatFormatter.DEFAULT);

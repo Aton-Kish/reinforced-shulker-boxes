@@ -13,6 +13,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import atonkish.reinfcore.util.ReinforcingMaterial;
+import atonkish.reinfcore.util.ReinforcingMaterials;
 import atonkish.reinfshulker.client.render.ModTexturedRenderLayers;
 
 @Environment(EnvType.CLIENT)
@@ -20,7 +21,7 @@ import atonkish.reinfshulker.client.render.ModTexturedRenderLayers;
 public class TexturedRenderLayersMixin {
     @Inject(at = @At("HEAD"), method = "addDefaultTextures")
     private static void addDefaultTextures(Consumer<SpriteIdentifier> adder, CallbackInfo info) {
-        for (ReinforcingMaterial material : ReinforcingMaterial.values()) {
+        for (ReinforcingMaterial material : ReinforcingMaterials.MAP.values()) {
             adder.accept(ModTexturedRenderLayers.REINFORCED_SHULKER_TEXTURE_ID_MAP.get(material));
             ModTexturedRenderLayers.COLORED_REINFORCED_SHULKER_BOXES_TEXTURES_MAP.get(material).forEach(adder);
         }

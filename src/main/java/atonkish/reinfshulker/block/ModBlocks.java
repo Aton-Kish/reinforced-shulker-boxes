@@ -14,6 +14,7 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 
 import atonkish.reinfcore.util.ReinforcingMaterial;
+import atonkish.reinfcore.util.ReinforcingMaterials;
 import atonkish.reinfshulker.ReinforcedShulkerBoxesMod;
 
 public class ModBlocks {
@@ -38,27 +39,27 @@ public class ModBlocks {
         };
         FabricBlockSettings settings = FabricBlockSettings.of(Material.SHULKER_BOX).dynamicBounds().nonOpaque()
                 .suffocates(contextPredicate).blockVision(contextPredicate);
-        switch (material) {
-        case COPPER:
-            settings = settings.strength(2.0F, 6.0F).sounds(BlockSoundGroup.COPPER);
-            break;
-        case IRON:
-        case GOLD:
-        case DIAMOND:
-            settings = settings.strength(2.0F, 6.0F).sounds(BlockSoundGroup.METAL);
-            break;
-        case NETHERITE:
-            settings = settings.strength(2.0F, 1200.0F).sounds(BlockSoundGroup.NETHERITE);
-            break;
-        default:
-            settings = settings.strength(2.0F);
+        switch (material.getName()) {
+            case "copper":
+                settings = settings.strength(2.0F, 6.0F).sounds(BlockSoundGroup.COPPER);
+                break;
+            case "iron":
+            case "gold":
+            case "diamond":
+                settings = settings.strength(2.0F, 6.0F).sounds(BlockSoundGroup.METAL);
+                break;
+            case "netherite":
+                settings = settings.strength(2.0F, 1200.0F).sounds(BlockSoundGroup.NETHERITE);
+                break;
+            default:
+                settings = settings.strength(2.0F);
         }
         return settings;
     }
 
     static {
         REINFORCED_SHULKER_BOX_MAP = new HashMap<>();
-        for (ReinforcingMaterial material : ReinforcingMaterial.values()) {
+        for (ReinforcingMaterial material : ReinforcingMaterials.MAP.values()) {
             HashMap<DyeColor, Block> materialShulkerBoxMap = new HashMap<>();
             // Non-Color
             Block nonColoredBlock = register(material.getName() + "_shulker_box",
