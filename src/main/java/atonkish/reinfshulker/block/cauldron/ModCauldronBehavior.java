@@ -2,7 +2,7 @@ package atonkish.reinfshulker.block.cauldron;
 
 import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 import net.minecraft.block.Block;
@@ -59,7 +59,7 @@ public class ModCauldronBehavior {
         };
 
         CLEAN_REINFORCED_SHULKER_BOX_MAP = createMap();
-        for (HashMap<DyeColor, Item> materialShulkerBoxMap : ModItems.REINFORCED_SHULKER_BOX_MAP.values()) {
+        for (LinkedHashMap<DyeColor, Item> materialShulkerBoxMap : ModItems.REINFORCED_SHULKER_BOX_MAP.values()) {
             for (DyeColor color : DyeColor.values()) {
                 CLEAN_REINFORCED_SHULKER_BOX_MAP.put(materialShulkerBoxMap.get(color), CLEAN_REINFORCED_SHULKER_BOX);
             }
