@@ -10,7 +10,6 @@ import atonkish.reinfcore.api.ReinforcedCoreRegistry;
 import atonkish.reinfcore.util.ReinforcingMaterial;
 import atonkish.reinfshulker.block.cauldron.ModCauldronBehavior;
 import atonkish.reinfshulker.block.dispenser.ModDispenserBehavior;
-import atonkish.reinfshulker.item.ModItems;
 import atonkish.reinfshulker.recipe.ModRecipeSerializer;
 
 public class ReinforcedShulkerBoxesMod implements ReinforcedCoreModInitializer {
@@ -29,9 +28,6 @@ public class ReinforcedShulkerBoxesMod implements ReinforcedCoreModInitializer {
 	public void onInitializeReinforcedCore() {
 		// init Reinforced Core
 		initializeReinforcedCore();
-
-		// Items
-		ModItems.init();
 
 		// Recipe Serializer
 		ModRecipeSerializer.init();
