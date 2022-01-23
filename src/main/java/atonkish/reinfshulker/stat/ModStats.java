@@ -1,6 +1,6 @@
 package atonkish.reinfshulker.stat;
 
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 
 import net.minecraft.stat.StatFormatter;
 import net.minecraft.stat.Stats;
@@ -8,14 +8,28 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 
 import atonkish.reinfcore.util.ReinforcingMaterial;
-import atonkish.reinfcore.util.ReinforcingMaterials;
 import atonkish.reinfshulker.ReinforcedShulkerBoxesMod;
 
 public class ModStats {
-    public static final HashMap<ReinforcingMaterial, Identifier> CLEAN_REINFORCED_SHULKER_BOX_MAP;
-    public static final HashMap<ReinforcingMaterial, Identifier> OPEN_REINFORCED_SHULKER_BOX_MAP;
+    public static final LinkedHashMap<ReinforcingMaterial, Identifier> CLEAN_REINFORCED_SHULKER_BOX_MAP = new LinkedHashMap<>();
+    public static final LinkedHashMap<ReinforcingMaterial, Identifier> OPEN_REINFORCED_SHULKER_BOX_MAP = new LinkedHashMap<>();
 
-    public static void init() {
+    public static Identifier registerMaterialOpen(ReinforcingMaterial material) {
+        String id = "clean_" + material.getName() + "_shulker_box";
+        Identifier identifier = register(id, StatFormatter.DEFAULT);
+
+        CLEAN_REINFORCED_SHULKER_BOX_MAP.put(material, identifier);
+
+        return identifier;
+    }
+
+    public static Identifier registerMaterialClean(ReinforcingMaterial material) {
+        String id = "open_" + material.getName() + "_shulker_box";
+        Identifier identifier = register(id, StatFormatter.DEFAULT);
+
+        OPEN_REINFORCED_SHULKER_BOX_MAP.put(material, identifier);
+
+        return identifier;
     }
 
     private static Identifier register(String id, StatFormatter formatter) {
@@ -23,17 +37,5 @@ public class ModStats {
         Registry.register(Registry.CUSTOM_STAT, id, identifier);
         Stats.CUSTOM.getOrCreateStat(identifier, formatter);
         return identifier;
-    }
-
-    static {
-        CLEAN_REINFORCED_SHULKER_BOX_MAP = new HashMap<>();
-        OPEN_REINFORCED_SHULKER_BOX_MAP = new HashMap<>();
-        for (ReinforcingMaterial material : ReinforcingMaterials.MAP.values()) {
-            Identifier cleanIdentifier = register("clean_" + material.getName() + "_shulker_box",
-                    StatFormatter.DEFAULT);
-            Identifier openIdentifier = register("open_" + material.getName() + "_shulker_box", StatFormatter.DEFAULT);
-            CLEAN_REINFORCED_SHULKER_BOX_MAP.put(material, cleanIdentifier);
-            OPEN_REINFORCED_SHULKER_BOX_MAP.put(material, openIdentifier);
-        }
     }
 }

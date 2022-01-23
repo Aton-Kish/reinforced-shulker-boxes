@@ -14,7 +14,6 @@ import atonkish.reinfshulker.block.dispenser.ModDispenserBehavior;
 import atonkish.reinfshulker.block.entity.ModBlockEntityType;
 import atonkish.reinfshulker.item.ModItems;
 import atonkish.reinfshulker.recipe.ModRecipeSerializer;
-import atonkish.reinfshulker.stat.ModStats;
 
 public class ReinforcedShulkerBoxesMod implements ReinforcedCoreModInitializer {
 	public static final String MOD_ID = "reinfshulker";
@@ -32,9 +31,6 @@ public class ReinforcedShulkerBoxesMod implements ReinforcedCoreModInitializer {
 	public void onInitializeReinforcedCore() {
 		// init Reinforced Core
 		initializeReinforcedCore();
-
-		// Stats
-		ModStats.init();
 
 		// Blocks
 		ModBlocks.init();
