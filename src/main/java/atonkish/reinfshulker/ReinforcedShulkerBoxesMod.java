@@ -8,7 +8,6 @@ import org.apache.logging.log4j.Logger;
 import atonkish.reinfcore.api.ReinforcedCoreModInitializer;
 import atonkish.reinfcore.api.ReinforcedCoreRegistry;
 import atonkish.reinfcore.util.ReinforcingMaterial;
-import atonkish.reinfshulker.block.ModBlocks;
 import atonkish.reinfshulker.block.cauldron.ModCauldronBehavior;
 import atonkish.reinfshulker.block.dispenser.ModDispenserBehavior;
 import atonkish.reinfshulker.block.entity.ModBlockEntityType;
@@ -33,7 +32,6 @@ public class ReinforcedShulkerBoxesMod implements ReinforcedCoreModInitializer {
 		initializeReinforcedCore();
 
 		// Blocks
-		ModBlocks.init();
 		ModBlockEntityType.init();
 
 		// Items
