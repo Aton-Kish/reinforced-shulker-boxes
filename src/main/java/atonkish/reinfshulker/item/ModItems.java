@@ -16,18 +16,18 @@ import atonkish.reinfshulker.block.ModBlocks;
 
 public class ModItems {
     public static final LinkedHashMap<ReinforcingMaterial, LinkedHashMap<DyeColor, Item>> REINFORCED_SHULKER_BOX_MAP = new LinkedHashMap<>();
-    public static final LinkedHashMap<ReinforcingMaterial, LinkedHashMap<DyeColor, Item.Settings>> REINFORCED_SHULKER_BOX_SETTING_MAP = new LinkedHashMap<>();
+    public static final LinkedHashMap<ReinforcingMaterial, LinkedHashMap<DyeColor, Item.Settings>> REINFORCED_SHULKER_BOX_SETTINGS_MAP = new LinkedHashMap<>();
 
     public static Item registerMaterialDyeColor(ReinforcingMaterial material, DyeColor color,
             Item.Settings settings) {
-        if (!REINFORCED_SHULKER_BOX_SETTING_MAP.containsKey(material)) {
-            REINFORCED_SHULKER_BOX_SETTING_MAP.put(material, new LinkedHashMap<>());
+        if (!REINFORCED_SHULKER_BOX_SETTINGS_MAP.containsKey(material)) {
+            REINFORCED_SHULKER_BOX_SETTINGS_MAP.put(material, new LinkedHashMap<>());
         }
-        REINFORCED_SHULKER_BOX_SETTING_MAP.get(material).put(color, settings);
+        REINFORCED_SHULKER_BOX_SETTINGS_MAP.get(material).put(color, settings);
 
         Item item = register(
                 new BlockItem(ModBlocks.REINFORCED_SHULKER_BOX_MAP.get(material).get(color),
-                        REINFORCED_SHULKER_BOX_SETTING_MAP.get(material).get(color)));
+                        REINFORCED_SHULKER_BOX_SETTINGS_MAP.get(material).get(color)));
 
         if (!REINFORCED_SHULKER_BOX_MAP.containsKey(material)) {
             REINFORCED_SHULKER_BOX_MAP.put(material, new LinkedHashMap<>());
