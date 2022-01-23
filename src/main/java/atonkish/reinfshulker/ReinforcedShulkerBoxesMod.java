@@ -58,29 +58,29 @@ public class ReinforcedShulkerBoxesMod implements ReinforcedCoreModInitializer {
 			ReinforcingMaterial material = materialSettings.getMaterial();
 
 			// Stats
-			ReinforcedShulkerBoxesRegistry.registerMaterialCleanStat(material);
-			ReinforcedShulkerBoxesRegistry.registerMaterialOpenStat(material);
+			ReinforcedShulkerBoxesRegistry.registerMaterialCleanStat(MOD_ID, material);
+			ReinforcedShulkerBoxesRegistry.registerMaterialOpenStat(MOD_ID, material);
 
 			// Blocks
-			ReinforcedShulkerBoxesRegistry.registerMaterialDyeColorBlock(material, (DyeColor) null,
+			ReinforcedShulkerBoxesRegistry.registerMaterialDyeColorBlock(MOD_ID, material, (DyeColor) null,
 					materialSettings.getBlockSettings());
 			for (DyeColor color : DyeColor.values()) {
-				ReinforcedShulkerBoxesRegistry.registerMaterialDyeColorBlock(material, color,
+				ReinforcedShulkerBoxesRegistry.registerMaterialDyeColorBlock(MOD_ID, material, color,
 						materialSettings.getBlockSettings());
 			}
-			ReinforcedShulkerBoxesRegistry.registerMaterialBlockEntityType(material);
+			ReinforcedShulkerBoxesRegistry.registerMaterialBlockEntityType(MOD_ID, material);
 
 			// Items
-			ReinforcedShulkerBoxesRegistry.registerMaterialDyeColorItem(material, (DyeColor) null,
+			ReinforcedShulkerBoxesRegistry.registerMaterialDyeColorItem(MOD_ID, material, (DyeColor) null,
 					materialSettings.getItemSettings());
 			for (DyeColor color : DyeColor.values()) {
-				ReinforcedShulkerBoxesRegistry.registerMaterialDyeColorItem(material, color,
+				ReinforcedShulkerBoxesRegistry.registerMaterialDyeColorItem(MOD_ID, material, color,
 						materialSettings.getItemSettings());
 			}
 		}
 
 		// Item Group Icon
-		ReinforcedShulkerBoxesRegistry.registerMaterialDyeColorItemGroupIcon(
+		ReinforcedShulkerBoxesRegistry.registerMaterialDyeColorItemGroupIcon(MOD_ID,
 				ReinforcingMaterialSettings.NETHERITE.getMaterial(), (DyeColor) null);
 	}
 }

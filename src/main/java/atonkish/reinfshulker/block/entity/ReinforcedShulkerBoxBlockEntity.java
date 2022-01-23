@@ -3,6 +3,7 @@ package atonkish.reinfshulker.block.entity;
 import java.util.stream.IntStream;
 
 import net.minecraft.block.BlockState;
+import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.block.entity.ShulkerBoxBlockEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.item.ItemStack;
@@ -18,7 +19,6 @@ import org.jetbrains.annotations.Nullable;
 
 import atonkish.reinfcore.screen.ReinforcedStorageScreenHandler;
 import atonkish.reinfcore.util.ReinforcingMaterial;
-import atonkish.reinfshulker.ReinforcedShulkerBoxesMod;
 
 public class ReinforcedShulkerBoxBlockEntity extends ShulkerBoxBlockEntity {
     private final ReinforcingMaterial cachedMaterial;
@@ -39,8 +39,8 @@ public class ReinforcedShulkerBoxBlockEntity extends ShulkerBoxBlockEntity {
     }
 
     protected Text getContainerName() {
-        return new TranslatableText(
-                "container." + ReinforcedShulkerBoxesMod.MOD_ID + "." + this.cachedMaterial.getName() + "ShulkerBox");
+        String namespace = BlockEntityType.getId(this.getType()).getNamespace();
+        return new TranslatableText("container." + namespace + "." + this.cachedMaterial.getName() + "ShulkerBox");
     }
 
     public int[] getAvailableSlots(Direction side) {

@@ -14,30 +14,31 @@ import atonkish.reinfshulker.item.ModItems;
 import atonkish.reinfshulker.stat.ModStats;
 
 public class ReinforcedShulkerBoxesRegistry {
-    public static Identifier registerMaterialCleanStat(ReinforcingMaterial material) {
-        return ModStats.registerMaterialClean(material);
+    public static Identifier registerMaterialCleanStat(String namespace, ReinforcingMaterial material) {
+        return ModStats.registerMaterialClean(namespace, material);
     }
 
-    public static Identifier registerMaterialOpenStat(ReinforcingMaterial material) {
-        return ModStats.registerMaterialOpen(material);
+    public static Identifier registerMaterialOpenStat(String namespace, ReinforcingMaterial material) {
+        return ModStats.registerMaterialOpen(namespace, material);
     }
 
-    public static Block registerMaterialDyeColorBlock(ReinforcingMaterial material, DyeColor color,
+    public static Block registerMaterialDyeColorBlock(String namespace, ReinforcingMaterial material, DyeColor color,
             Block.Settings settings) {
-        return ModBlocks.registerMaterialDyeColor(material, color, settings);
+        return ModBlocks.registerMaterialDyeColor(namespace, material, color, settings);
     }
 
-    public static BlockEntityType<ReinforcedShulkerBoxBlockEntity> registerMaterialBlockEntityType(
+    public static BlockEntityType<ReinforcedShulkerBoxBlockEntity> registerMaterialBlockEntityType(String namespace,
             ReinforcingMaterial material) {
-        return ModBlockEntityType.registerMaterial(material);
+        return ModBlockEntityType.registerMaterial(namespace, material);
     }
 
-    public static Item registerMaterialDyeColorItem(ReinforcingMaterial material, DyeColor color,
+    public static Item registerMaterialDyeColorItem(String namespace, ReinforcingMaterial material, DyeColor color,
             Item.Settings settings) {
         return ModItems.registerMaterialDyeColor(material, color, settings);
     }
 
-    public static void registerMaterialDyeColorItemGroupIcon(ReinforcingMaterial material, DyeColor color) {
+    public static void registerMaterialDyeColorItemGroupIcon(String namespace, ReinforcingMaterial material,
+            DyeColor color) {
         ModItems.registerMaterialDyeColorItemGroupIcon(material, color);
     }
 }
