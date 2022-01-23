@@ -1,5 +1,6 @@
 package atonkish.reinfshulker;
 
+import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.item.Items;
 
 import org.apache.logging.log4j.LogManager;
@@ -8,6 +9,7 @@ import org.apache.logging.log4j.Logger;
 import atonkish.reinfcore.api.ReinforcedCoreModInitializer;
 import atonkish.reinfcore.api.ReinforcedCoreRegistry;
 import atonkish.reinfcore.util.ReinforcingMaterial;
+import atonkish.reinfshulker.api.ReinforcedShulkerBoxesModInitializer;
 import atonkish.reinfshulker.block.cauldron.ModCauldronBehavior;
 import atonkish.reinfshulker.block.dispenser.ModDispenserBehavior;
 import atonkish.reinfshulker.recipe.ModRecipeSerializer;
@@ -35,6 +37,11 @@ public class ReinforcedShulkerBoxesMod implements ReinforcedCoreModInitializer {
 		// Block Entity Behaviors
 		ModCauldronBehavior.init();
 		ModDispenserBehavior.init();
+
+		// entrypoint: "reinfshulker"
+		FabricLoader.getInstance()
+				.getEntrypoints(MOD_ID, ReinforcedShulkerBoxesModInitializer.class)
+				.forEach(ReinforcedShulkerBoxesModInitializer::onInitializeReinforcedShulkerBoxes);
 	}
 
 	private static void initializeReinforcedCore() {

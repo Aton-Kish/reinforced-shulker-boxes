@@ -6,6 +6,7 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.client.rendering.v1.BlockEntityRendererRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.BuiltinItemRendererRegistry;
+import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.block.Block;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityType;
@@ -20,6 +21,7 @@ import net.minecraft.util.math.BlockPos;
 import atonkish.reinfcore.api.ReinforcedCoreClientModInitializer;
 import atonkish.reinfcore.api.ReinforcedCoreClientRegistry;
 import atonkish.reinfcore.util.ReinforcingMaterial;
+import atonkish.reinfshulker.api.ReinforcedShulkerBoxesClientModInitializer;
 import atonkish.reinfshulker.block.ModBlocks;
 import atonkish.reinfshulker.block.ReinforcedShulkerBoxBlock;
 import atonkish.reinfshulker.block.entity.ModBlockEntityType;
@@ -38,6 +40,12 @@ public class ReinforcedShulkerBoxesClientMod implements ReinforcedCoreClientModI
 
 		// Item Renderer
 		registerBuiltinItemRenderer();
+
+		// entrypoint: "reinfshulkerclient"
+		FabricLoader.getInstance()
+				.getEntrypoints(ReinforcedShulkerBoxesMod.MOD_ID + "client",
+						ReinforcedShulkerBoxesClientModInitializer.class)
+				.forEach(ReinforcedShulkerBoxesClientModInitializer::onInitializeReinforcedShulkerBoxesClient);
 	}
 
 	private static void initializeReinforcedCoreClient() {
