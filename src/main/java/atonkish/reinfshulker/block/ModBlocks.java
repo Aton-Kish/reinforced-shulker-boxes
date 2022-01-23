@@ -22,7 +22,7 @@ public class ModBlocks {
         REINFORCED_SHULKER_BOX_SETTING_MAP.get(material).put(color, settings);
 
         String id = color == null
-                ? material.getName() + "_chest"
+                ? material.getName() + "_shulker_box"
                 : color.getName() + "_" + material.getName() + "_shulker_box";
         Block block = register(id, new ReinforcedShulkerBoxBlock(material, color, settings));
 
