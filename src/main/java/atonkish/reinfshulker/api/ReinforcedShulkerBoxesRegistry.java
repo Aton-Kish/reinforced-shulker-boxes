@@ -13,7 +13,7 @@ import atonkish.reinfshulker.block.entity.ReinforcedShulkerBoxBlockEntity;
 import atonkish.reinfshulker.item.ModItems;
 import atonkish.reinfshulker.stat.ModStats;
 
-public class ReinforcedChestsRegistry {
+public class ReinforcedShulkerBoxesRegistry {
     public static Identifier registerMaterialCleanStat(ReinforcingMaterial material) {
         return ModStats.registerMaterialClean(material);
     }
