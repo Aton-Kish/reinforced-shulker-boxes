@@ -1,6 +1,7 @@
 package atonkish.reinfshulker.block.entity;
 
 import java.util.LinkedHashMap;
+import java.util.Map;
 
 import net.fabricmc.fabric.api.object.builder.v1.block.entity.FabricBlockEntityTypeBuilder;
 import net.minecraft.block.Block;
@@ -14,19 +15,20 @@ import atonkish.reinfcore.util.ReinforcingMaterial;
 import atonkish.reinfshulker.block.ModBlocks;
 
 public class ModBlockEntityType {
-    public static final LinkedHashMap<ReinforcingMaterial, BlockEntityType<ReinforcedShulkerBoxBlockEntity>> REINFORCED_SHULKER_BOX_MAP = new LinkedHashMap<>();
+    public static final Map<ReinforcingMaterial, BlockEntityType<ReinforcedShulkerBoxBlockEntity>> REINFORCED_SHULKER_BOX_MAP = new LinkedHashMap<>();
 
     public static BlockEntityType<ReinforcedShulkerBoxBlockEntity> registerMaterial(String namespace,
             ReinforcingMaterial material) {
-        String id = material.getName() + "_shulker_box";
-        Block[] blocks = ModBlocks.REINFORCED_SHULKER_BOX_MAP.get(material).values().toArray(new Block[0]);
-        FabricBlockEntityTypeBuilder<ReinforcedShulkerBoxBlockEntity> builder = FabricBlockEntityTypeBuilder
-                .create(createBlockEntityTypeFactory(material), blocks);
-        BlockEntityType<ReinforcedShulkerBoxBlockEntity> blockEntityType = create(namespace, id, builder);
+        if (!REINFORCED_SHULKER_BOX_MAP.containsKey(material)) {
+            String id = material.getName() + "_shulker_box";
+            Block[] blocks = ModBlocks.REINFORCED_SHULKER_BOX_MAP.get(material).values().toArray(new Block[0]);
+            FabricBlockEntityTypeBuilder<ReinforcedShulkerBoxBlockEntity> builder = FabricBlockEntityTypeBuilder
+                    .create(createBlockEntityTypeFactory(material), blocks);
+            BlockEntityType<ReinforcedShulkerBoxBlockEntity> blockEntityType = create(namespace, id, builder);
+            REINFORCED_SHULKER_BOX_MAP.put(material, blockEntityType);
+        }
 
-        REINFORCED_SHULKER_BOX_MAP.put(material, blockEntityType);
-
-        return blockEntityType;
+        return REINFORCED_SHULKER_BOX_MAP.get(material);
     }
 
     private static BlockEntityType<ReinforcedShulkerBoxBlockEntity> create(String namespace, String id,
