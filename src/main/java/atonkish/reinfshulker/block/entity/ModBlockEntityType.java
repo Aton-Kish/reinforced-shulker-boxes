@@ -1,6 +1,7 @@
 package atonkish.reinfshulker.block.entity;
 
-import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 import net.fabricmc.fabric.api.object.builder.v1.block.entity.FabricBlockEntityTypeBuilder;
 import net.minecraft.block.Block;
@@ -11,18 +12,28 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.registry.Registry;
 
 import atonkish.reinfcore.util.ReinforcingMaterial;
-import atonkish.reinfshulker.ReinforcedShulkerBoxesMod;
 import atonkish.reinfshulker.block.ModBlocks;
 
 public class ModBlockEntityType {
-    public static final HashMap<ReinforcingMaterial, BlockEntityType<ReinforcedShulkerBoxBlockEntity>> REINFORCED_SHULKER_BOX_MAP;
+    public static final Map<ReinforcingMaterial, BlockEntityType<ReinforcedShulkerBoxBlockEntity>> REINFORCED_SHULKER_BOX_MAP = new LinkedHashMap<>();
 
-    public static void init() {
+    public static BlockEntityType<ReinforcedShulkerBoxBlockEntity> registerMaterial(String namespace,
+            ReinforcingMaterial material) {
+        if (!REINFORCED_SHULKER_BOX_MAP.containsKey(material)) {
+            String id = material.getName() + "_shulker_box";
+            Block[] blocks = ModBlocks.REINFORCED_SHULKER_BOX_MAP.get(material).values().toArray(new Block[0]);
+            FabricBlockEntityTypeBuilder<ReinforcedShulkerBoxBlockEntity> builder = FabricBlockEntityTypeBuilder
+                    .create(createBlockEntityTypeFactory(material), blocks);
+            BlockEntityType<ReinforcedShulkerBoxBlockEntity> blockEntityType = create(namespace, id, builder);
+            REINFORCED_SHULKER_BOX_MAP.put(material, blockEntityType);
+        }
+
+        return REINFORCED_SHULKER_BOX_MAP.get(material);
     }
 
-    private static BlockEntityType<ReinforcedShulkerBoxBlockEntity> create(String id,
+    private static BlockEntityType<ReinforcedShulkerBoxBlockEntity> create(String namespace, String id,
             FabricBlockEntityTypeBuilder<ReinforcedShulkerBoxBlockEntity> builder) {
-        return Registry.register(Registry.BLOCK_ENTITY_TYPE, new Identifier(ReinforcedShulkerBoxesMod.MOD_ID, id),
+        return Registry.register(Registry.BLOCK_ENTITY_TYPE, new Identifier(namespace, id),
                 builder.build(null));
     }
 
@@ -30,16 +41,5 @@ public class ModBlockEntityType {
             ReinforcingMaterial material) {
         return (BlockPos blockPos, BlockState blockState) -> new ReinforcedShulkerBoxBlockEntity(material, blockPos,
                 blockState);
-    }
-
-    static {
-        REINFORCED_SHULKER_BOX_MAP = new HashMap<>();
-        for (ReinforcingMaterial material : ReinforcingMaterial.values()) {
-            Block[] blocks = ModBlocks.REINFORCED_SHULKER_BOX_MAP.get(material).values().toArray(new Block[0]);
-            BlockEntityType<ReinforcedShulkerBoxBlockEntity> blockEntityType = create(
-                    material.getName() + "_shulker_box",
-                    FabricBlockEntityTypeBuilder.create(createBlockEntityTypeFactory(material), blocks));
-            REINFORCED_SHULKER_BOX_MAP.put(material, blockEntityType);
-        }
     }
 }
