@@ -1,8 +1,5 @@
 package atonkish.reinfshulker.client.render.block.entity;
 
-import atonkish.reinfcore.util.ReinforcingMaterial;
-import atonkish.reinfshulker.block.entity.ReinforcedShulkerBoxBlockEntity;
-import atonkish.reinfshulker.client.render.ModTexturedRenderLayers;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.block.BlockState;
@@ -19,6 +16,10 @@ import net.minecraft.client.util.SpriteIdentifier;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.DyeColor;
 import net.minecraft.util.math.Direction;
+
+import atonkish.reinfcore.util.ReinforcingMaterial;
+import atonkish.reinfshulker.block.entity.ReinforcedShulkerBoxBlockEntity;
+import atonkish.reinfshulker.client.render.ModTexturedRenderLayers;
 
 @Environment(EnvType.CLIENT)
 public class ReinforcedShulkerBoxBlockEntityRenderer implements BlockEntityRenderer<ReinforcedShulkerBoxBlockEntity> {
