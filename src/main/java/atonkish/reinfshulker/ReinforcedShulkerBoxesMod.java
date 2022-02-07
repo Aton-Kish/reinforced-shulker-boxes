@@ -1,5 +1,6 @@
 package atonkish.reinfshulker;
 
+import net.fabricmc.api.ModInitializer;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.util.DyeColor;
 
@@ -9,6 +10,7 @@ import org.slf4j.LoggerFactory;
 import atonkish.reinfcore.api.ReinforcedCoreModInitializer;
 import atonkish.reinfcore.api.ReinforcedCoreRegistry;
 import atonkish.reinfcore.util.ReinforcingMaterial;
+import atonkish.reinfchest.ReinforcedChestsMod;
 import atonkish.reinfshulker.api.ReinforcedShulkerBoxesModInitializer;
 import atonkish.reinfshulker.api.ReinforcedShulkerBoxesRegistry;
 import atonkish.reinfshulker.block.cauldron.ModCauldronBehavior;
@@ -16,9 +18,16 @@ import atonkish.reinfshulker.block.dispenser.ModDispenserBehavior;
 import atonkish.reinfshulker.recipe.ModRecipeSerializer;
 import atonkish.reinfshulker.util.ReinforcingMaterialSettings;
 
-public class ReinforcedShulkerBoxesMod implements ReinforcedCoreModInitializer {
+public class ReinforcedShulkerBoxesMod implements ModInitializer, ReinforcedCoreModInitializer {
 	public static final String MOD_ID = "reinfshulker";
 	public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
+
+	public static boolean IS_REINFCHEST_LOADED = false;
+
+	@Override
+	public void onInitialize() {
+		IS_REINFCHEST_LOADED = FabricLoader.getInstance().isModLoaded(ReinforcedChestsMod.MOD_ID);
+	}
 
 	@Override
 	public void onInitializeReinforcedCore() {

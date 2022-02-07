@@ -16,6 +16,9 @@
   "icon": "assets/reinfshulker/icon.png",
   "environment": "*",
   "entrypoints": {
+    "main": [
+      "atonkish.reinfshulker.ReinforcedShulkerBoxesMod"
+    ],
     "reinfcore": [
       "atonkish.reinfshulker.ReinforcedShulkerBoxesMod"
     ],
