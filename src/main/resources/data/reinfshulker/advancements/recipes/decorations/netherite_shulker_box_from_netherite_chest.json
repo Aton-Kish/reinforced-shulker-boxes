@@ -11,7 +11,7 @@
       "conditions": {
         "items": [
           {
-            "tag": "c:netherite_chests"
+            "item": "reinfchest:netherite_chest"
           }
         ]
       }

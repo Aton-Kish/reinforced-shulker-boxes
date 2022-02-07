@@ -61,6 +61,9 @@ dependencies {
 	modImplementation "atonkish.reinfcore:reinforced-core:${project.reinforced_core_version}"
 	include "atonkish.reinfcore:reinforced-core:${project.reinforced_core_version}"
 
+	// Reinforced Chests
+	modImplementation "atonkish.reinfchest:reinforced-chests:${project.reinforced_chests_version}"
+
 	// Quick Shulker
 	modImplementation "net.kyrptonaught:quickshulker:${project.quick_shulker_version}"
 

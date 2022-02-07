@@ -7,7 +7,7 @@
   ],
   "key": {
     "C": {
-      "tag": "c:copper_chests"
+      "item": "reinfchest:copper_chest"
     },
     "S": {
       "item": "minecraft:shulker_shell"
