@@ -17,19 +17,19 @@ import atonkish.reinfcore.util.ReinforcingMaterial;
 public enum ReinforcingMaterialSettings {
     COPPER(ReinforcedCoreRegistry.registerReinforcingMaterial("copper", 45, Items.COPPER_INGOT),
             FabricBlockSettings.of(Material.SHULKER_BOX).strength(2.0F, 6.0F).sounds(BlockSoundGroup.COPPER),
-            new Item.Settings().group(ModItemGroup.REINFORCED_STORAGE)),
+            new Item.Settings().maxCount(1).group(ModItemGroup.REINFORCED_STORAGE)),
     IRON(ReinforcedCoreRegistry.registerReinforcingMaterial("iron", 54, Items.IRON_INGOT),
             FabricBlockSettings.of(Material.SHULKER_BOX).strength(2.0F, 6.0F).sounds(BlockSoundGroup.METAL),
-            new Item.Settings().group(ModItemGroup.REINFORCED_STORAGE)),
+            new Item.Settings().maxCount(1).group(ModItemGroup.REINFORCED_STORAGE)),
     GOLD(ReinforcedCoreRegistry.registerReinforcingMaterial("gold", 81, Items.GOLD_INGOT),
             FabricBlockSettings.of(Material.SHULKER_BOX).strength(2.0F, 6.0F).sounds(BlockSoundGroup.METAL),
-            new Item.Settings().group(ModItemGroup.REINFORCED_STORAGE)),
+            new Item.Settings().maxCount(1).group(ModItemGroup.REINFORCED_STORAGE)),
     DIAMOND(ReinforcedCoreRegistry.registerReinforcingMaterial("diamond", 108, Items.DIAMOND),
             FabricBlockSettings.of(Material.SHULKER_BOX).strength(2.0F, 6.0F).sounds(BlockSoundGroup.METAL),
-            new Item.Settings().group(ModItemGroup.REINFORCED_STORAGE)),
+            new Item.Settings().maxCount(1).group(ModItemGroup.REINFORCED_STORAGE)),
     NETHERITE(ReinforcedCoreRegistry.registerReinforcingMaterial("netherite", 108, Items.NETHERITE_INGOT),
             FabricBlockSettings.of(Material.SHULKER_BOX).strength(2.0F, 1200.0F).sounds(BlockSoundGroup.NETHERITE),
-            new Item.Settings().group(ModItemGroup.REINFORCED_STORAGE).fireproof());
+            new Item.Settings().maxCount(1).group(ModItemGroup.REINFORCED_STORAGE).fireproof());
 
     private final ReinforcingMaterial material;
     private final Block.Settings blockSettings;
