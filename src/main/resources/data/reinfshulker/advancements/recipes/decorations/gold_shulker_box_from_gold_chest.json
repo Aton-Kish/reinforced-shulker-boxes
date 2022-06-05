@@ -1,9 +1,7 @@
 {
   "parent": "minecraft:recipes/root",
   "rewards": {
-    "recipes": [
-      "reinfshulker:gold_shulker_box_from_gold_chest"
-    ]
+    "recipes": ["reinfshulker:gold_shulker_box_from_gold_chest"]
   },
   "criteria": {
     "has_gold_chest": {
@@ -11,9 +9,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "reinfchest:gold_chest"
-            ]
+            "items": ["reinfchest:gold_chest"]
           }
         ]
       }
@@ -25,10 +21,5 @@
       }
     }
   },
-  "requirements": [
-    [
-      "has_gold_chest",
-      "has_the_recipe"
-    ]
-  ]
+  "requirements": [["has_gold_chest", "has_the_recipe"]]
 }

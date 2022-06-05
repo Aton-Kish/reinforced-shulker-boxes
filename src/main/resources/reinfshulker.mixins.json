@@ -11,9 +11,7 @@
     "RecipeManagerMixin",
     "ServerAdvancementLoaderMixin"
   ],
-  "client": [
-    "TexturedRenderLayersMixin"
-  ],
+  "client": ["TexturedRenderLayersMixin"],
   "injectors": {
     "defaultRequire": 1
   }

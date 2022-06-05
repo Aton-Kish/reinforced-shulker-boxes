@@ -55,9 +55,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "minecraft:copper_ingot"
-            ]
+            "items": ["minecraft:copper_ingot"]
           }
         ]
       }
@@ -69,11 +67,5 @@
       }
     }
   },
-  "requirements": [
-    [
-      "has_shulker_box",
-      "has_copper_ingot",
-      "has_the_recipe"
-    ]
-  ]
+  "requirements": [["has_shulker_box", "has_copper_ingot", "has_the_recipe"]]
 }
