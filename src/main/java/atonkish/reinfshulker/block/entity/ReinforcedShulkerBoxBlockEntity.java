@@ -9,7 +9,6 @@ import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.text.Text;
-import net.minecraft.text.TranslatableText;
 import net.minecraft.util.DyeColor;
 import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.util.math.BlockPos;
@@ -40,7 +39,7 @@ public class ReinforcedShulkerBoxBlockEntity extends ShulkerBoxBlockEntity {
 
     protected Text getContainerName() {
         String namespace = BlockEntityType.getId(this.getType()).getNamespace();
-        return new TranslatableText("container." + namespace + "." + this.cachedMaterial.getName() + "ShulkerBox");
+        return Text.translatable("container." + namespace + "." + this.cachedMaterial.getName() + "ShulkerBox");
     }
 
     public int[] getAvailableSlots(Direction side) {
