@@ -1,10 +1,6 @@
 {
   "type": "minecraft:crafting_shaped",
-  "pattern": [
-    "S",
-    "C",
-    "S"
-  ],
+  "pattern": ["S", "C", "S"],
   "key": {
     "C": {
       "item": "reinfchest:diamond_chest"

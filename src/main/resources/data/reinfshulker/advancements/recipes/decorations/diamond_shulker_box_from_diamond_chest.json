@@ -1,9 +1,7 @@
 {
   "parent": "minecraft:recipes/root",
   "rewards": {
-    "recipes": [
-      "reinfshulker:diamond_shulker_box_from_diamond_chest"
-    ]
+    "recipes": ["reinfshulker:diamond_shulker_box_from_diamond_chest"]
   },
   "criteria": {
     "has_diamond_chest": {
@@ -11,9 +9,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "reinfchest:diamond_chest"
-            ]
+            "items": ["reinfchest:diamond_chest"]
           }
         ]
       }
@@ -25,10 +21,5 @@
       }
     }
   },
-  "requirements": [
-    [
-      "has_diamond_chest",
-      "has_the_recipe"
-    ]
-  ]
+  "requirements": [["has_diamond_chest", "has_the_recipe"]]
 }
