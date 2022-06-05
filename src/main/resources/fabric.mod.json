@@ -16,21 +16,13 @@
   "entrypoints": {
     "main": ["atonkish.reinfshulker.ReinforcedShulkerBoxesMod"],
     "reinfcore": ["atonkish.reinfshulker.ReinforcedShulkerBoxesMod"],
-    "reinfcoreclient": [
-      "atonkish.reinfshulker.ReinforcedShulkerBoxesClientMod"
-    ],
-    "quickshulker": [
-      "atonkish.reinfshulker.integration.quickshulker.QuickShulker"
-    ],
-    "shulkerboxtooltip": [
-      "atonkish.reinfshulker.integration.shulkerboxtooltip.ShulkerBoxTooltip"
-    ]
+    "reinfcoreclient": ["atonkish.reinfshulker.ReinforcedShulkerBoxesClientMod"]
   },
   "mixins": ["reinfshulker.mixins.json"],
   "depends": {
     "fabricloader": ">=0.14.6",
     "fabric": "*",
-    "minecraft": "~1.18.2",
+    "minecraft": ">=1.19-",
     "java": ">=17"
   }
 }
