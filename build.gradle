@@ -22,30 +22,37 @@ repositories {
 		url "https://raw.githubusercontent.com/Aton-Kish/mcmod/maven"
 	}
 
-	// // Quick Shulker
+	// Quick Shulker
 	// maven {
 	// 	url "https://maven.kyrptonaught.dev"
 	// }
+	maven {
+		url "https://www.cursemaven.com"
+		content {
+			includeGroup "curse.maven"
+		}
+	}
 
-	// // Shulker Box Tooltip
-	// maven {
-	// 	url "https://maven.misterpemodder.com/libs-release"
-	// }
 
-	// // Mod Menu (Shulker Box Tooltip deps)
-	// maven {
-	// 	url "https://maven.terraformersmc.com/releases/"
-	// }
+	// Shulker Box Tooltip
+	maven {
+		url "https://maven.misterpemodder.com/libs-release"
+	}
 
-	// // Cloth Config (Shulker Box Tooltip deps)
-	// maven {
-	// 	url "https://maven.shedaniel.me"
-	// }
+	// Mod Menu (Shulker Box Tooltip deps)
+	maven {
+		url "https://maven.terraformersmc.com/releases/"
+	}
 
-	// // Fabric ASM (Shulker Box Tooltip deps)
-	// maven {
-	// 	url "https://jitpack.io"
-	// }
+	// Cloth Config (Shulker Box Tooltip deps)
+	maven {
+		url "https://maven.shedaniel.me"
+	}
+
+	// Fabric ASM (Shulker Box Tooltip deps)
+	maven {
+		url "https://jitpack.io"
+	}
 }
 
 dependencies {
@@ -64,11 +71,12 @@ dependencies {
 	// Reinforced Chests
 	modImplementation "atonkish.reinfchest:reinforced-chests:${project.reinforced_chests_version}"
 
-	// // Quick Shulker
+	// Quick Shulker
 	// modImplementation "net.kyrptonaught:quickshulker:${project.quick_shulker_version}"
+	modImplementation "curse.maven:quick-shulker-362669:${project.quick_shulker_file_id}"
 
-	// // Shulker Box Tooltip
-	// modImplementation "com.misterpemodder:shulkerboxtooltip:${project.shulker_box_tooltip_version}"
+	// Shulker Box Tooltip
+	modImplementation "com.misterpemodder:shulkerboxtooltip:${project.shulker_box_tooltip_version}"
 }
 
 processResources {
