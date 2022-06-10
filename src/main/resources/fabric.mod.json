@@ -16,7 +16,15 @@
   "entrypoints": {
     "main": ["atonkish.reinfshulker.ReinforcedShulkerBoxesMod"],
     "reinfcore": ["atonkish.reinfshulker.ReinforcedShulkerBoxesMod"],
-    "reinfcoreclient": ["atonkish.reinfshulker.ReinforcedShulkerBoxesClientMod"]
+    "reinfcoreclient": [
+      "atonkish.reinfshulker.ReinforcedShulkerBoxesClientMod"
+    ],
+    "quickshulker": [
+      "atonkish.reinfshulker.integration.quickshulker.QuickShulker"
+    ],
+    "shulkerboxtooltip": [
+      "atonkish.reinfshulker.integration.shulkerboxtooltip.ShulkerBoxTooltip"
+    ]
   },
   "mixins": ["reinfshulker.mixins.json"],
   "depends": {
