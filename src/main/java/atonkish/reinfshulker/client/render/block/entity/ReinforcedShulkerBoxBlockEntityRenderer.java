@@ -29,6 +29,7 @@ public class ReinforcedShulkerBoxBlockEntityRenderer implements BlockEntityRende
         this.model = new ShulkerEntityModel<>(ctx.getLayerModelPart(EntityModelLayers.SHULKER));
     }
 
+    @Override
     public void render(ReinforcedShulkerBoxBlockEntity reinforcedShulkerBoxBlockEntity, float tickDelta,
             MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, int overlay) {
         Direction direction = Direction.UP;

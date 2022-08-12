@@ -18,6 +18,7 @@ import org.jetbrains.annotations.Nullable;
 
 import atonkish.reinfcore.screen.ReinforcedStorageScreenHandler;
 import atonkish.reinfcore.util.ReinforcingMaterial;
+import atonkish.reinfshulker.mixin.BlockEntityAccessor;
 
 public class ReinforcedShulkerBoxBlockEntity extends ShulkerBoxBlockEntity {
     private final ReinforcingMaterial cachedMaterial;
@@ -25,23 +26,25 @@ public class ReinforcedShulkerBoxBlockEntity extends ShulkerBoxBlockEntity {
     public ReinforcedShulkerBoxBlockEntity(ReinforcingMaterial material, @Nullable DyeColor color, BlockPos pos,
             BlockState state) {
         super(color, pos, state);
-        ((BlockEntityInterface) this).setType(ModBlockEntityType.REINFORCED_SHULKER_BOX_MAP.get(material));
+        ((BlockEntityAccessor) this).setType(ModBlockEntityType.REINFORCED_SHULKER_BOX_MAP.get(material));
         this.setInvStackList(DefaultedList.ofSize(material.getSize(), ItemStack.EMPTY));
         this.cachedMaterial = material;
     }
 
     public ReinforcedShulkerBoxBlockEntity(ReinforcingMaterial material, BlockPos pos, BlockState state) {
         super(pos, state);
-        ((BlockEntityInterface) this).setType(ModBlockEntityType.REINFORCED_SHULKER_BOX_MAP.get(material));
+        ((BlockEntityAccessor) this).setType(ModBlockEntityType.REINFORCED_SHULKER_BOX_MAP.get(material));
         this.setInvStackList(DefaultedList.ofSize(material.getSize(), ItemStack.EMPTY));
         this.cachedMaterial = material;
     }
 
+    @Override
     protected Text getContainerName() {
         String namespace = BlockEntityType.getId(this.getType()).getNamespace();
         return Text.translatable("container." + namespace + "." + this.cachedMaterial.getName() + "ShulkerBox");
     }
 
+    @Override
     public int[] getAvailableSlots(Direction side) {
         return IntStream.range(0, this.size()).toArray();
     }
@@ -50,6 +53,7 @@ public class ReinforcedShulkerBoxBlockEntity extends ShulkerBoxBlockEntity {
         return this.cachedMaterial;
     }
 
+    @Override
     protected ScreenHandler createScreenHandler(int syncId, PlayerInventory playerInventory) {
         return ReinforcedStorageScreenHandler.createShulkerBoxScreen(this.cachedMaterial, syncId, playerInventory,
                 this);
