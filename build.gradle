@@ -69,8 +69,6 @@ dependencies {
 
 	// Shulker Box Tooltip
 	modImplementation "com.misterpemodder:shulkerboxtooltip:${project.shulker_box_tooltip_version}"
-	// temporary
-	modImplementation "com.terraformersmc:modmenu:${project.mod_menu_version}"
 }
 
 processResources {
