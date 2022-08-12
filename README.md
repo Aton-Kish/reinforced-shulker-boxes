@@ -45,6 +45,34 @@ The Reinforced Shulker Boxes mod adds reinforced shulker boxes.
 
 Dyed reinforced shulker boxes can be undyed using a cauldron.
 
+## Configure
+
+[The Reinforced Core lib](https://github.com/Aton-Kish/reinforced-core) has been integrated with [Mod Menu](https://www.curseforge.com/minecraft/mc-mods/modmenu) since version 3.0.0.
+
+![Mod Menu](./images/modmenu/modmenu.png)
+
+### Screen Type
+
+_Available in Reinforced Shulker Boxes mod version 2.1.0+._
+
+Screen type is `SINGLE` or `SCROLL`. (default: `SINGLE`)
+
+| `SINGLE` screen                               | `SCROLL` screen                                |
+| --------------------------------------------- | ---------------------------------------------- |
+| ![Single Screen](./images/modmenu/single.png) | ![Scroll Screen](./images/modmenu/scroll6.png) |
+
+### Scroll Screen
+
+#### Rows
+
+_Available in Reinforced Shulker Boxes mod version 2.1.0+._
+
+Rows is an integer in the range from `6` to `9`. (default: `6`)
+
+| Rows: `6`                                              | Rows: `9`                                              |
+| ------------------------------------------------------ | ------------------------------------------------------ |
+| ![Scroll Screen: 6 rows](./images/modmenu/scroll6.png) | ![Scroll Screen: 9 rows](./images/modmenu/scroll9.png) |
+
 ## License
 
 The Reinforced Shulker Boxes mod is licensed under the MIT License, see [LICENSE](./LICENSE).
