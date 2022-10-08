@@ -1,9 +1,7 @@
 {
   "parent": "minecraft:recipes/root",
   "rewards": {
-    "recipes": [
-      "reinfshulker:iron_shulker_box_from_iron_chest"
-    ]
+    "recipes": ["reinfshulker:iron_shulker_box_from_iron_chest"]
   },
   "criteria": {
     "has_iron_chest": {
@@ -11,7 +9,7 @@
       "conditions": {
         "items": [
           {
-            "tag": "c:iron_chests"
+            "items": ["reinfchest:iron_chest"]
           }
         ]
       }
@@ -23,10 +21,5 @@
       }
     }
   },
-  "requirements": [
-    [
-      "has_iron_chest",
-      "has_the_recipe"
-    ]
-  ]
+  "requirements": [["has_iron_chest", "has_the_recipe"]]
 }

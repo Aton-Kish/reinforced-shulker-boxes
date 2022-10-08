@@ -38,10 +38,12 @@ public class ReinforcedShulkerBoxBlock extends ShulkerBoxBlock {
         this.material = material;
     }
 
+    @Override
     public BlockEntity createBlockEntity(BlockPos pos, BlockState state) {
         return new ReinforcedShulkerBoxBlockEntity(this.material, this.getColor(), pos, state);
     }
 
+    @Override
     @Nullable
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(World world, BlockState state,
             BlockEntityType<T> type) {
@@ -49,6 +51,7 @@ public class ReinforcedShulkerBoxBlock extends ShulkerBoxBlock {
                 ReinforcedShulkerBoxBlockEntity::tick);
     }
 
+    @Override
     public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand,
             BlockHitResult hit) {
         if (world.isClient) {
@@ -82,6 +85,7 @@ public class ReinforcedShulkerBoxBlock extends ShulkerBoxBlock {
         }
     }
 
+    @Override
     public void onBreak(World world, BlockPos pos, BlockState state, PlayerEntity player) {
         BlockEntity blockEntity = world.getBlockEntity(pos);
         if (blockEntity instanceof ReinforcedShulkerBoxBlockEntity) {

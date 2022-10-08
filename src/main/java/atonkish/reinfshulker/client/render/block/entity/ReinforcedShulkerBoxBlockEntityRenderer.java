@@ -1,8 +1,5 @@
 package atonkish.reinfshulker.client.render.block.entity;
 
-import atonkish.reinfcore.util.ReinforcingMaterial;
-import atonkish.reinfshulker.block.entity.ReinforcedShulkerBoxBlockEntity;
-import atonkish.reinfshulker.client.render.ModTexturedRenderLayers;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.block.BlockState;
@@ -20,6 +17,10 @@ import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.DyeColor;
 import net.minecraft.util.math.Direction;
 
+import atonkish.reinfcore.util.ReinforcingMaterial;
+import atonkish.reinfshulker.block.entity.ReinforcedShulkerBoxBlockEntity;
+import atonkish.reinfshulker.client.render.ModTexturedRenderLayers;
+
 @Environment(EnvType.CLIENT)
 public class ReinforcedShulkerBoxBlockEntityRenderer implements BlockEntityRenderer<ReinforcedShulkerBoxBlockEntity> {
     private final ShulkerEntityModel<?> model;
@@ -28,6 +29,7 @@ public class ReinforcedShulkerBoxBlockEntityRenderer implements BlockEntityRende
         this.model = new ShulkerEntityModel<>(ctx.getLayerModelPart(EntityModelLayers.SHULKER));
     }
 
+    @Override
     public void render(ReinforcedShulkerBoxBlockEntity reinforcedShulkerBoxBlockEntity, float tickDelta,
             MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, int overlay) {
         Direction direction = Direction.UP;
