@@ -12,6 +12,7 @@ import net.minecraft.util.Identifier;
 import net.minecraft.world.World;
 
 import atonkish.reinfcore.util.ReinforcingMaterial;
+import atonkish.reinfcore.util.ReinforcingMaterials;
 import atonkish.reinfshulker.block.ReinforcedShulkerBoxBlock;
 
 public class ReinforcedShulkerBoxColoringRecipe extends SpecialCraftingRecipe {
@@ -19,6 +20,7 @@ public class ReinforcedShulkerBoxColoringRecipe extends SpecialCraftingRecipe {
         super(identifier);
     }
 
+    @Override
     public boolean matches(CraftingInventory craftingInventory, World world) {
         int i = 0;
         int j = 0;
@@ -45,10 +47,11 @@ public class ReinforcedShulkerBoxColoringRecipe extends SpecialCraftingRecipe {
         return i == 1 && j == 1;
     }
 
+    @Override
     public ItemStack craft(CraftingInventory craftingInventory) {
         ItemStack itemStack = ItemStack.EMPTY;
         DyeItem dyeItem = (DyeItem) Items.WHITE_DYE;
-        ReinforcingMaterial material = ReinforcingMaterial.COPPER;
+        ReinforcingMaterial material = ReinforcingMaterials.MAP.get("copper");
 
         for (int i = 0; i < craftingInventory.size(); ++i) {
             ItemStack itemStack2 = craftingInventory.getStack(i);
@@ -72,10 +75,12 @@ public class ReinforcedShulkerBoxColoringRecipe extends SpecialCraftingRecipe {
         return itemStack3;
     }
 
+    @Override
     public boolean fits(int width, int height) {
         return width * height >= 2;
     }
 
+    @Override
     public RecipeSerializer<?> getSerializer() {
         return ModRecipeSerializer.REINFORCED_SHULKER_BOX_COLORING;
     }

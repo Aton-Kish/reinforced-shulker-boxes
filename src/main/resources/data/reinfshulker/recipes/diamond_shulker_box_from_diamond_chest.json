@@ -1,13 +1,9 @@
 {
   "type": "minecraft:crafting_shaped",
-  "pattern": [
-    "S",
-    "C",
-    "S"
-  ],
+  "pattern": ["S", "C", "S"],
   "key": {
     "C": {
-      "tag": "c:diamond_chests"
+      "item": "reinfchest:diamond_chest"
     },
     "S": {
       "item": "minecraft:shulker_shell"

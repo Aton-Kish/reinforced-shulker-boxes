@@ -1,10 +1,6 @@
 {
   "type": "reinfshulker:crafting_special_reinforcedshulkerbox",
-  "pattern": [
-    "MMM",
-    "MSM",
-    "MMM"
-  ],
+  "pattern": ["MMM", "MSM", "MMM"],
   "key": {
     "S": {
       "item": "reinfshulker:pink_gold_shulker_box"

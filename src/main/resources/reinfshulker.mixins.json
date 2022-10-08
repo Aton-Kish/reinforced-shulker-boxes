@@ -5,13 +5,13 @@
   "compatibilityLevel": "JAVA_16",
   "mixins": [
     "AbstractCauldronBlockMixin",
-    "BlockEntityMixin",
+    "BlockEntityAccessor",
     "ShulkerBoxBlockMixin",
-    "ShulkerBoxColoringRecipeMixin"
+    "ShulkerBoxColoringRecipeMixin",
+    "RecipeManagerMixin",
+    "ServerAdvancementLoaderMixin"
   ],
-  "client": [
-    "TexturedRenderLayersMixin"
-  ],
+  "client": ["TexturedRenderLayersMixin"],
   "injectors": {
     "defaultRequire": 1
   }

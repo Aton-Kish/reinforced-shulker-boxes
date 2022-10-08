@@ -55,9 +55,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "minecraft:diamond"
-            ]
+            "items": ["minecraft:diamond"]
           }
         ]
       }
@@ -69,11 +67,5 @@
       }
     }
   },
-  "requirements": [
-    [
-      "has_gold_shulker_box",
-      "has_diamond",
-      "has_the_recipe"
-    ]
-  ]
+  "requirements": [["has_gold_shulker_box", "has_diamond", "has_the_recipe"]]
 }

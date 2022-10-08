@@ -1,13 +1,9 @@
 {
   "type": "minecraft:crafting_shaped",
-  "pattern": [
-    "S",
-    "C",
-    "S"
-  ],
+  "pattern": ["S", "C", "S"],
   "key": {
     "C": {
-      "tag": "c:netherite_chests"
+      "item": "reinfchest:netherite_chest"
     },
     "S": {
       "item": "minecraft:shulker_shell"
