@@ -20,6 +20,7 @@ public class ReinforcedShulkerBoxColoringRecipe extends SpecialCraftingRecipe {
         super(identifier);
     }
 
+    @Override
     public boolean matches(CraftingInventory craftingInventory, World world) {
         int i = 0;
         int j = 0;
@@ -46,6 +47,7 @@ public class ReinforcedShulkerBoxColoringRecipe extends SpecialCraftingRecipe {
         return i == 1 && j == 1;
     }
 
+    @Override
     public ItemStack craft(CraftingInventory craftingInventory) {
         ItemStack itemStack = ItemStack.EMPTY;
         DyeItem dyeItem = (DyeItem) Items.WHITE_DYE;
@@ -73,10 +75,12 @@ public class ReinforcedShulkerBoxColoringRecipe extends SpecialCraftingRecipe {
         return itemStack3;
     }
 
+    @Override
     public boolean fits(int width, int height) {
         return width * height >= 2;
     }
 
+    @Override
     public RecipeSerializer<?> getSerializer() {
         return ModRecipeSerializer.REINFORCED_SHULKER_BOX_COLORING;
     }

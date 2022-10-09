@@ -9,6 +9,7 @@ import java.util.stream.Stream;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.fabricmc.fabric.api.event.client.ClientSpriteRegistryCallback;
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.util.SpriteIdentifier;
 import net.minecraft.util.DyeColor;
@@ -28,6 +29,16 @@ public class ModTexturedRenderLayers {
         if (!REINFORCED_SHULKER_BOXES_ATLAS_TEXTURE_MAP.containsKey(material)) {
             Identifier identifier = new Identifier(namespace,
                     "textures/atlas/" + material.getName() + "_shulker_boxes.png");
+
+            ClientSpriteRegistryCallback.event(identifier).register((atlasTexture, registry) -> {
+                String nonColorPath = "entity/reinforced_shulker/" + material.getName() + "/shulker";
+                registry.register(new Identifier(namespace, nonColorPath));
+                for (DyeColor color : DyeColor.values()) {
+                    String colorPath = nonColorPath + "_" + color.getName();
+                    registry.register(new Identifier(namespace, colorPath));
+                }
+            });
+
             REINFORCED_SHULKER_BOXES_ATLAS_TEXTURE_MAP.put(material, identifier);
         }
 

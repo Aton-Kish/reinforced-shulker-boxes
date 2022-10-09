@@ -2,9 +2,9 @@ package atonkish.reinfshulker.integration.quickshulker;
 
 import java.util.function.BiConsumer;
 
+import net.kyrptonaught.quickshulker.api.ItemStackInventory;
 import net.kyrptonaught.quickshulker.api.QuickOpenableRegistry;
 import net.kyrptonaught.quickshulker.api.RegisterQuickShulker;
-import net.kyrptonaught.shulkerutils.ItemStackInventory;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
@@ -40,8 +40,7 @@ public class QuickShulker implements RegisterQuickShulker {
                     PlayerEntity playerEntity) -> ReinforcedStorageScreenHandler.createShulkerBoxScreen(material,
                             syncId, playerInventory, inventory);
             Text text = stack.hasCustomName() ? stack.getName()
-                    : new TranslatableText(
-                            "container." + namespace + "." + material.getName() + "ShulkerBox");
+                    : new TranslatableText("container." + namespace + "." + material.getName() + "ShulkerBox");
 
             player.openHandledScreen(new SimpleNamedScreenHandlerFactory(screenHandlerFactory, text));
         };
