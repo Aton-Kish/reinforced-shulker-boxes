@@ -10,6 +10,7 @@ import java.util.stream.Stream;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.event.client.ClientSpriteRegistryCallback;
+
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.util.SpriteIdentifier;
 import net.minecraft.util.DyeColor;

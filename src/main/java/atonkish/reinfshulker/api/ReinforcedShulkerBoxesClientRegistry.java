@@ -4,6 +4,7 @@ import java.util.List;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.util.SpriteIdentifier;
 import net.minecraft.util.Identifier;
