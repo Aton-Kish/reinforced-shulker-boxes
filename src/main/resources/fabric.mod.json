@@ -24,7 +24,8 @@
     ],
     "shulkerboxtooltip": [
       "atonkish.reinfshulker.integration.shulkerboxtooltip.ShulkerBoxTooltip"
-    ]
+    ],
+    "modmenu": ["atonkish.reinfcore.integration.modmenu.ModMenu"]
   },
   "mixins": ["reinfshulker.mixins.json"],
   "depends": {
