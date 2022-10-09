@@ -40,6 +40,7 @@ public class ReinforcedShulkerBoxCraftingRecipe extends ShapedRecipe {
         this.output = output;
     }
 
+    @Override
     public ItemStack craft(CraftingInventory craftingInventory) {
         ItemStack inputItemStack = craftingInventory.getStack(4);
         ItemStack outputItemStack = this.getOutput().copy();
@@ -51,6 +52,7 @@ public class ReinforcedShulkerBoxCraftingRecipe extends ShapedRecipe {
         return outputItemStack;
     }
 
+    @Override
     public RecipeSerializer<?> getSerializer() {
         return ModRecipeSerializer.REINFORCED_SHULKER_BOX;
     }
@@ -217,6 +219,7 @@ public class ReinforcedShulkerBoxCraftingRecipe extends ShapedRecipe {
     }
 
     public static class Serializer implements RecipeSerializer<ReinforcedShulkerBoxCraftingRecipe> {
+        @Override
         public ReinforcedShulkerBoxCraftingRecipe read(Identifier identifier, JsonObject jsonObject) {
             String string = JsonHelper.getString(jsonObject, "group", "");
             Map<String, Ingredient> map = ReinforcedShulkerBoxCraftingRecipe
@@ -232,6 +235,7 @@ public class ReinforcedShulkerBoxCraftingRecipe extends ShapedRecipe {
             return new ReinforcedShulkerBoxCraftingRecipe(identifier, string, i, j, defaultedList, itemStack);
         }
 
+        @Override
         public ReinforcedShulkerBoxCraftingRecipe read(Identifier identifier, PacketByteBuf packetByteBuf) {
             int i = packetByteBuf.readVarInt();
             int j = packetByteBuf.readVarInt();
@@ -246,6 +250,7 @@ public class ReinforcedShulkerBoxCraftingRecipe extends ShapedRecipe {
             return new ReinforcedShulkerBoxCraftingRecipe(identifier, string, i, j, defaultedList, itemStack);
         }
 
+        @Override
         public void write(PacketByteBuf packetByteBuf, ReinforcedShulkerBoxCraftingRecipe recipe) {
             packetByteBuf.writeVarInt(recipe.width);
             packetByteBuf.writeVarInt(recipe.height);
@@ -260,5 +265,4 @@ public class ReinforcedShulkerBoxCraftingRecipe extends ShapedRecipe {
             packetByteBuf.writeItemStack(recipe.output);
         }
     }
-
 }
