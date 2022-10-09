@@ -1,0 +1,22 @@
+{
+  "replace": false,
+  "values": [
+    "reinfshulker:gold_shulker_box",
+    "reinfshulker:black_gold_shulker_box",
+    "reinfshulker:blue_gold_shulker_box",
+    "reinfshulker:brown_gold_shulker_box",
+    "reinfshulker:cyan_gold_shulker_box",
+    "reinfshulker:gray_gold_shulker_box",
+    "reinfshulker:green_gold_shulker_box",
+    "reinfshulker:light_blue_gold_shulker_box",
+    "reinfshulker:light_gray_gold_shulker_box",
+    "reinfshulker:lime_gold_shulker_box",
+    "reinfshulker:magenta_gold_shulker_box",
+    "reinfshulker:orange_gold_shulker_box",
+    "reinfshulker:pink_gold_shulker_box",
+    "reinfshulker:purple_gold_shulker_box",
+    "reinfshulker:red_gold_shulker_box",
+    "reinfshulker:white_gold_shulker_box",
+    "reinfshulker:yellow_gold_shulker_box"
+  ]
+}
