@@ -8,7 +8,6 @@ import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityTicker;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.block.entity.ShulkerBoxBlockEntity;
-import net.minecraft.entity.ItemEntity;
 import net.minecraft.entity.mob.PiglinBrain;
 import net.minecraft.entity.mob.ShulkerEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -82,29 +81,6 @@ public class ReinforcedShulkerBoxBlock extends ShulkerBoxBlock {
                     .contract(1.0E-6D);
             return world.isSpaceEmpty(box);
         }
-    }
-
-    @Override
-    public void onBreak(World world, BlockPos pos, BlockState state, PlayerEntity player) {
-        BlockEntity blockEntity = world.getBlockEntity(pos);
-        if (blockEntity instanceof ReinforcedShulkerBoxBlockEntity) {
-            ReinforcedShulkerBoxBlockEntity reinforcedShulkerBoxBlockEntity = (ReinforcedShulkerBoxBlockEntity) blockEntity;
-            if (!world.isClient && player.isCreative() && !reinforcedShulkerBoxBlockEntity.isEmpty()) {
-                ItemStack itemStack = getItemStack(this.material, this.getColor());
-                blockEntity.setStackNbt(itemStack);
-                if (reinforcedShulkerBoxBlockEntity.hasCustomName()) {
-                    itemStack.setCustomName(reinforcedShulkerBoxBlockEntity.getCustomName());
-                }
-                ItemEntity itemEntity = new ItemEntity(world, (double) pos.getX() + 0.5D, (double) pos.getY() + 0.5D,
-                        (double) pos.getZ() + 0.5D, itemStack);
-                itemEntity.setToDefaultPickupDelay();
-                world.spawnEntity(itemEntity);
-            } else {
-                reinforcedShulkerBoxBlockEntity.checkLootInteraction(player);
-            }
-        }
-
-        super.onBreak(world, pos, state, player);
     }
 
     public static Block get(ReinforcingMaterial material, @Nullable DyeColor color) {
