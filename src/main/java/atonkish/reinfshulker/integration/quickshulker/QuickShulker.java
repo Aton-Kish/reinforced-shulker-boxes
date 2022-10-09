@@ -4,6 +4,7 @@ import java.util.function.BiConsumer;
 
 import net.kyrptonaught.quickshulker.api.ItemStackInventory;
 import net.kyrptonaught.quickshulker.api.QuickOpenableRegistry;
+import net.kyrptonaught.quickshulker.api.QuickShulkerData;
 import net.kyrptonaught.quickshulker.api.RegisterQuickShulker;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.entity.player.PlayerEntity;
@@ -24,7 +25,8 @@ public class QuickShulker implements RegisterQuickShulker {
 
     @Override
     public void registerProviders() {
-        QuickOpenableRegistry.register(ReinforcedShulkerBoxBlock.class, REINFORCED_SHULKER_BOX_CONSUMER);
+        QuickOpenableRegistry.register(ReinforcedShulkerBoxBlock.class,
+                new QuickShulkerData(REINFORCED_SHULKER_BOX_CONSUMER, false));
     }
 
     static {
