@@ -57,10 +57,6 @@ public class ReinforcedShulkerBoxesClientMod implements ReinforcedCoreClientModI
 			ReinforcingMaterial material = materialSettings.getMaterial();
 
 			// Textured Render Layers
-			ReinforcedShulkerBoxesClientRegistry.registerMaterialAtlasTexture(ReinforcedShulkerBoxesMod.MOD_ID,
-					material);
-			ReinforcedShulkerBoxesClientRegistry.registerMaterialRenderLayer(ReinforcedShulkerBoxesMod.MOD_ID,
-					material);
 			ReinforcedShulkerBoxesClientRegistry.registerMaterialDefaultSprite(ReinforcedShulkerBoxesMod.MOD_ID,
 					material);
 			ReinforcedShulkerBoxesClientRegistry.registerMaterialColoringSprites(ReinforcedShulkerBoxesMod.MOD_ID,

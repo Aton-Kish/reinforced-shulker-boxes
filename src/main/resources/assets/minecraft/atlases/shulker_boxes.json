@@ -1,0 +1,29 @@
+{
+  "sources": [
+    {
+      "type": "directory",
+      "source": "entity/reinforced_shulker/copper",
+      "prefix": "entity/reinforced_shulker/copper/"
+    },
+    {
+      "type": "directory",
+      "source": "entity/reinforced_shulker/iron",
+      "prefix": "entity/reinforced_shulker/iron/"
+    },
+    {
+      "type": "directory",
+      "source": "entity/reinforced_shulker/gold",
+      "prefix": "entity/reinforced_shulker/gold/"
+    },
+    {
+      "type": "directory",
+      "source": "entity/reinforced_shulker/diamond",
+      "prefix": "entity/reinforced_shulker/diamond/"
+    },
+    {
+      "type": "directory",
+      "source": "entity/reinforced_shulker/netherite",
+      "prefix": "entity/reinforced_shulker/netherite/"
+    }
+  ]
+}
