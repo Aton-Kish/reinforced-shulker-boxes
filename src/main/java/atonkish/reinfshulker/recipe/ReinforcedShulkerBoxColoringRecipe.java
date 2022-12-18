@@ -8,6 +8,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.recipe.RecipeSerializer;
 import net.minecraft.recipe.SpecialCraftingRecipe;
+import net.minecraft.recipe.book.CraftingRecipeCategory;
 import net.minecraft.util.Identifier;
 import net.minecraft.world.World;
 
@@ -16,8 +17,8 @@ import atonkish.reinfcore.util.ReinforcingMaterials;
 import atonkish.reinfshulker.block.ReinforcedShulkerBoxBlock;
 
 public class ReinforcedShulkerBoxColoringRecipe extends SpecialCraftingRecipe {
-    public ReinforcedShulkerBoxColoringRecipe(Identifier identifier) {
-        super(identifier);
+    public ReinforcedShulkerBoxColoringRecipe(Identifier identifier, CraftingRecipeCategory category) {
+        super(identifier, category);
     }
 
     @Override
