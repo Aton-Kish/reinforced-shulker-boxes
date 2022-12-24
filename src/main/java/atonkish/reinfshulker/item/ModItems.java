@@ -3,12 +3,15 @@ package atonkish.reinfshulker.item;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
+import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
+
 import net.minecraft.block.Block;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
+import net.minecraft.registry.Registries;
+import net.minecraft.registry.Registry;
 import net.minecraft.util.DyeColor;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.registry.Registry;
 
 import atonkish.reinfcore.item.ModItemGroup;
 import atonkish.reinfcore.util.ReinforcingMaterial;
@@ -33,9 +36,10 @@ public class ModItems {
         }
 
         if (!REINFORCED_SHULKER_BOX_MAP.get(material).containsKey(color)) {
-            Item item = register(
+            Item item = ModItems.register(
                     new BlockItem(ModBlocks.REINFORCED_SHULKER_BOX_MAP.get(material).get(color),
                             REINFORCED_SHULKER_BOX_SETTINGS_MAP.get(material).get(color)));
+            ItemGroupEvents.modifyEntriesEvent(ModItemGroup.REINFORCED_STORAGE).register(content -> content.add(item));
             REINFORCED_SHULKER_BOX_MAP.get(material).put(color, item);
         }
 
@@ -48,11 +52,11 @@ public class ModItems {
     }
 
     private static Item register(BlockItem item) {
-        return register(item.getBlock(), (Item) item);
+        return ModItems.register(item.getBlock(), (Item) item);
     }
 
     protected static Item register(Block block, Item item) {
-        return register(Registry.BLOCK.getId(block), item);
+        return ModItems.register(Registries.BLOCK.getId(block), item);
     }
 
     private static Item register(Identifier id, Item item) {
@@ -60,6 +64,6 @@ public class ModItems {
             ((BlockItem) item).appendBlocks(Item.BLOCK_ITEMS, item);
         }
 
-        return Registry.register(Registry.ITEM, id, item);
+        return Registry.register(Registries.ITEM, id, item);
     }
 }

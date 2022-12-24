@@ -37,6 +37,15 @@ repositories {
 		url "https://maven.kyrptonaught.dev"
 	}
 
+	// <-- workaround
+	maven {
+		url "https://www.cursemaven.com"
+		content {
+			includeGroup "curse.maven"
+		}
+	}
+	// -->
+
 	// Shulker Box Tooltip
 	maven {
 		url "https://maven.misterpemodder.com/libs-release"
@@ -65,10 +74,15 @@ dependencies {
 	modImplementation "atonkish.reinfchest:reinforced-chests:${project.reinforced_chests_version}"
 
 	// Quick Shulker
-	modImplementation "net.kyrptonaught:quickshulker:${project.quick_shulker_version}"
+	// modImplementation "net.kyrptonaught:quickshulker:${project.quick_shulker_version}"
+	// <-- workaround
+	modImplementation "curse.maven:quick-shulker-362669:${project.quick_shulker_file_id}"
+	modImplementation "net.kyrptonaught:kyrptconfig:${project.kyrptconfig_version}"
+	modImplementation "net.kyrptonaught:shulkerutils:${project.shulkerutils_version}"
+	// -->
 
 	// Shulker Box Tooltip
-	modImplementation "com.misterpemodder:shulkerboxtooltip:${project.shulker_box_tooltip_version}"
+	modImplementation "com.misterpemodder:shulkerboxtooltip-fabric:${project.shulker_box_tooltip_version}"
 }
 
 processResources {

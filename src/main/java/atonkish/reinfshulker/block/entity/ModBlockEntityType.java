@@ -8,9 +8,10 @@ import net.fabricmc.fabric.api.object.builder.v1.block.entity.FabricBlockEntityT
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntityType;
+import net.minecraft.registry.Registries;
+import net.minecraft.registry.Registry;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.registry.Registry;
 
 import atonkish.reinfcore.util.ReinforcingMaterial;
 import atonkish.reinfshulker.block.ModBlocks;
@@ -24,8 +25,9 @@ public class ModBlockEntityType {
             String id = material.getName() + "_shulker_box";
             Block[] blocks = ModBlocks.REINFORCED_SHULKER_BOX_MAP.get(material).values().toArray(new Block[0]);
             FabricBlockEntityTypeBuilder<ReinforcedShulkerBoxBlockEntity> builder = FabricBlockEntityTypeBuilder
-                    .create(createBlockEntityTypeFactory(material), blocks);
-            BlockEntityType<ReinforcedShulkerBoxBlockEntity> blockEntityType = create(namespace, id, builder);
+                    .create(ModBlockEntityType.createBlockEntityTypeFactory(material), blocks);
+            BlockEntityType<ReinforcedShulkerBoxBlockEntity> blockEntityType = ModBlockEntityType
+                    .create(namespace, id, builder);
             REINFORCED_SHULKER_BOX_MAP.put(material, blockEntityType);
         }
 
@@ -34,7 +36,7 @@ public class ModBlockEntityType {
 
     private static BlockEntityType<ReinforcedShulkerBoxBlockEntity> create(String namespace, String id,
             FabricBlockEntityTypeBuilder<ReinforcedShulkerBoxBlockEntity> builder) {
-        return Registry.register(Registry.BLOCK_ENTITY_TYPE, new Identifier(namespace, id),
+        return Registry.register(Registries.BLOCK_ENTITY_TYPE, new Identifier(namespace, id),
                 builder.build(null));
     }
 

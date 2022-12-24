@@ -30,7 +30,7 @@ public class ReinforcedShulkerBoxPreviewProvider extends BlockEntityPreviewProvi
 
     @Override
     public float[] getWindowColor(PreviewContext context) {
-        DyeColor dye = ((ReinforcedShulkerBoxBlock) Block.getBlockFromItem(context.getStack().getItem())).getColor();
+        DyeColor dye = ((ReinforcedShulkerBoxBlock) Block.getBlockFromItem(context.stack().getItem())).getColor();
         if (dye != null) {
             float[] components = dye.getColorComponents();
             return new float[] { Math.max(0.15f, components[0]), Math.max(0.15f, components[1]),

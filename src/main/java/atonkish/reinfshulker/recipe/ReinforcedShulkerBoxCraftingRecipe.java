@@ -19,25 +19,15 @@ import net.minecraft.network.PacketByteBuf;
 import net.minecraft.recipe.Ingredient;
 import net.minecraft.recipe.RecipeSerializer;
 import net.minecraft.recipe.ShapedRecipe;
+import net.minecraft.recipe.book.CraftingRecipeCategory;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.JsonHelper;
 import net.minecraft.util.collection.DefaultedList;
 
 public class ReinforcedShulkerBoxCraftingRecipe extends ShapedRecipe {
-    final int width;
-    final int height;
-    final DefaultedList<Ingredient> input;
-    final ItemStack output;
-    final String group;
-
-    public ReinforcedShulkerBoxCraftingRecipe(Identifier id, String group, int width, int height,
-            DefaultedList<Ingredient> input, ItemStack output) {
-        super(id, group, width, height, input, output);
-        this.group = group;
-        this.width = width;
-        this.height = height;
-        this.input = input;
-        this.output = output;
+    public ReinforcedShulkerBoxCraftingRecipe(Identifier id, String group, CraftingRecipeCategory category,
+            int width, int height, DefaultedList<Ingredient> input, ItemStack output) {
+        super(id, group, category, width, height, input, output);
     }
 
     @Override
@@ -222,6 +212,8 @@ public class ReinforcedShulkerBoxCraftingRecipe extends ShapedRecipe {
         @Override
         public ReinforcedShulkerBoxCraftingRecipe read(Identifier identifier, JsonObject jsonObject) {
             String string = JsonHelper.getString(jsonObject, "group", "");
+            CraftingRecipeCategory craftingRecipeCategory = CraftingRecipeCategory.CODEC
+                    .byId(JsonHelper.getString(jsonObject, "category", null), CraftingRecipeCategory.MISC);
             Map<String, Ingredient> map = ReinforcedShulkerBoxCraftingRecipe
                     .readSymbols(JsonHelper.getObject(jsonObject, "key"));
             String[] strings = ReinforcedShulkerBoxCraftingRecipe.removePadding(
@@ -232,7 +224,8 @@ public class ReinforcedShulkerBoxCraftingRecipe extends ShapedRecipe {
                     map, i, j);
             ItemStack itemStack = ReinforcedShulkerBoxCraftingRecipe
                     .outputFromJson(JsonHelper.getObject(jsonObject, "result"));
-            return new ReinforcedShulkerBoxCraftingRecipe(identifier, string, i, j, defaultedList, itemStack);
+            return new ReinforcedShulkerBoxCraftingRecipe(identifier, string, craftingRecipeCategory,
+                    i, j, defaultedList, itemStack);
         }
 
         @Override
@@ -240,6 +233,8 @@ public class ReinforcedShulkerBoxCraftingRecipe extends ShapedRecipe {
             int i = packetByteBuf.readVarInt();
             int j = packetByteBuf.readVarInt();
             String string = packetByteBuf.readString();
+            CraftingRecipeCategory craftingRecipeCategory = packetByteBuf
+                    .readEnumConstant(CraftingRecipeCategory.class);
             DefaultedList<Ingredient> defaultedList = DefaultedList.ofSize(i * j, Ingredient.EMPTY);
 
             for (int k = 0; k < defaultedList.size(); ++k) {
@@ -247,22 +242,23 @@ public class ReinforcedShulkerBoxCraftingRecipe extends ShapedRecipe {
             }
 
             ItemStack itemStack = packetByteBuf.readItemStack();
-            return new ReinforcedShulkerBoxCraftingRecipe(identifier, string, i, j, defaultedList, itemStack);
+            return new ReinforcedShulkerBoxCraftingRecipe(identifier, string, craftingRecipeCategory,
+                    i, j, defaultedList, itemStack);
         }
 
         @Override
         public void write(PacketByteBuf packetByteBuf, ReinforcedShulkerBoxCraftingRecipe recipe) {
-            packetByteBuf.writeVarInt(recipe.width);
-            packetByteBuf.writeVarInt(recipe.height);
-            packetByteBuf.writeString(recipe.group);
-            Iterator<Ingredient> var3 = recipe.input.iterator();
+            packetByteBuf.writeVarInt(recipe.getWidth());
+            packetByteBuf.writeVarInt(recipe.getHeight());
+            packetByteBuf.writeString(recipe.getGroup());
+            Iterator<Ingredient> var3 = recipe.getIngredients().iterator();
 
             while (var3.hasNext()) {
                 Ingredient ingredient = (Ingredient) var3.next();
                 ingredient.write(packetByteBuf);
             }
 
-            packetByteBuf.writeItemStack(recipe.output);
+            packetByteBuf.writeItemStack(recipe.getOutput());
         }
     }
 }

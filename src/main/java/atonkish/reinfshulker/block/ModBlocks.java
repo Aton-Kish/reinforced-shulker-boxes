@@ -4,9 +4,10 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 import net.minecraft.block.Block;
+import net.minecraft.registry.Registries;
+import net.minecraft.registry.Registry;
 import net.minecraft.util.DyeColor;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.registry.Registry;
 
 import atonkish.reinfcore.util.ReinforcingMaterial;
 
@@ -32,7 +33,7 @@ public class ModBlocks {
             String id = color == null
                     ? material.getName() + "_shulker_box"
                     : color.getName() + "_" + material.getName() + "_shulker_box";
-            Block block = register(namespace, id, new ReinforcedShulkerBoxBlock(material, color, settings));
+            Block block = ModBlocks.register(namespace, id, new ReinforcedShulkerBoxBlock(material, color, settings));
             REINFORCED_SHULKER_BOX_MAP.get(material).put(color, block);
         }
 
@@ -40,6 +41,6 @@ public class ModBlocks {
     }
 
     private static Block register(String namespace, String id, Block block) {
-        return Registry.register(Registry.BLOCK, new Identifier(namespace, id), block);
+        return Registry.register(Registries.BLOCK, new Identifier(namespace, id), block);
     }
 }
