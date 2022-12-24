@@ -40,7 +40,6 @@
   },
   "suggests": {
     "modmenu": "*",
-    "cloth-config": "*",
     "reinfchest": "*",
     "quickshulker": "*",
     "shulkerboxtooltip": "*"
