@@ -1,6 +1,8 @@
 plugins {
-	id 'fabric-loom' version '1.0-SNAPSHOT'
-	id 'maven-publish'
+	id "fabric-loom" version "1.0-SNAPSHOT"
+	id "maven-publish"
+	id "com.matthewprenger.cursegradle" version "1.4.0"
+	id "com.modrinth.minotaur" version "2.+"
 }
 
 sourceCompatibility = JavaVersion.VERSION_17
@@ -37,15 +39,6 @@ repositories {
 		url "https://maven.kyrptonaught.dev"
 	}
 
-	// <-- workaround
-	maven {
-		url "https://www.cursemaven.com"
-		content {
-			includeGroup "curse.maven"
-		}
-	}
-	// -->
-
 	// Shulker Box Tooltip
 	maven {
 		url "https://maven.misterpemodder.com/libs-release"
@@ -74,12 +67,7 @@ dependencies {
 	modImplementation "atonkish.reinfchest:reinforced-chests:${project.reinforced_chests_version}"
 
 	// Quick Shulker
-	// modImplementation "net.kyrptonaught:quickshulker:${project.quick_shulker_version}"
-	// <-- workaround
-	modImplementation "curse.maven:quick-shulker-362669:${project.quick_shulker_file_id}"
-	modImplementation "net.kyrptonaught:kyrptconfig:${project.kyrptconfig_version}"
-	modImplementation "net.kyrptonaught:shulkerutils:${project.shulkerutils_version}"
-	// -->
+	modImplementation "net.kyrptonaught:quickshulker:${project.quick_shulker_version}"
 
 	// Shulker Box Tooltip
 	modImplementation "com.misterpemodder:shulkerboxtooltip-fabric:${project.shulker_box_tooltip_version}"
@@ -129,4 +117,56 @@ publishing {
 			url "file:/$buildDir/maven"
 		}
 	}
+}
+
+curseforge {
+	apiKey = project.findProperty("curseforge_token") ?: "Missing token"
+
+	project {
+		id = project.curseforge_id
+
+		mainArtifact(remapJar) {
+			displayName = "Reinforced Shulker Boxes v${project.version}"
+		}
+		releaseType = "release"
+		changelogType = "markdown"
+		changelog = "[v${project.version}](https://github.com/Aton-Kish/reinforced-shulker-boxes/releases/tag/v" + java.net.URLEncoder.encode(project.version, "UTF-8") + ")"
+
+		addGameVersion "Fabric"
+		addGameVersion "Java 17"
+		addGameVersion "1.19.3"
+
+		relations {
+			requiredDependency "fabric-api"
+			embeddedLibrary "cloth-config"
+			optionalDependency "modmenu"
+			optionalDependency "shulkerboxtooltip"
+			optionalDependency "quick-shulker"
+			optionalDependency "reinforced-chests"
+		}
+	}
+}
+
+modrinth {
+    token = project.findProperty("modrinth_token") ?: "Missing token"
+
+    projectId = project.modrinth_id
+
+    uploadFile = remapJar
+    versionNumber = project.version
+	versionName = "Reinforced Shulker Boxes v${project.version}"
+    versionType = "release"
+	changelog = "[v${project.version}](https://github.com/Aton-Kish/reinforced-shulker-boxes/releases/tag/v" + java.net.URLEncoder.encode(project.version, "UTF-8") + ")"
+
+    gameVersions = ["1.19.3"]
+    loaders = ["fabric"]
+
+    dependencies {
+        required.project "fabric-api"
+		embedded.project "cloth-config"
+		optional.project "modmenu"
+		optional.project "shulkerboxtooltip"
+		optional.project "quickshulker"
+		optional.project "reinforced-chests"
+    }
 }
