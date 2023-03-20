@@ -9,11 +9,13 @@ import net.minecraft.item.Items;
 import net.minecraft.recipe.RecipeSerializer;
 import net.minecraft.recipe.SpecialCraftingRecipe;
 import net.minecraft.recipe.book.CraftingRecipeCategory;
+import net.minecraft.registry.DynamicRegistryManager;
 import net.minecraft.util.Identifier;
 import net.minecraft.world.World;
 
+import org.jetbrains.annotations.Nullable;
+
 import atonkish.reinfcore.util.ReinforcingMaterial;
-import atonkish.reinfcore.util.ReinforcingMaterials;
 import atonkish.reinfshulker.block.ReinforcedShulkerBoxBlock;
 
 public class ReinforcedShulkerBoxColoringRecipe extends SpecialCraftingRecipe {
@@ -28,44 +30,55 @@ public class ReinforcedShulkerBoxColoringRecipe extends SpecialCraftingRecipe {
 
         for (int k = 0; k < craftingInventory.size(); ++k) {
             ItemStack itemStack = craftingInventory.getStack(k);
-            if (!itemStack.isEmpty()) {
-                if (Block.getBlockFromItem(itemStack.getItem()) instanceof ReinforcedShulkerBoxBlock) {
-                    ++i;
-                } else {
-                    if (!(itemStack.getItem() instanceof DyeItem)) {
-                        return false;
-                    }
-
-                    ++j;
-                }
-
-                if (j > 1 || i > 1) {
-                    return false;
-                }
+            if (itemStack.isEmpty()) {
+                continue;
             }
+
+            if (Block.getBlockFromItem(itemStack.getItem()) instanceof ReinforcedShulkerBoxBlock) {
+                ++i;
+            } else if (itemStack.getItem() instanceof DyeItem) {
+                ++j;
+            } else {
+                return false;
+            }
+
+            if (j <= 1 && i <= 1) {
+                continue;
+            }
+
+            return false;
         }
 
         return i == 1 && j == 1;
     }
 
     @Override
-    public ItemStack craft(CraftingInventory craftingInventory) {
+    public ItemStack craft(CraftingInventory craftingInventory, DynamicRegistryManager dynamicRegistryManager) {
         ItemStack itemStack = ItemStack.EMPTY;
         DyeItem dyeItem = (DyeItem) Items.WHITE_DYE;
-        ReinforcingMaterial material = ReinforcingMaterials.MAP.get("copper");
+
+        @Nullable
+        ReinforcingMaterial material = null;
 
         for (int i = 0; i < craftingInventory.size(); ++i) {
             ItemStack itemStack2 = craftingInventory.getStack(i);
-            if (!itemStack2.isEmpty()) {
-                Item item = itemStack2.getItem();
-                Block block = Block.getBlockFromItem(item);
-                if (block instanceof ReinforcedShulkerBoxBlock) {
-                    itemStack = itemStack2;
-                    material = ((ReinforcedShulkerBoxBlock) block).getMaterial();
-                } else if (item instanceof DyeItem) {
-                    dyeItem = (DyeItem) item;
-                }
+            if (itemStack2.isEmpty()) {
+                continue;
             }
+
+            Item item = itemStack2.getItem();
+            Block block = Block.getBlockFromItem(item);
+            if (block instanceof ReinforcedShulkerBoxBlock) {
+                itemStack = itemStack2;
+                material = ((ReinforcedShulkerBoxBlock) block).getMaterial();
+                continue;
+            }
+
+            if (!(item instanceof DyeItem)) {
+                continue;
+            }
+
+            dyeItem = (DyeItem) item;
         }
 
         ItemStack itemStack3 = ReinforcedShulkerBoxBlock.getItemStack(material, dyeItem.getColor());
