@@ -1,5 +1,5 @@
 plugins {
-	id "fabric-loom" version "1.0-SNAPSHOT"
+	id "fabric-loom" version "1.1-SNAPSHOT"
 	id "maven-publish"
 	id "com.matthewprenger.cursegradle" version "1.4.0"
 	id "com.modrinth.minotaur" version "2.+"
@@ -68,6 +68,8 @@ dependencies {
 
 	// Quick Shulker
 	modImplementation "net.kyrptonaught:quickshulker:${project.quick_shulker_version}"
+	// Quick Shulker deps
+	modImplementation "net.kyrptonaught:shulkerutils:${project.shulkerutils_version}"
 
 	// Shulker Box Tooltip
 	modImplementation "com.misterpemodder:shulkerboxtooltip-fabric:${project.shulker_box_tooltip_version}"
@@ -134,7 +136,7 @@ curseforge {
 
 		addGameVersion "Fabric"
 		addGameVersion "Java 17"
-		addGameVersion "1.19.3"
+		addGameVersion "1.19.4"
 
 		relations {
 			requiredDependency "fabric-api"
@@ -158,7 +160,7 @@ modrinth {
     versionType = "release"
 	changelog = "[v${project.version}](https://github.com/Aton-Kish/reinforced-shulker-boxes/releases/tag/v" + java.net.URLEncoder.encode(project.version, "UTF-8") + ")"
 
-    gameVersions = ["1.19.3"]
+    gameVersions = ["1.19.4"]
     loaders = ["fabric"]
 
     dependencies {

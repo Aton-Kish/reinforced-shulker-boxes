@@ -10,7 +10,7 @@ import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.block.entity.BlockEntityRendererFactories;
-import net.minecraft.client.render.model.json.ModelTransformation;
+import net.minecraft.client.render.model.json.ModelTransformationMode;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
@@ -69,7 +69,7 @@ public class ReinforcedShulkerBoxesClientMod implements ReinforcedCoreClientModI
 
 			// Item Renderer
 			for (Block block : ModBlocks.REINFORCED_SHULKER_BOX_MAP.get(material).values()) {
-				BuiltinItemRendererRegistry.INSTANCE.register(block, (ItemStack stack, ModelTransformation.Mode mode,
+				BuiltinItemRendererRegistry.INSTANCE.register(block, (ItemStack stack, ModelTransformationMode mode,
 						MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, int overlay) -> {
 					BlockEntity blockEntity = new ReinforcedShulkerBoxBlockEntity(material, BlockPos.ORIGIN,
 							block.getDefaultState());
