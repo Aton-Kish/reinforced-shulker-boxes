@@ -14,6 +14,7 @@ import net.minecraft.util.DyeColor;
 import net.minecraft.util.Identifier;
 
 import atonkish.reinfcore.item.ModItemGroup;
+import atonkish.reinfcore.item.ModItemGroups;
 import atonkish.reinfcore.util.ReinforcingMaterial;
 import atonkish.reinfshulker.block.ModBlocks;
 
@@ -39,7 +40,7 @@ public class ModItems {
             Item item = ModItems.register(
                     new BlockItem(ModBlocks.REINFORCED_SHULKER_BOX_MAP.get(material).get(color),
                             REINFORCED_SHULKER_BOX_SETTINGS_MAP.get(material).get(color)));
-            ItemGroupEvents.modifyEntriesEvent(ModItemGroup.REINFORCED_STORAGE).register(content -> content.add(item));
+            ItemGroupEvents.modifyEntriesEvent(ModItemGroups.REINFORCED_STORAGE).register(content -> content.add(item));
             REINFORCED_SHULKER_BOX_MAP.get(material).put(color, item);
         }
 
@@ -48,7 +49,7 @@ public class ModItems {
 
     public static void registerMaterialDyeColorItemGroupIcon(ReinforcingMaterial material, DyeColor color) {
         Item item = REINFORCED_SHULKER_BOX_MAP.get(material).get(color);
-        ModItemGroup.setIcon(ModItemGroup.REINFORCED_STORAGE, item);
+        ModItemGroup.setIcon(ModItemGroups.REINFORCED_STORAGE, item);
     }
 
     private static Item register(BlockItem item) {
