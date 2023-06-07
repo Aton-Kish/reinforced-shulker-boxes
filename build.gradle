@@ -1,5 +1,5 @@
 plugins {
-	id "fabric-loom" version "1.1-SNAPSHOT"
+	id "fabric-loom" version "1.2-SNAPSHOT"
 	id "maven-publish"
 	id "com.matthewprenger.cursegradle" version "1.4.0"
 	id "com.modrinth.minotaur" version "2.+"
@@ -68,8 +68,6 @@ dependencies {
 
 	// Quick Shulker
 	modImplementation "net.kyrptonaught:quickshulker:${project.quick_shulker_version}"
-	// Quick Shulker deps
-	modImplementation "net.kyrptonaught:shulkerutils:${project.shulkerutils_version}"
 
 	// Shulker Box Tooltip
 	modImplementation "com.misterpemodder:shulkerboxtooltip-fabric:${project.shulker_box_tooltip_version}"
