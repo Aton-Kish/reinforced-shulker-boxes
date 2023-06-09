@@ -147,7 +147,6 @@ curseforge {
 			embeddedLibrary "cloth-config"
 			optionalDependency "modmenu"
 			optionalDependency "shulkerboxtooltip"
-			optionalDependency "quick-shulker"
 			optionalDependency "reinforced-chests"
 		}
 	}
@@ -172,7 +171,6 @@ modrinth {
 		embedded.project "cloth-config"
 		optional.project "modmenu"
 		optional.project "shulkerboxtooltip"
-		optional.project "quickshulker"
 		optional.project "reinforced-chests"
 	}
 }
