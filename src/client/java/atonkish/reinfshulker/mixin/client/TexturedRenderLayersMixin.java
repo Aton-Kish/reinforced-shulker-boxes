@@ -1,4 +1,4 @@
-package atonkish.reinfshulker.mixin;
+package atonkish.reinfshulker.mixin.client;
 
 import java.util.function.Consumer;
 

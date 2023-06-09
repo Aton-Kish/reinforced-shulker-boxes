@@ -4,9 +4,9 @@ import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
-import net.minecraft.block.Material;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.ShulkerBoxBlockEntity;
+import net.minecraft.block.enums.Instrument;
 import net.minecraft.item.Item;
 import net.minecraft.item.Items;
 import net.minecraft.sound.BlockSoundGroup;
@@ -16,19 +16,36 @@ import atonkish.reinfcore.util.ReinforcingMaterial;
 
 public enum ReinforcingMaterialSettings {
     COPPER(ReinforcedCoreRegistry.registerReinforcingMaterial("copper", 45, Items.COPPER_INGOT),
-            FabricBlockSettings.of(Material.SHULKER_BOX).strength(2.0F, 6.0F).sounds(BlockSoundGroup.COPPER),
+            FabricBlockSettings
+                    .create()
+                    .strength(2.0F, 6.0F)
+                    .sounds(BlockSoundGroup.COPPER),
             new Item.Settings().maxCount(1)),
     IRON(ReinforcedCoreRegistry.registerReinforcingMaterial("iron", 54, Items.IRON_INGOT),
-            FabricBlockSettings.of(Material.SHULKER_BOX).strength(2.0F, 6.0F).sounds(BlockSoundGroup.METAL),
+            FabricBlockSettings
+                    .create()
+                    .instrument(Instrument.IRON_XYLOPHONE)
+                    .strength(2.0F, 6.0F)
+                    .sounds(BlockSoundGroup.METAL),
             new Item.Settings().maxCount(1)),
     GOLD(ReinforcedCoreRegistry.registerReinforcingMaterial("gold", 81, Items.GOLD_INGOT),
-            FabricBlockSettings.of(Material.SHULKER_BOX).strength(2.0F, 6.0F).sounds(BlockSoundGroup.METAL),
+            FabricBlockSettings
+                    .create()
+                    .instrument(Instrument.BELL)
+                    .strength(2.0F, 6.0F)
+                    .sounds(BlockSoundGroup.METAL),
             new Item.Settings().maxCount(1)),
     DIAMOND(ReinforcedCoreRegistry.registerReinforcingMaterial("diamond", 108, Items.DIAMOND),
-            FabricBlockSettings.of(Material.SHULKER_BOX).strength(2.0F, 6.0F).sounds(BlockSoundGroup.METAL),
+            FabricBlockSettings
+                    .create()
+                    .strength(2.0F, 6.0F)
+                    .sounds(BlockSoundGroup.METAL),
             new Item.Settings().maxCount(1)),
     NETHERITE(ReinforcedCoreRegistry.registerReinforcingMaterial("netherite", 108, Items.NETHERITE_INGOT),
-            FabricBlockSettings.of(Material.SHULKER_BOX).strength(2.0F, 1200.0F).sounds(BlockSoundGroup.NETHERITE),
+            FabricBlockSettings
+                    .create()
+                    .strength(2.0F, 1200.0F)
+                    .sounds(BlockSoundGroup.NETHERITE),
             new Item.Settings().maxCount(1).fireproof());
 
     private final ReinforcingMaterial material;
