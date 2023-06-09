@@ -49,7 +49,7 @@ public class ModItems {
 
     public static void registerMaterialDyeColorItemGroupIcon(ReinforcingMaterial material, DyeColor color) {
         Item item = REINFORCED_SHULKER_BOX_MAP.get(material).get(color);
-        ModItemGroup.setIcon(ModItemGroups.REINFORCED_STORAGE, item);
+        ModItemGroup.setIcon(Registries.ITEM_GROUP.get(ModItemGroups.REINFORCED_STORAGE), item);
     }
 
     private static Item register(BlockItem item) {

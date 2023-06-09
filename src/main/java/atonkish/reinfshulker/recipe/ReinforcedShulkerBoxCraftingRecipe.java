@@ -12,7 +12,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonSyntaxException;
 
-import net.minecraft.inventory.CraftingInventory;
+import net.minecraft.inventory.RecipeInputInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.network.PacketByteBuf;
@@ -42,9 +42,9 @@ public class ReinforcedShulkerBoxCraftingRecipe extends ShapedRecipe {
     }
 
     @Override
-    public ItemStack craft(CraftingInventory craftingInventory, DynamicRegistryManager dynamicRegistryManager) {
+    public ItemStack craft(RecipeInputInventory recipeInputInventory, DynamicRegistryManager dynamicRegistryManager) {
         ItemStack itemStack = this.getOutput(dynamicRegistryManager).copy();
-        NbtCompound nbtCompound = craftingInventory.getStack(4).getNbt();
+        NbtCompound nbtCompound = recipeInputInventory.getStack(4).getNbt();
 
         if (nbtCompound != null) {
             itemStack.setNbt(nbtCompound.copy());

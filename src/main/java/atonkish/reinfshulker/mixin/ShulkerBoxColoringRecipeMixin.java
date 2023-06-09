@@ -1,7 +1,7 @@
 package atonkish.reinfshulker.mixin;
 
 import net.minecraft.block.Block;
-import net.minecraft.inventory.CraftingInventory;
+import net.minecraft.inventory.RecipeInputInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.recipe.ShulkerBoxColoringRecipe;
 import net.minecraft.world.World;
@@ -16,10 +16,10 @@ import atonkish.reinfshulker.block.ReinforcedShulkerBoxBlock;
 @Mixin(ShulkerBoxColoringRecipe.class)
 public class ShulkerBoxColoringRecipeMixin {
     @Inject(at = @At("HEAD"), method = "matches", cancellable = true)
-    public void matches(CraftingInventory craftingInventory, World world,
+    public void matches(RecipeInputInventory recipeInputInventory, World world,
             CallbackInfoReturnable<Boolean> infoReturnable) {
-        for (int k = 0; k < craftingInventory.size(); ++k) {
-            ItemStack itemStack = craftingInventory.getStack(k);
+        for (int k = 0; k < recipeInputInventory.size(); ++k) {
+            ItemStack itemStack = recipeInputInventory.getStack(k);
             if (Block.getBlockFromItem(itemStack.getItem()) instanceof ReinforcedShulkerBoxBlock) {
                 infoReturnable.setReturnValue(false);
             }

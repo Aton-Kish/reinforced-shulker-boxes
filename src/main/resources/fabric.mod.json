@@ -22,20 +22,23 @@
     "reinfcoreclient": [
       "atonkish.reinfshulker.ReinforcedShulkerBoxesClientMod"
     ],
-    "quickshulker": [
-      "atonkish.reinfshulker.integration.quickshulker.QuickShulker"
-    ],
     "shulkerboxtooltip": [
       "atonkish.reinfshulker.integration.shulkerboxtooltip.ShulkerBoxTooltip"
     ],
     "modmenu": ["atonkish.reinfcore.integration.modmenu.ModMenu"]
   },
-  "mixins": ["reinfshulker.mixins.json"],
+  "mixins": [
+    "reinfshulker.mixins.json",
+    {
+      "config": "reinfshulker.client.mixins.json",
+      "environment": "client"
+    }
+  ],
 
   "depends": {
-    "fabricloader": ">=0.14.19",
+    "fabricloader": ">=0.14.21",
     "fabric-api": "*",
-    "minecraft": "~1.19.4",
+    "minecraft": "~1.20",
     "java": ">=17"
   },
   "suggests": {
