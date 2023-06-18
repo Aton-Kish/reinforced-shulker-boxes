@@ -79,6 +79,8 @@ dependencies {
 
 	// Quick Shulker
 	modImplementation "net.kyrptonaught:quickshulker:${project.quick_shulker_version}"
+	// Quick Shulker deps
+	modImplementation "net.kyrptonaught:shulkerutils:${project.shulkerutils_version}"
 
 	// Shulker Box Tooltip
 	modImplementation "com.misterpemodder:shulkerboxtooltip-fabric:${project.shulker_box_tooltip_version}"
