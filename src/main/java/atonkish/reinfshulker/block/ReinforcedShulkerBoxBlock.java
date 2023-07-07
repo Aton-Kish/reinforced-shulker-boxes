@@ -1,6 +1,5 @@
 package atonkish.reinfshulker.block;
 
-import net.kyrptonaught.shulkerutils.UpgradableShulker;
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -28,7 +27,7 @@ import atonkish.reinfshulker.block.entity.ModBlockEntityType;
 import atonkish.reinfshulker.block.entity.ReinforcedShulkerBoxBlockEntity;
 import atonkish.reinfshulker.stat.ModStats;
 
-public class ReinforcedShulkerBoxBlock extends ShulkerBoxBlock implements UpgradableShulker {
+public class ReinforcedShulkerBoxBlock extends ShulkerBoxBlock {
     private final ReinforcingMaterial material;
 
     public ReinforcedShulkerBoxBlock(ReinforcingMaterial material, @Nullable DyeColor color,
@@ -94,10 +93,5 @@ public class ReinforcedShulkerBoxBlock extends ShulkerBoxBlock implements Upgrad
 
     public static ItemStack getItemStack(ReinforcingMaterial material, @Nullable DyeColor color) {
         return new ItemStack(get(material, color));
-    }
-
-    @Override
-    public int getInventorySize() {
-        return getMaterial().getSize();
     }
 }
