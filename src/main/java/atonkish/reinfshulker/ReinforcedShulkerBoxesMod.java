@@ -76,7 +76,7 @@ public class ReinforcedShulkerBoxesMod implements ModInitializer, ReinforcedCore
 					materialSettings.getBlockSettings());
 			for (DyeColor color : DyeColor.values()) {
 				ReinforcedShulkerBoxesRegistry.registerMaterialDyeColorBlock(MOD_ID, material, color,
-						materialSettings.getBlockSettings());
+						materialSettings.getColorBlockSettings(color));
 			}
 			ReinforcedShulkerBoxesRegistry.registerMaterialBlockEntityType(MOD_ID, material);
 
