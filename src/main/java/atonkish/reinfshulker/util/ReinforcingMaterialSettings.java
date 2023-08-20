@@ -15,8 +15,6 @@ import net.minecraft.item.Items;
 import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.util.DyeColor;
 
-import org.jetbrains.annotations.Nullable;
-
 import atonkish.reinfcore.api.ReinforcedCoreRegistry;
 import atonkish.reinfcore.util.ReinforcingMaterial;
 
@@ -81,7 +79,16 @@ public enum ReinforcingMaterialSettings {
     }
 
     public Block.Settings getBlockSettings() {
-        return this.blockSettings;
+        return this.blockSettings.mapColor(MapColor.PURPLE);
+    }
+
+    public Block.Settings getColorBlockSettings(DyeColor color) {
+        MapColor mapColor = switch (color) {
+            case PURPLE -> MapColor.TERRACOTTA_PURPLE;
+            default -> color.getMapColor();
+        };
+
+        return this.blockSettings.mapColor(mapColor);
     }
 
     public Item.Settings getItemSettings() {
