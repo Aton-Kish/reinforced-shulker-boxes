@@ -27,7 +27,9 @@ public class QuickShulker implements RegisterQuickShulker {
     public void registerProviders() {
         new QuickOpenableRegistry.Builder()
                 .setItem(ReinforcedShulkerBoxBlock.class)
-                .supportsBundleing(true)
+                // TODO: re-enable the bundling feature
+                // if https://github.com/kyrptonaught/shulkerutils/pull/1 is merged.
+                .supportsBundleing(false)
                 .setOpenAction(REINFORCED_SHULKER_BOX_CONSUMER)
                 .register();
     }
