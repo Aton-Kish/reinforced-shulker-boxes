@@ -4,12 +4,18 @@ import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
+import net.minecraft.block.Blocks;
+import net.minecraft.block.MapColor;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.ShulkerBoxBlockEntity;
 import net.minecraft.block.enums.Instrument;
+import net.minecraft.block.piston.PistonBehavior;
 import net.minecraft.item.Item;
 import net.minecraft.item.Items;
 import net.minecraft.sound.BlockSoundGroup;
+import net.minecraft.util.DyeColor;
+
+import org.jetbrains.annotations.Nullable;
 
 import atonkish.reinfcore.api.ReinforcedCoreRegistry;
 import atonkish.reinfcore.util.ReinforcingMaterial;
@@ -58,15 +64,15 @@ public enum ReinforcingMaterialSettings {
             BlockEntity blockEntity = world.getBlockEntity(pos);
             if (!(blockEntity instanceof ShulkerBoxBlockEntity)) {
                 return true;
-            } else {
-                ShulkerBoxBlockEntity shulkerBoxBlockEntity = (ShulkerBoxBlockEntity) blockEntity;
-                return shulkerBoxBlockEntity.suffocates();
             }
+            ShulkerBoxBlockEntity shulkerBoxBlockEntity = (ShulkerBoxBlockEntity) blockEntity;
+            return shulkerBoxBlockEntity.suffocates();
         };
 
         this.material = material;
-        this.blockSettings = blockSettings.dynamicBounds().nonOpaque()
-                .suffocates(contextPredicate).blockVision(contextPredicate);
+        this.blockSettings = blockSettings.solid().dynamicBounds().nonOpaque()
+                .suffocates(contextPredicate).blockVision(contextPredicate)
+                .pistonBehavior(PistonBehavior.DESTROY).solidBlock(Blocks::always);
         this.itemSettings = itemSettings;
     }
 
