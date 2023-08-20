@@ -26,33 +26,33 @@ public enum ReinforcingMaterialSettings {
                     .create()
                     .strength(2.0F, 6.0F)
                     .sounds(BlockSoundGroup.COPPER),
-            new Item.Settings().maxCount(1)),
+            new Item.Settings()),
     IRON(ReinforcedCoreRegistry.registerReinforcingMaterial("iron", 54, Items.IRON_INGOT),
             FabricBlockSettings
                     .create()
                     .instrument(Instrument.IRON_XYLOPHONE)
                     .strength(2.0F, 6.0F)
                     .sounds(BlockSoundGroup.METAL),
-            new Item.Settings().maxCount(1)),
+            new Item.Settings()),
     GOLD(ReinforcedCoreRegistry.registerReinforcingMaterial("gold", 81, Items.GOLD_INGOT),
             FabricBlockSettings
                     .create()
                     .instrument(Instrument.BELL)
                     .strength(2.0F, 6.0F)
                     .sounds(BlockSoundGroup.METAL),
-            new Item.Settings().maxCount(1)),
+            new Item.Settings()),
     DIAMOND(ReinforcedCoreRegistry.registerReinforcingMaterial("diamond", 108, Items.DIAMOND),
             FabricBlockSettings
                     .create()
                     .strength(2.0F, 6.0F)
                     .sounds(BlockSoundGroup.METAL),
-            new Item.Settings().maxCount(1)),
+            new Item.Settings()),
     NETHERITE(ReinforcedCoreRegistry.registerReinforcingMaterial("netherite", 108, Items.NETHERITE_INGOT),
             FabricBlockSettings
                     .create()
                     .strength(2.0F, 1200.0F)
                     .sounds(BlockSoundGroup.NETHERITE),
-            new Item.Settings().maxCount(1).fireproof());
+            new Item.Settings().fireproof());
 
     private final ReinforcingMaterial material;
     private final Block.Settings blockSettings;
@@ -73,7 +73,7 @@ public enum ReinforcingMaterialSettings {
         this.blockSettings = blockSettings.solid().dynamicBounds().nonOpaque()
                 .suffocates(contextPredicate).blockVision(contextPredicate)
                 .pistonBehavior(PistonBehavior.DESTROY).solidBlock(Blocks::always);
-        this.itemSettings = itemSettings;
+        this.itemSettings = itemSettings.maxCount(1);
     }
 
     public ReinforcingMaterial getMaterial() {
