@@ -45,7 +45,8 @@ public class ReinforcedShulkerBoxBlock extends ShulkerBoxBlock {
     @Nullable
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(World world, BlockState state,
             BlockEntityType<T> type) {
-        return checkType(type, ModBlockEntityType.REINFORCED_SHULKER_BOX_MAP.get(this.material),
+        return ReinforcedShulkerBoxBlock.validateTicker(type,
+                ModBlockEntityType.REINFORCED_SHULKER_BOX_MAP.get(this.material),
                 ReinforcedShulkerBoxBlockEntity::tick);
     }
 
