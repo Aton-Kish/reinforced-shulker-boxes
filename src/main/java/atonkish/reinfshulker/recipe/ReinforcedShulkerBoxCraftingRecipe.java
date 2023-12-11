@@ -1,16 +1,16 @@
 package atonkish.reinfshulker.recipe;
 
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Set;
+
+import org.apache.commons.lang3.NotImplementedException;
 
 import com.google.common.annotations.VisibleForTesting;
-import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonSyntaxException;
+
+import com.mojang.serialization.Codec;
+import com.mojang.serialization.DataResult;
 
 import net.minecraft.inventory.RecipeInputInventory;
 import net.minecraft.item.ItemStack;
@@ -21,19 +21,18 @@ import net.minecraft.recipe.RecipeSerializer;
 import net.minecraft.recipe.ShapedRecipe;
 import net.minecraft.recipe.book.CraftingRecipeCategory;
 import net.minecraft.registry.DynamicRegistryManager;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.JsonHelper;
 import net.minecraft.util.collection.DefaultedList;
 
 public class ReinforcedShulkerBoxCraftingRecipe extends ShapedRecipe {
-    public ReinforcedShulkerBoxCraftingRecipe(Identifier id, String group, CraftingRecipeCategory category, int width,
-            int height, DefaultedList<Ingredient> input, ItemStack output, boolean showNotification) {
-        super(id, group, category, width, height, input, output, showNotification);
+    public ReinforcedShulkerBoxCraftingRecipe(String group, CraftingRecipeCategory category, int width, int height,
+            DefaultedList<Ingredient> ingredients, ItemStack result, boolean showNotification) {
+        super(group, category, width, height, ingredients, result, showNotification);
     }
 
-    public ReinforcedShulkerBoxCraftingRecipe(Identifier id, String group, CraftingRecipeCategory category,
-            int width, int height, DefaultedList<Ingredient> input, ItemStack output) {
-        this(id, group, category, width, height, input, output, true);
+    public ReinforcedShulkerBoxCraftingRecipe(String group, CraftingRecipeCategory category, int width, int height,
+            DefaultedList<Ingredient> ingredients, ItemStack result) {
+        this(group, category, width, height, ingredients, result, true);
+
     }
 
     @Override
@@ -43,7 +42,7 @@ public class ReinforcedShulkerBoxCraftingRecipe extends ShapedRecipe {
 
     @Override
     public ItemStack craft(RecipeInputInventory recipeInputInventory, DynamicRegistryManager dynamicRegistryManager) {
-        ItemStack itemStack = this.getOutput(dynamicRegistryManager).copy();
+        ItemStack itemStack = this.getResult(dynamicRegistryManager).copy();
         NbtCompound nbtCompound = recipeInputInventory.getStack(4).getNbt();
 
         if (nbtCompound != null) {
@@ -53,73 +52,15 @@ public class ReinforcedShulkerBoxCraftingRecipe extends ShapedRecipe {
         return itemStack;
     }
 
-    /**
-     * Compiles a pattern and series of symbols into a list of ingredients (the
-     * matrix) suitable for matching against a crafting grid.
-     */
-    static DefaultedList<Ingredient> createPatternMatrix(String[] pattern, Map<String, Ingredient> symbols, int width,
-            int height) {
-        DefaultedList<Ingredient> defaultedList = DefaultedList.ofSize(width * height, Ingredient.EMPTY);
-        HashSet<String> set = Sets.newHashSet(symbols.keySet());
-        set.remove(" ");
-
-        for (int i = 0; i < pattern.length; ++i) {
-            for (int j = 0; j < pattern[i].length(); ++j) {
-                String string = pattern[i].substring(j, j + 1);
-                Ingredient ingredient = symbols.get(string);
-                if (ingredient == null) {
-                    throw new JsonSyntaxException(
-                            "Pattern references symbol '" + string + "' but it's not defined in the key");
-                }
-
-                set.remove(string);
-                defaultedList.set(j + width * i, ingredient);
-            }
-        }
-
-        if (!set.isEmpty()) {
-            throw new JsonSyntaxException("Key defines symbols that aren't used in pattern: " + set);
-        }
-
-        return defaultedList;
-    }
-
-    /**
-     * Removes empty space from around the recipe pattern.
-     *
-     * <p>
-     * Turns patterns such as:
-     * </p>
-     *
-     * <pre>
-     * {@code
-     * "   o"
-     * "   a"
-     * "    "
-     * }
-     * </pre>
-     *
-     * Into:
-     *
-     * <pre>
-     * {@code
-     * "o"
-     * "a"
-     * }
-     * </pre>
-     *
-     * @return a new recipe pattern with all leading and trailing empty rows/columns
-     *         removed
-     */
     @VisibleForTesting
-    static String[] removePadding(String... pattern) {
+    static String[] removePadding(List<String> pattern) {
         int i = Integer.MAX_VALUE;
         int j = 0;
         int k = 0;
         int l = 0;
 
-        for (int m = 0; m < pattern.length; ++m) {
-            String string = pattern[m];
+        for (int m = 0; m < pattern.size(); ++m) {
+            String string = pattern.get(m);
             i = Math.min(i, ReinforcedShulkerBoxCraftingRecipe.findFirstSymbol(string));
             int n = ReinforcedShulkerBoxCraftingRecipe.findLastSymbol(string);
             j = Math.max(j, n);
@@ -135,14 +76,14 @@ public class ReinforcedShulkerBoxCraftingRecipe extends ShapedRecipe {
             l = 0;
         }
 
-        if (pattern.length == l) {
+        if (pattern.size() == l) {
             return new String[0];
         }
 
-        String[] strings = new String[pattern.length - l - k];
+        String[] strings = new String[pattern.size() - l - k];
 
         for (int o = 0; o < strings.length; ++o) {
-            strings[o] = pattern[o + k].substring(i, j + 1);
+            strings[o] = pattern.get(o + k).substring(i, j + 1);
         }
 
         return strings;
@@ -164,86 +105,20 @@ public class ReinforcedShulkerBoxCraftingRecipe extends ShapedRecipe {
         return i;
     }
 
-    static String[] getPattern(JsonArray json) {
-        String[] strings = new String[json.size()];
-        if (strings.length > 3) {
-            throw new JsonSyntaxException("Invalid pattern: too many rows, 3 is maximum");
-        }
-
-        if (strings.length == 0) {
-            throw new JsonSyntaxException("Invalid pattern: empty pattern not allowed");
-        }
-
-        for (int i = 0; i < strings.length; ++i) {
-            String string = JsonHelper.asString(json.get(i), "pattern[" + i + "]");
-            if (string.length() > 3) {
-                throw new JsonSyntaxException("Invalid pattern: too many columns, 3 is maximum");
-            }
-
-            if (i > 0 && strings[0].length() != string.length()) {
-                throw new JsonSyntaxException("Invalid pattern: each row must be the same width");
-            }
-
-            strings[i] = string;
-        }
-
-        return strings;
-    }
-
-    /**
-     * Reads the pattern symbols.
-     *
-     * @return a mapping from a symbol to the ingredient it represents
-     */
-    static Map<String, Ingredient> readSymbols(JsonObject json) {
-        HashMap<String, Ingredient> map = Maps.newHashMap();
-
-        for (Map.Entry<String, JsonElement> entry : json.entrySet()) {
-            if (entry.getKey().length() != 1) {
-                throw new JsonSyntaxException(
-                        "Invalid key entry: '" + entry.getKey() + "' is an invalid symbol (must be 1 character only).");
-            }
-
-            if (" ".equals(entry.getKey())) {
-                throw new JsonSyntaxException("Invalid key entry: ' ' is a reserved symbol.");
-            }
-
-            map.put(entry.getKey(), Ingredient.fromJson(entry.getValue()));
-        }
-
-        map.put(" ", Ingredient.EMPTY);
-
-        return map;
-    }
-
     public static class Serializer implements RecipeSerializer<ReinforcedShulkerBoxCraftingRecipe> {
-        @Override
-        public ReinforcedShulkerBoxCraftingRecipe read(Identifier identifier, JsonObject jsonObject) {
-            String string = JsonHelper.getString(jsonObject, "group", "");
-            CraftingRecipeCategory craftingRecipeCategory = CraftingRecipeCategory.CODEC
-                    .byId(JsonHelper.getString(jsonObject, "category", null), CraftingRecipeCategory.MISC);
-            Map<String, Ingredient> map = ReinforcedShulkerBoxCraftingRecipe
-                    .readSymbols(JsonHelper.getObject(jsonObject, "key"));
-            String[] strings = ReinforcedShulkerBoxCraftingRecipe.removePadding(
-                    ReinforcedShulkerBoxCraftingRecipe.getPattern(JsonHelper.getArray(jsonObject, "pattern")));
-            int i = strings[0].length();
-            int j = strings.length;
-            DefaultedList<Ingredient> defaultedList = ReinforcedShulkerBoxCraftingRecipe.createPatternMatrix(strings,
-                    map, i, j);
-            ItemStack itemStack = ReinforcedShulkerBoxCraftingRecipe
-                    .outputFromJson(JsonHelper.getObject(jsonObject, "result"));
-            boolean bl = JsonHelper.getBoolean(jsonObject, "show_notification", true);
+        static final Codec<List<String>> PATTERN_CODEC;
+        static final Codec<String> KEY_ENTRY_CODEC;
+        private static final Codec<ReinforcedShulkerBoxCraftingRecipe> CODEC;
 
-            return new ReinforcedShulkerBoxCraftingRecipe(identifier, string, craftingRecipeCategory, i, j,
-                    defaultedList, itemStack, bl);
+        public Codec<ReinforcedShulkerBoxCraftingRecipe> codec() {
+            return CODEC;
         }
 
-        @Override
-        public ReinforcedShulkerBoxCraftingRecipe read(Identifier identifier, PacketByteBuf packetByteBuf) {
+        public ReinforcedShulkerBoxCraftingRecipe read(PacketByteBuf packetByteBuf) {
             int i = packetByteBuf.readVarInt();
             int j = packetByteBuf.readVarInt();
             String string = packetByteBuf.readString();
-            CraftingRecipeCategory craftingRecipeCategory = packetByteBuf
+            CraftingRecipeCategory craftingRecipeCategory = (CraftingRecipeCategory) packetByteBuf
                     .readEnumConstant(CraftingRecipeCategory.class);
             DefaultedList<Ingredient> defaultedList = DefaultedList.ofSize(i * j, Ingredient.EMPTY);
 
@@ -253,22 +128,109 @@ public class ReinforcedShulkerBoxCraftingRecipe extends ShapedRecipe {
 
             ItemStack itemStack = packetByteBuf.readItemStack();
             boolean bl = packetByteBuf.readBoolean();
-
-            return new ReinforcedShulkerBoxCraftingRecipe(identifier, string, craftingRecipeCategory, i, j,
-                    defaultedList, itemStack, bl);
+            return new ReinforcedShulkerBoxCraftingRecipe(string, craftingRecipeCategory, i, j, defaultedList,
+                    itemStack, bl);
         }
 
-        @Override
         public void write(PacketByteBuf packetByteBuf, ReinforcedShulkerBoxCraftingRecipe recipe) {
             packetByteBuf.writeVarInt(recipe.getWidth());
             packetByteBuf.writeVarInt(recipe.getHeight());
             packetByteBuf.writeString(recipe.getGroup());
             packetByteBuf.writeEnumConstant(recipe.getCategory());
-            for (Ingredient ingredient : recipe.getIngredients()) {
+            Iterator<Ingredient> ingredientsIterator = recipe.getIngredients().iterator();
+
+            while (ingredientsIterator.hasNext()) {
+                Ingredient ingredient = ingredientsIterator.next();
                 ingredient.write(packetByteBuf);
             }
-            packetByteBuf.writeItemStack(recipe.getOutput(null));
+
+            packetByteBuf.writeItemStack(recipe.getResult(null));
             packetByteBuf.writeBoolean(recipe.showNotification());
+        }
+
+        static {
+            PATTERN_CODEC = Codec.STRING.listOf().flatXmap((rows) -> {
+                if (rows.size() > 3) {
+                    return DataResult.error(() -> {
+                        return "Invalid pattern: too many rows, 3 is maximum";
+                    });
+                } else if (rows.isEmpty()) {
+                    return DataResult.error(() -> {
+                        return "Invalid pattern: empty pattern not allowed";
+                    });
+                } else {
+                    int i = ((String) rows.get(0)).length();
+                    Iterator<String> rowsIterator = rows.iterator();
+
+                    String string;
+                    do {
+                        if (!rowsIterator.hasNext()) {
+                            return DataResult.success(rows);
+                        }
+
+                        string = rowsIterator.next();
+                        if (string.length() > 3) {
+                            return DataResult.error(() -> {
+                                return "Invalid pattern: too many columns, 3 is maximum";
+                            });
+                        }
+                    } while (i == string.length());
+
+                    return DataResult.error(() -> {
+                        return "Invalid pattern: each row must be the same width";
+                    });
+                }
+            }, DataResult::success);
+            KEY_ENTRY_CODEC = Codec.STRING.flatXmap((keyEntry) -> {
+                if (keyEntry.length() != 1) {
+                    return DataResult.error(() -> {
+                        return "Invalid key entry: '" + keyEntry + "' is an invalid symbol (must be 1 character only).";
+                    });
+                } else {
+                    return " ".equals(keyEntry) ? DataResult.error(() -> {
+                        return "Invalid key entry: ' ' is a reserved symbol.";
+                    }) : DataResult.success(keyEntry);
+                }
+            }, DataResult::success);
+            CODEC = ShapedRecipe.Serializer.RawShapedRecipe.CODEC.flatXmap((recipe) -> {
+                String[] strings = ReinforcedShulkerBoxCraftingRecipe.removePadding(recipe.pattern());
+                int i = strings[0].length();
+                int j = strings.length;
+                DefaultedList<Ingredient> defaultedList = DefaultedList.ofSize(i * j, Ingredient.EMPTY);
+                Set<String> set = Sets.newHashSet(recipe.key().keySet());
+
+                for (int k = 0; k < strings.length; ++k) {
+                    String string = strings[k];
+
+                    for (int l = 0; l < string.length(); ++l) {
+                        String string2 = string.substring(l, l + 1);
+                        Ingredient ingredient = string2.equals(" ") ? Ingredient.EMPTY
+                                : (Ingredient) recipe.key().get(string2);
+                        if (ingredient == null) {
+                            return DataResult.error(() -> {
+                                return "Pattern references symbol '" + string2 + "' but it's not defined in the key";
+                            });
+                        }
+
+                        set.remove(string2);
+                        defaultedList.set(l + i * k, ingredient);
+                    }
+                }
+
+                if (!set.isEmpty()) {
+                    return DataResult.error(() -> {
+                        return "Key defines symbols that aren't used in pattern: " + set;
+                    });
+                } else {
+                    ReinforcedShulkerBoxCraftingRecipe craftingRecipe = new ReinforcedShulkerBoxCraftingRecipe(
+                            recipe.group(), recipe.category(), i, j, defaultedList,
+                            recipe.result(), recipe.showNotification());
+                    return DataResult.success(craftingRecipe);
+                }
+            }, (recipe) -> {
+                throw new NotImplementedException(
+                        "Serializing ReinforcedShulkerBoxCraftingRecipe is not implemented yet.");
+            });
         }
     }
 }
