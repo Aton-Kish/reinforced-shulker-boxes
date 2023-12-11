@@ -86,10 +86,6 @@ dependencies {
 	modImplementation "com.misterpemodder:shulkerboxtooltip-fabric:${project.shulker_box_tooltip_version}"
 }
 
-loom {
-	accessWidenerPath = file("src/main/resources/${project.mod_id}.accesswidener")
-}
-
 processResources {
 	inputs.property "version", project.version
 
