@@ -68,12 +68,10 @@ public class ReinforcedShulkerBoxCraftingRecipe extends ShapedRecipe {
                     .apply(instance, ReinforcedShulkerBoxCraftingRecipe::new);
         });
 
-        @Override
         public Codec<ReinforcedShulkerBoxCraftingRecipe> codec() {
             return CODEC;
         }
 
-        @Override
         public ReinforcedShulkerBoxCraftingRecipe read(PacketByteBuf packetByteBuf) {
             String string = packetByteBuf.readString();
             CraftingRecipeCategory craftingRecipeCategory = (CraftingRecipeCategory) packetByteBuf
@@ -85,7 +83,6 @@ public class ReinforcedShulkerBoxCraftingRecipe extends ShapedRecipe {
                     bl);
         }
 
-        @Override
         public void write(PacketByteBuf packetByteBuf, ReinforcedShulkerBoxCraftingRecipe recipe) {
             packetByteBuf.writeString(recipe.getGroup());
             packetByteBuf.writeEnumConstant(recipe.getCategory());
