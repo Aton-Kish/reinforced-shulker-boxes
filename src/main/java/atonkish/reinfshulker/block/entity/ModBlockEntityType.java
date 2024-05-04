@@ -3,8 +3,6 @@ package atonkish.reinfshulker.block.entity;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-import net.fabricmc.fabric.api.object.builder.v1.block.entity.FabricBlockEntityTypeBuilder;
-
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntityType;
@@ -24,7 +22,7 @@ public class ModBlockEntityType {
         if (!REINFORCED_SHULKER_BOX_MAP.containsKey(material)) {
             String id = material.getName() + "_shulker_box";
             Block[] blocks = ModBlocks.REINFORCED_SHULKER_BOX_MAP.get(material).values().toArray(new Block[0]);
-            FabricBlockEntityTypeBuilder<ReinforcedShulkerBoxBlockEntity> builder = FabricBlockEntityTypeBuilder
+            BlockEntityType.Builder<ReinforcedShulkerBoxBlockEntity> builder = BlockEntityType.Builder
                     .create(ModBlockEntityType.createBlockEntityTypeFactory(material), blocks);
             BlockEntityType<ReinforcedShulkerBoxBlockEntity> blockEntityType = ModBlockEntityType
                     .create(namespace, id, builder);
@@ -35,12 +33,12 @@ public class ModBlockEntityType {
     }
 
     private static BlockEntityType<ReinforcedShulkerBoxBlockEntity> create(String namespace, String id,
-            FabricBlockEntityTypeBuilder<ReinforcedShulkerBoxBlockEntity> builder) {
+            BlockEntityType.Builder<ReinforcedShulkerBoxBlockEntity> builder) {
         return Registry.register(Registries.BLOCK_ENTITY_TYPE, new Identifier(namespace, id),
                 builder.build(null));
     }
 
-    private static FabricBlockEntityTypeBuilder.Factory<ReinforcedShulkerBoxBlockEntity> createBlockEntityTypeFactory(
+    private static BlockEntityType.BlockEntityFactory<ReinforcedShulkerBoxBlockEntity> createBlockEntityTypeFactory(
             ReinforcingMaterial material) {
         return (BlockPos blockPos, BlockState blockState) -> new ReinforcedShulkerBoxBlockEntity(material, blockPos,
                 blockState);
