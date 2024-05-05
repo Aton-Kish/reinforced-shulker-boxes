@@ -31,11 +31,7 @@
     "modmenu": ["atonkish.reinfcore.integration.modmenu.ModMenu"]
   },
   "mixins": [
-    "reinfshulker.mixins.json",
-    {
-      "config": "reinfshulker.client.mixins.json",
-      "environment": "client"
-    }
+    "reinfshulker.mixins.json"
   ],
 
   "depends": {
