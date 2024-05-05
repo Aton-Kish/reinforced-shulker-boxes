@@ -9,7 +9,7 @@ import net.minecraft.item.Items;
 import net.minecraft.recipe.RecipeSerializer;
 import net.minecraft.recipe.SpecialCraftingRecipe;
 import net.minecraft.recipe.book.CraftingRecipeCategory;
-import net.minecraft.registry.DynamicRegistryManager;
+import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.world.World;
 
 import org.jetbrains.annotations.Nullable;
@@ -52,7 +52,7 @@ public class ReinforcedShulkerBoxColoringRecipe extends SpecialCraftingRecipe {
     }
 
     @Override
-    public ItemStack craft(RecipeInputInventory recipeInputInventory, DynamicRegistryManager dynamicRegistryManager) {
+    public ItemStack craft(RecipeInputInventory recipeInputInventory, RegistryWrapper.WrapperLookup wrapperLookup) {
         ItemStack itemStack = ItemStack.EMPTY;
         DyeItem dyeItem = (DyeItem) Items.WHITE_DYE;
 
@@ -80,12 +80,8 @@ public class ReinforcedShulkerBoxColoringRecipe extends SpecialCraftingRecipe {
             dyeItem = (DyeItem) item;
         }
 
-        ItemStack itemStack3 = ReinforcedShulkerBoxBlock.getItemStack(material, dyeItem.getColor());
-        if (itemStack.hasNbt()) {
-            itemStack3.setNbt(itemStack.getNbt().copy());
-        }
-
-        return itemStack3;
+        Block block = ReinforcedShulkerBoxBlock.get(material, dyeItem.getColor());
+        return itemStack.copyComponentsToNewStack(block, 1);
     }
 
     @Override

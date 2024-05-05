@@ -27,14 +27,14 @@ public class ReinforcedShulkerBoxBlockEntity extends ShulkerBoxBlockEntity {
             BlockState state) {
         super(color, pos, state);
         ((BlockEntityAccessor) this).setType(ModBlockEntityType.REINFORCED_SHULKER_BOX_MAP.get(material));
-        this.setInvStackList(DefaultedList.ofSize(material.getSize(), ItemStack.EMPTY));
+        this.setHeldStacks(DefaultedList.ofSize(material.getSize(), ItemStack.EMPTY));
         this.cachedMaterial = material;
     }
 
     public ReinforcedShulkerBoxBlockEntity(ReinforcingMaterial material, BlockPos pos, BlockState state) {
         super(pos, state);
         ((BlockEntityAccessor) this).setType(ModBlockEntityType.REINFORCED_SHULKER_BOX_MAP.get(material));
-        this.setInvStackList(DefaultedList.ofSize(material.getSize(), ItemStack.EMPTY));
+        this.setHeldStacks(DefaultedList.ofSize(material.getSize(), ItemStack.EMPTY));
         this.cachedMaterial = material;
     }
 

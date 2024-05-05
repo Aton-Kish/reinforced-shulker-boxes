@@ -1,7 +1,5 @@
 package atonkish.reinfshulker.util;
 
-import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
-
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
@@ -20,33 +18,33 @@ import atonkish.reinfcore.util.ReinforcingMaterial;
 
 public enum ReinforcingMaterialSettings {
     COPPER(ReinforcedCoreRegistry.registerReinforcingMaterial("copper", 45, Items.COPPER_INGOT),
-            FabricBlockSettings
+            AbstractBlock.Settings
                     .create()
                     .strength(2.0F, 6.0F)
                     .sounds(BlockSoundGroup.COPPER),
             new Item.Settings()),
     IRON(ReinforcedCoreRegistry.registerReinforcingMaterial("iron", 54, Items.IRON_INGOT),
-            FabricBlockSettings
+            AbstractBlock.Settings
                     .create()
                     .instrument(Instrument.IRON_XYLOPHONE)
                     .strength(2.0F, 6.0F)
                     .sounds(BlockSoundGroup.METAL),
             new Item.Settings()),
     GOLD(ReinforcedCoreRegistry.registerReinforcingMaterial("gold", 81, Items.GOLD_INGOT),
-            FabricBlockSettings
+            AbstractBlock.Settings
                     .create()
                     .instrument(Instrument.BELL)
                     .strength(2.0F, 6.0F)
                     .sounds(BlockSoundGroup.METAL),
             new Item.Settings()),
     DIAMOND(ReinforcedCoreRegistry.registerReinforcingMaterial("diamond", 108, Items.DIAMOND),
-            FabricBlockSettings
+            AbstractBlock.Settings
                     .create()
                     .strength(2.0F, 6.0F)
                     .sounds(BlockSoundGroup.METAL),
             new Item.Settings()),
     NETHERITE(ReinforcedCoreRegistry.registerReinforcingMaterial("netherite", 108, Items.NETHERITE_INGOT),
-            FabricBlockSettings
+            AbstractBlock.Settings
                     .create()
                     .strength(2.0F, 1200.0F)
                     .sounds(BlockSoundGroup.NETHERITE),

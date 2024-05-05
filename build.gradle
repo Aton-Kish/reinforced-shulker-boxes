@@ -34,20 +34,20 @@ repositories {
 		url "https://maven.shedaniel.me/"
 	}
 
-	// Quick Shulker
-	maven {
-		url "https://maven.kyrptonaught.dev"
-	}
+	// // Quick Shulker
+	// maven {
+	// 	url "https://maven.kyrptonaught.dev"
+	// }
 
-	// Shulker Box Tooltip
-	maven {
-		url "https://maven.misterpemodder.com/libs-release"
-	}
+	// // Shulker Box Tooltip
+	// maven {
+	// 	url "https://maven.misterpemodder.com/libs-release"
+	// }
 
-	// Fabric ASM (Shulker Box Tooltip deps)
-	maven {
-		url "https://jitpack.io"
-	}
+	// // Fabric ASM (Shulker Box Tooltip deps)
+	// maven {
+	// 	url "https://jitpack.io"
+	// }
 }
 
 loom {
@@ -77,13 +77,13 @@ dependencies {
 	// Reinforced Chests
 	modImplementation "atonkish.reinfchest:reinforced-chests:${project.reinforced_chests_version}"
 
-	// Quick Shulker
-	modImplementation "net.kyrptonaught:quickshulker:${project.quick_shulker_version}"
-	// Quick Shulker deps
-	modImplementation "net.kyrptonaught:shulkerutils:${project.shulkerutils_version}"
+	// // Quick Shulker
+	// modImplementation "net.kyrptonaught:quickshulker:${project.quick_shulker_version}"
+	// // Quick Shulker deps
+	// modImplementation "net.kyrptonaught:shulkerutils:${project.shulkerutils_version}"
 
-	// Shulker Box Tooltip
-	modImplementation "com.misterpemodder:shulkerboxtooltip-fabric:${project.shulker_box_tooltip_version}"
+	// // Shulker Box Tooltip
+	// modImplementation "com.misterpemodder:shulkerboxtooltip-fabric:${project.shulker_box_tooltip_version}"
 }
 
 processResources {
@@ -96,7 +96,7 @@ processResources {
 
 tasks.withType(JavaCompile).configureEach {
 	// Minecraft 1.18 (1.18-pre2) upwards uses Java 17.
-	it.options.release = 17
+	it.options.release = 21
 }
 
 java {
@@ -105,8 +105,8 @@ java {
 	// If you remove this line, sources will not be generated.
 	withSourcesJar()
 
-	sourceCompatibility = JavaVersion.VERSION_17
-	targetCompatibility = JavaVersion.VERSION_17
+	sourceCompatibility = JavaVersion.VERSION_21
+	targetCompatibility = JavaVersion.VERSION_21
 }
 
 jar {
@@ -150,16 +150,16 @@ curseforge {
 		changelog = "[v${project.version}](https://github.com/Aton-Kish/reinforced-shulker-boxes/releases/tag/v" + java.net.URLEncoder.encode(project.version, "UTF-8") + ")"
 
 		addGameVersion "Fabric"
-		addGameVersion "Java 17"
-		addGameVersion "1.20.3"
-		addGameVersion "1.20.4"
+		addGameVersion "Java 21"
+		addGameVersion "1.20.5"
+		addGameVersion "1.20.6"
 
 		relations {
 			requiredDependency "fabric-api"
 			embeddedLibrary "cloth-config"
 			optionalDependency "modmenu"
-			optionalDependency "shulkerboxtooltip"
-			optionalDependency "quick-shulker"
+			// optionalDependency "shulkerboxtooltip"
+			// optionalDependency "quick-shulker"
 			optionalDependency "reinforced-chests"
 		}
 	}
@@ -176,15 +176,15 @@ modrinth {
 	versionType = "release"
 	changelog = "[v${project.version}](https://github.com/Aton-Kish/reinforced-shulker-boxes/releases/tag/v" + java.net.URLEncoder.encode(project.version, "UTF-8") + ")"
 
-	gameVersions = ["1.20.3", "1.20.4"]
+	gameVersions = ["1.20.5", "1.20.6"]
 	loaders = ["fabric"]
 
 	dependencies {
 		required.project "fabric-api"
 		embedded.project "cloth-config"
 		optional.project "modmenu"
-		optional.project "shulkerboxtooltip"
-		optional.project "quickshulker"
+		// optional.project "shulkerboxtooltip"
+		// optional.project "quickshulker"
 		optional.project "reinforced-chests"
 	}
 }
