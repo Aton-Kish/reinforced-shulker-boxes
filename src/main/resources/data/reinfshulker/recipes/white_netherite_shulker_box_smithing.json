@@ -7,7 +7,8 @@
     "item": "reinfshulker:white_diamond_shulker_box"
   },
   "result": {
-    "item": "reinfshulker:white_netherite_shulker_box"
+    "count": 1,
+    "id": "reinfshulker:white_netherite_shulker_box"
   },
   "template": {
     "item": "minecraft:netherite_upgrade_smithing_template"
