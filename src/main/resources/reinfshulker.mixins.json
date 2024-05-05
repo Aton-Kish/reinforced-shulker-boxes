@@ -4,7 +4,6 @@
   "package": "atonkish.reinfshulker.mixin",
   "compatibilityLevel": "JAVA_21",
   "mixins": [
-    "AbstractCauldronBlockMixin",
     "BlockEntityAccessor",
     "ItemStackAccessor",
     "ShulkerBoxBlockMixin",
