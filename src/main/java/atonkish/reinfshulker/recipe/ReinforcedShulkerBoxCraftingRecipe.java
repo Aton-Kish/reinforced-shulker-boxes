@@ -1,18 +1,19 @@
 package atonkish.reinfshulker.recipe;
 
 import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 
 import net.minecraft.inventory.RecipeInputInventory;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NbtCompound;
-import net.minecraft.network.PacketByteBuf;
+import net.minecraft.network.RegistryByteBuf;
+import net.minecraft.network.codec.PacketCodec;
 import net.minecraft.recipe.RawShapedRecipe;
 import net.minecraft.recipe.RecipeSerializer;
 import net.minecraft.recipe.ShapedRecipe;
 import net.minecraft.recipe.book.CraftingRecipeCategory;
-import net.minecraft.registry.DynamicRegistryManager;
-import net.minecraft.util.dynamic.Codecs;
+import net.minecraft.registry.RegistryWrapper;
 
 public class ReinforcedShulkerBoxCraftingRecipe extends ShapedRecipe {
     final RawShapedRecipe raw;
@@ -38,57 +39,62 @@ public class ReinforcedShulkerBoxCraftingRecipe extends ShapedRecipe {
     }
 
     @Override
-    public ItemStack craft(RecipeInputInventory recipeInputInventory, DynamicRegistryManager dynamicRegistryManager) {
-        ItemStack itemStack = this.getResult(dynamicRegistryManager).copy();
-        NbtCompound nbtCompound = recipeInputInventory.getStack(4).getNbt();
-
-        if (nbtCompound != null) {
-            itemStack.setNbt(nbtCompound.copy());
-        }
-
-        return itemStack;
+    public ItemStack craft(RecipeInputInventory recipeInputInventory, RegistryWrapper.WrapperLookup wrapperLookup) {
+        Item item = this.getResult(wrapperLookup).copy().getItem();
+        ItemStack itemStack = recipeInputInventory.getStack(4);
+        return itemStack.copyComponentsToNewStack(item, 1);
     }
 
     public static class Serializer implements RecipeSerializer<ReinforcedShulkerBoxCraftingRecipe> {
-        public static final Codec<ReinforcedShulkerBoxCraftingRecipe> CODEC = RecordCodecBuilder.create((instance) -> {
-            return instance
-                    .group(Codecs.createStrictOptionalFieldCodec(Codec.STRING, "group", "").forGetter((recipe) -> {
-                        return recipe.getGroup();
-                    }), CraftingRecipeCategory.CODEC.fieldOf("category").orElse(CraftingRecipeCategory.MISC)
-                            .forGetter((recipe) -> {
-                                return recipe.getCategory();
-                            }), RawShapedRecipe.CODEC.forGetter((recipe) -> {
-                                return recipe.getRaw();
-                            }), ItemStack.RECIPE_RESULT_CODEC.fieldOf("result").forGetter((recipe) -> {
-                                return recipe.getResult(null);
-                            }), Codecs.createStrictOptionalFieldCodec(Codec.BOOL, "show_notification", true)
+        public static final MapCodec<ReinforcedShulkerBoxCraftingRecipe> CODEC = RecordCodecBuilder
+                .mapCodec((instance) -> {
+                    return instance
+                            .group(Codec.STRING.optionalFieldOf("group", "").forGetter((recipe) -> {
+                                return recipe.getGroup();
+                            }), CraftingRecipeCategory.CODEC.fieldOf("category").orElse(CraftingRecipeCategory.MISC)
                                     .forGetter((recipe) -> {
-                                        return recipe.showNotification();
-                                    }))
-                    .apply(instance, ReinforcedShulkerBoxCraftingRecipe::new);
-        });
+                                        return recipe.getCategory();
+                                    }), RawShapedRecipe.CODEC.forGetter((recipe) -> {
+                                        return recipe.getRaw();
+                                    }), ItemStack.VALIDATED_CODEC.fieldOf("result").forGetter((recipe) -> {
+                                        return recipe.getResult(null);
+                                    }), Codec.BOOL.optionalFieldOf("show_notification", true)
+                                            .forGetter((recipe) -> {
+                                                return recipe.showNotification();
+                                            }))
+                            .apply(instance, ReinforcedShulkerBoxCraftingRecipe::new);
+                });
+        public static final PacketCodec<RegistryByteBuf, ReinforcedShulkerBoxCraftingRecipe> PACKET_CODEC = PacketCodec
+                .ofStatic(Serializer::write, Serializer::read);
 
-        public Codec<ReinforcedShulkerBoxCraftingRecipe> codec() {
+        public Serializer() {
+        }
+
+        public MapCodec<ReinforcedShulkerBoxCraftingRecipe> codec() {
             return CODEC;
         }
 
-        public ReinforcedShulkerBoxCraftingRecipe read(PacketByteBuf packetByteBuf) {
-            String string = packetByteBuf.readString();
-            CraftingRecipeCategory craftingRecipeCategory = (CraftingRecipeCategory) packetByteBuf
+        public PacketCodec<RegistryByteBuf, ReinforcedShulkerBoxCraftingRecipe> packetCodec() {
+            return PACKET_CODEC;
+        }
+
+        public static ReinforcedShulkerBoxCraftingRecipe read(RegistryByteBuf buf) {
+            String string = buf.readString();
+            CraftingRecipeCategory craftingRecipeCategory = (CraftingRecipeCategory) buf
                     .readEnumConstant(CraftingRecipeCategory.class);
-            RawShapedRecipe rawShapedRecipe = RawShapedRecipe.readFromBuf(packetByteBuf);
-            ItemStack itemStack = packetByteBuf.readItemStack();
-            boolean bl = packetByteBuf.readBoolean();
+            RawShapedRecipe rawShapedRecipe = RawShapedRecipe.PACKET_CODEC.decode(buf);
+            ItemStack itemStack = ItemStack.PACKET_CODEC.decode(buf);
+            boolean bl = buf.readBoolean();
             return new ReinforcedShulkerBoxCraftingRecipe(string, craftingRecipeCategory, rawShapedRecipe, itemStack,
                     bl);
         }
 
-        public void write(PacketByteBuf packetByteBuf, ReinforcedShulkerBoxCraftingRecipe recipe) {
-            packetByteBuf.writeString(recipe.getGroup());
-            packetByteBuf.writeEnumConstant(recipe.getCategory());
-            recipe.getRaw().writeToBuf(packetByteBuf);
-            packetByteBuf.writeItemStack(recipe.getResult(null));
-            packetByteBuf.writeBoolean(recipe.showNotification());
+        public static void write(RegistryByteBuf buf, ReinforcedShulkerBoxCraftingRecipe recipe) {
+            buf.writeString(recipe.getGroup());
+            buf.writeEnumConstant(recipe.getCategory());
+            RawShapedRecipe.PACKET_CODEC.encode(buf, recipe.getRaw());
+            ItemStack.PACKET_CODEC.encode(buf, recipe.getResult(null));
+            buf.writeBoolean(recipe.showNotification());
         }
     }
 }
