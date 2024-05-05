@@ -14,7 +14,6 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.DyeColor;
-import net.minecraft.util.Hand;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Box;
@@ -51,7 +50,7 @@ public class ReinforcedShulkerBoxBlock extends ShulkerBoxBlock {
     }
 
     @Override
-    public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand,
+    public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player,
             BlockHitResult hit) {
         if (world.isClient) {
             return ActionResult.SUCCESS;
@@ -78,7 +77,7 @@ public class ReinforcedShulkerBoxBlock extends ShulkerBoxBlock {
         if (entity.getAnimationStage() != ShulkerBoxBlockEntity.AnimationStage.CLOSED) {
             return true;
         } else {
-            Box box = ShulkerEntity.calculateBoundingBox((Direction) state.get(FACING), 0.0F, 0.5F).offset(pos)
+            Box box = ShulkerEntity.calculateBoundingBox(1.0F, (Direction) state.get(FACING), 0.0F, 0.5F).offset(pos)
                     .contract(1.0E-6D);
             return world.isSpaceEmpty(box);
         }
