@@ -39,15 +39,10 @@ repositories {
 	// 	url "https://maven.kyrptonaught.dev"
 	// }
 
-	// // Shulker Box Tooltip
-	// maven {
-	// 	url "https://maven.misterpemodder.com/libs-release"
-	// }
-
-	// // Fabric ASM (Shulker Box Tooltip deps)
-	// maven {
-	// 	url "https://jitpack.io"
-	// }
+	// Shulker Box Tooltip
+	maven {
+		url "https://maven.misterpemodder.com/libs-release"
+	}
 }
 
 loom {
@@ -102,8 +97,8 @@ dependencies {
 	// // Quick Shulker deps
 	// modImplementation "net.kyrptonaught:shulkerutils:${project.shulkerutils_version}"
 
-	// // Shulker Box Tooltip
-	// modImplementation "com.misterpemodder:shulkerboxtooltip-fabric:${project.shulker_box_tooltip_version}"
+	// Shulker Box Tooltip
+	modImplementation "com.misterpemodder:shulkerboxtooltip-fabric:${project.shulker_box_tooltip_version}"
 }
 
 processResources {
@@ -178,7 +173,7 @@ curseforge {
 			requiredDependency "fabric-api"
 			embeddedLibrary "cloth-config"
 			optionalDependency "modmenu"
-			// optionalDependency "shulkerboxtooltip"
+			optionalDependency "shulkerboxtooltip"
 			// optionalDependency "quick-shulker"
 			optionalDependency "reinforced-chests"
 		}
@@ -203,7 +198,7 @@ modrinth {
 		required.project "fabric-api"
 		embedded.project "cloth-config"
 		optional.project "modmenu"
-		// optional.project "shulkerboxtooltip"
+		optional.project "shulkerboxtooltip"
 		// optional.project "quickshulker"
 		optional.project "reinforced-chests"
 	}
