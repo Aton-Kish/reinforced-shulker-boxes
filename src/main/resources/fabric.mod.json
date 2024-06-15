@@ -19,9 +19,9 @@
   "entrypoints": {
     "main": ["atonkish.reinfshulker.ReinforcedShulkerBoxesMod"],
     "reinfcore": ["atonkish.reinfshulker.ReinforcedShulkerBoxesMod"],
-    "reinfcoreclient": [
-      "atonkish.reinfshulker.ReinforcedShulkerBoxesClientMod"
-    ],
+    "reinfcore-client": ["atonkish.reinfshulker.ReinforcedShulkerBoxesClientMod"],
+    "reinfcore-gametest": ["atonkish.reinfshulker.gametest.ReinforcedShulkerBoxesModGameTest"],
+    "shulkerboxtooltip": ["atonkish.reinfshulker.integration.shulkerboxtooltip.ShulkerBoxTooltip"],
     "modmenu": ["atonkish.reinfcore.integration.modmenu.ModMenu"]
   },
   "mixins": [

@@ -39,15 +39,10 @@ repositories {
 	// 	url "https://maven.kyrptonaught.dev"
 	// }
 
-	// // Shulker Box Tooltip
-	// maven {
-	// 	url "https://maven.misterpemodder.com/libs-release"
-	// }
-
-	// // Fabric ASM (Shulker Box Tooltip deps)
-	// maven {
-	// 	url "https://jitpack.io"
-	// }
+	// Shulker Box Tooltip
+	maven {
+		url "https://maven.misterpemodder.com/libs-release"
+	}
 }
 
 loom {
@@ -57,6 +52,26 @@ loom {
 		"reinfshulker" {
 			sourceSet sourceSets.main
 			sourceSet sourceSets.client
+		}
+	}
+
+	runs {
+		serverTest {
+			server()
+			ideConfigGenerated true
+			name "Minecraft Server Test"
+			vmArg "-Dfabric-api.gametest"
+			vmArg "-Dfabric-api.gametest.report-file=${project.buildDir}/gametest/junit.xml"
+			vmArg "-Datonkish.reinfshulker.gametest"
+			runDir "build/gametest"
+		}
+
+		clientTest {
+			client()
+			ideConfigGenerated true
+			name "Minecraft Client Test"
+			vmArg "-Datonkish.reinfshulker.gametest"
+			runDir "build/gametest"
 		}
 	}
 }
@@ -82,8 +97,8 @@ dependencies {
 	// // Quick Shulker deps
 	// modImplementation "net.kyrptonaught:shulkerutils:${project.shulkerutils_version}"
 
-	// // Shulker Box Tooltip
-	// modImplementation "com.misterpemodder:shulkerboxtooltip-fabric:${project.shulker_box_tooltip_version}"
+	// Shulker Box Tooltip
+	modImplementation "com.misterpemodder:shulkerboxtooltip-fabric:${project.shulker_box_tooltip_version}"
 }
 
 processResources {
@@ -158,7 +173,7 @@ curseforge {
 			requiredDependency "fabric-api"
 			embeddedLibrary "cloth-config"
 			optionalDependency "modmenu"
-			// optionalDependency "shulkerboxtooltip"
+			optionalDependency "shulkerboxtooltip"
 			// optionalDependency "quick-shulker"
 			optionalDependency "reinforced-chests"
 		}
@@ -183,7 +198,7 @@ modrinth {
 		required.project "fabric-api"
 		embedded.project "cloth-config"
 		optional.project "modmenu"
-		// optional.project "shulkerboxtooltip"
+		optional.project "shulkerboxtooltip"
 		// optional.project "quickshulker"
 		optional.project "reinforced-chests"
 	}

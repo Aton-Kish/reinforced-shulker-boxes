@@ -36,9 +36,9 @@ public class ReinforcedShulkerBoxesClientMod implements ReinforcedCoreClientModI
 		// init Reinforced Shulker Boxes
 		initializeReinforcedShulkerBoxesClient();
 
-		// entrypoint: "reinfshulkerclient"
+		// entrypoint: "reinfshulker-client"
 		FabricLoader.getInstance()
-				.getEntrypoints(ReinforcedShulkerBoxesMod.MOD_ID + "client",
+				.getEntrypoints(String.format("%s-client", ReinforcedShulkerBoxesMod.MOD_ID),
 						ReinforcedShulkerBoxesClientModInitializer.class)
 				.forEach(ReinforcedShulkerBoxesClientModInitializer::onInitializeReinforcedShulkerBoxesClient);
 	}
