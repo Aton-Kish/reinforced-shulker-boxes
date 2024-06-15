@@ -59,6 +59,26 @@ loom {
 			sourceSet sourceSets.client
 		}
 	}
+
+	runs {
+		serverTest {
+			server()
+			ideConfigGenerated true
+			name "Minecraft Server Test"
+			vmArg "-Dfabric-api.gametest"
+			vmArg "-Dfabric-api.gametest.report-file=${project.buildDir}/gametest/junit.xml"
+			vmArg "-Datonkish.reinfshulker.gametest"
+			runDir "build/gametest"
+		}
+
+		clientTest {
+			client()
+			ideConfigGenerated true
+			name "Minecraft Client Test"
+			vmArg "-Datonkish.reinfshulker.gametest"
+			runDir "build/gametest"
+		}
+	}
 }
 
 dependencies {
