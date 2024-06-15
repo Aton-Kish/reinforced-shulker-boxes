@@ -81,6 +81,7 @@ public class PiglinTests {
                 PiglinTests.class.getSimpleName(),
                 name)
                 .replace(" ", "_");
+
         return new TestFunction(
                 PiglinTests.BATCH_ID,
                 testName,

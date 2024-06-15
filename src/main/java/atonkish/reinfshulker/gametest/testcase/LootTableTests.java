@@ -141,6 +141,7 @@ public class LootTableTests {
                 LootTableTests.class.getSimpleName(),
                 name)
                 .replace(" ", "_");
+
         return new TestFunction(
                 LootTableTests.BATCH_ID,
                 testName,

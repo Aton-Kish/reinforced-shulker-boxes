@@ -65,6 +65,7 @@ public class PistonBehaviorTests {
                 PistonBehaviorTests.class.getSimpleName(),
                 name)
                 .replace(" ", "_");
+
         return new TestFunction(
                 PistonBehaviorTests.BATCH_ID,
                 testName,

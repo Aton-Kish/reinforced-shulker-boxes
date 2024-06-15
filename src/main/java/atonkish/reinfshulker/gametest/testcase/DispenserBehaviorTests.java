@@ -69,6 +69,7 @@ public class DispenserBehaviorTests {
                 DispenserBehaviorTests.class.getSimpleName(),
                 name)
                 .replace(" ", "_");
+
         return new TestFunction(
                 DispenserBehaviorTests.BATCH_ID,
                 testName,

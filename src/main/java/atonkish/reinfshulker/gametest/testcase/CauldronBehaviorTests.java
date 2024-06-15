@@ -95,6 +95,7 @@ public class CauldronBehaviorTests {
                 CauldronBehaviorTests.class.getSimpleName(),
                 name)
                 .replace(" ", "_");
+
         return new TestFunction(
                 CauldronBehaviorTests.BATCH_ID,
                 testName,

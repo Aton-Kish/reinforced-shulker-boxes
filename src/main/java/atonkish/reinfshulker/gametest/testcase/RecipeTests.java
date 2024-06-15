@@ -416,6 +416,7 @@ public class RecipeTests {
                 RecipeTests.class.getSimpleName(),
                 name)
                 .replace(" ", "_");
+
         return new TestFunction(
                 RecipeTests.BATCH_ID,
                 testName,
