@@ -4,7 +4,6 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 
-import net.minecraft.inventory.RecipeInputInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.RegistryByteBuf;
@@ -13,6 +12,7 @@ import net.minecraft.recipe.RawShapedRecipe;
 import net.minecraft.recipe.RecipeSerializer;
 import net.minecraft.recipe.ShapedRecipe;
 import net.minecraft.recipe.book.CraftingRecipeCategory;
+import net.minecraft.recipe.input.CraftingRecipeInput;
 import net.minecraft.registry.RegistryWrapper;
 
 public class ReinforcedShulkerBoxCraftingRecipe extends ShapedRecipe {
@@ -39,9 +39,9 @@ public class ReinforcedShulkerBoxCraftingRecipe extends ShapedRecipe {
     }
 
     @Override
-    public ItemStack craft(RecipeInputInventory recipeInputInventory, RegistryWrapper.WrapperLookup wrapperLookup) {
+    public ItemStack craft(CraftingRecipeInput craftingRecipeInput, RegistryWrapper.WrapperLookup wrapperLookup) {
         Item item = this.getResult(wrapperLookup).copy().getItem();
-        ItemStack itemStack = recipeInputInventory.getStack(4);
+        ItemStack itemStack = craftingRecipeInput.getStackInSlot(4);
         return itemStack.copyComponentsToNewStack(item, 1);
     }
 
