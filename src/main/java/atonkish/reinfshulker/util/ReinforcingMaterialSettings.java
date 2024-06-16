@@ -6,7 +6,7 @@ import net.minecraft.block.Blocks;
 import net.minecraft.block.MapColor;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.ShulkerBoxBlockEntity;
-import net.minecraft.block.enums.Instrument;
+import net.minecraft.block.enums.NoteBlockInstrument;
 import net.minecraft.block.piston.PistonBehavior;
 import net.minecraft.item.Item;
 import net.minecraft.item.Items;
@@ -26,14 +26,14 @@ public enum ReinforcingMaterialSettings {
     IRON(ReinforcedCoreRegistry.registerReinforcingMaterial("iron", 54, Items.IRON_INGOT),
             AbstractBlock.Settings
                     .create()
-                    .instrument(Instrument.IRON_XYLOPHONE)
+                    .instrument(NoteBlockInstrument.IRON_XYLOPHONE)
                     .strength(2.0F, 6.0F)
                     .sounds(BlockSoundGroup.METAL),
             new Item.Settings()),
     GOLD(ReinforcedCoreRegistry.registerReinforcingMaterial("gold", 81, Items.GOLD_INGOT),
             AbstractBlock.Settings
                     .create()
-                    .instrument(Instrument.BELL)
+                    .instrument(NoteBlockInstrument.BELL)
                     .strength(2.0F, 6.0F)
                     .sounds(BlockSoundGroup.METAL),
             new Item.Settings()),

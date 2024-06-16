@@ -62,16 +62,16 @@ public class AdvancementTests {
                         String.format("Obtain Copper Shulker Box recipe advancement by having %s",
                                 item.getName().getString()),
                         item,
-                        new Identifier(ReinforcedShulkerBoxesMod.MOD_ID, "recipes/decorations/copper_shulker_box")));
+                        Identifier.of(ReinforcedShulkerBoxesMod.MOD_ID, "recipes/decorations/copper_shulker_box")));
             }
             add(AdvancementTests.createTest(
                     "Obtain Copper Shulker Box recipe advancement by having Copper Ingot",
                     Items.COPPER_INGOT,
-                    new Identifier(ReinforcedShulkerBoxesMod.MOD_ID, "recipes/decorations/copper_shulker_box")));
+                    Identifier.of(ReinforcedShulkerBoxesMod.MOD_ID, "recipes/decorations/copper_shulker_box")));
             add(AdvancementTests.createTest(
                     "Obtain Copper Shulker Box recipe advancement by having Copper Chest",
                     atonkish.reinfchest.item.ModItems.REINFORCED_CHEST_MAP.get(ReinforcingMaterials.MAP.get("copper")),
-                    new Identifier(ReinforcedShulkerBoxesMod.MOD_ID,
+                    Identifier.of(ReinforcedShulkerBoxesMod.MOD_ID,
                             "recipes/decorations/copper_shulker_box_from_copper_chest")));
 
             // Iron Shulker Box
@@ -81,16 +81,16 @@ public class AdvancementTests {
                         String.format("Obtain Iron Shulker Box recipe advancement by having %s",
                                 item.getName().getString()),
                         item,
-                        new Identifier(ReinforcedShulkerBoxesMod.MOD_ID, "recipes/decorations/iron_shulker_box")));
+                        Identifier.of(ReinforcedShulkerBoxesMod.MOD_ID, "recipes/decorations/iron_shulker_box")));
             }
             add(AdvancementTests.createTest(
                     "Obtain Iron Shulker Box recipe advancement by having Iron Ingot",
                     Items.IRON_INGOT,
-                    new Identifier(ReinforcedShulkerBoxesMod.MOD_ID, "recipes/decorations/iron_shulker_box")));
+                    Identifier.of(ReinforcedShulkerBoxesMod.MOD_ID, "recipes/decorations/iron_shulker_box")));
             add(AdvancementTests.createTest(
                     "Obtain Iron Shulker Box recipe advancement by having Iron Chest",
                     atonkish.reinfchest.item.ModItems.REINFORCED_CHEST_MAP.get(ReinforcingMaterials.MAP.get("iron")),
-                    new Identifier(ReinforcedShulkerBoxesMod.MOD_ID,
+                    Identifier.of(ReinforcedShulkerBoxesMod.MOD_ID,
                             "recipes/decorations/iron_shulker_box_from_iron_chest")));
 
             // Gold Shulker Box
@@ -100,16 +100,16 @@ public class AdvancementTests {
                         String.format("Obtain Gold Shulker Box recipe advancement by having %s",
                                 item.getName().getString()),
                         item,
-                        new Identifier(ReinforcedShulkerBoxesMod.MOD_ID, "recipes/decorations/gold_shulker_box")));
+                        Identifier.of(ReinforcedShulkerBoxesMod.MOD_ID, "recipes/decorations/gold_shulker_box")));
             }
             add(AdvancementTests.createTest(
                     "Obtain Gold Shulker Box recipe advancement by having Gold Ingot",
                     Items.GOLD_INGOT,
-                    new Identifier(ReinforcedShulkerBoxesMod.MOD_ID, "recipes/decorations/gold_shulker_box")));
+                    Identifier.of(ReinforcedShulkerBoxesMod.MOD_ID, "recipes/decorations/gold_shulker_box")));
             add(AdvancementTests.createTest(
                     "Obtain Gold Shulker Box recipe advancement by having Gold Chest",
                     atonkish.reinfchest.item.ModItems.REINFORCED_CHEST_MAP.get(ReinforcingMaterials.MAP.get("gold")),
-                    new Identifier(ReinforcedShulkerBoxesMod.MOD_ID,
+                    Identifier.of(ReinforcedShulkerBoxesMod.MOD_ID,
                             "recipes/decorations/gold_shulker_box_from_gold_chest")));
 
             // Diamond Shulker Box
@@ -119,16 +119,16 @@ public class AdvancementTests {
                         String.format("Obtain Diamond Shulker Box recipe advancement by having %s",
                                 item.getName().getString()),
                         item,
-                        new Identifier(ReinforcedShulkerBoxesMod.MOD_ID, "recipes/decorations/diamond_shulker_box")));
+                        Identifier.of(ReinforcedShulkerBoxesMod.MOD_ID, "recipes/decorations/diamond_shulker_box")));
             }
             add(AdvancementTests.createTest(
                     "Obtain Diamond Shulker Box recipe advancement by having Diamond Ingot",
                     Items.DIAMOND,
-                    new Identifier(ReinforcedShulkerBoxesMod.MOD_ID, "recipes/decorations/diamond_shulker_box")));
+                    Identifier.of(ReinforcedShulkerBoxesMod.MOD_ID, "recipes/decorations/diamond_shulker_box")));
             add(AdvancementTests.createTest(
                     "Obtain Diamond Shulker Box recipe advancement by having Diamond Chest",
                     atonkish.reinfchest.item.ModItems.REINFORCED_CHEST_MAP.get(ReinforcingMaterials.MAP.get("diamond")),
-                    new Identifier(ReinforcedShulkerBoxesMod.MOD_ID,
+                    Identifier.of(ReinforcedShulkerBoxesMod.MOD_ID,
                             "recipes/decorations/diamond_shulker_box_from_diamond_chest")));
 
             // Netherite Shulker Box
@@ -138,19 +138,19 @@ public class AdvancementTests {
                         String.format("Obtain Netherite Shulker Box recipe advancement by having %s",
                                 item.getName().getString()),
                         item,
-                        new Identifier(ReinforcedShulkerBoxesMod.MOD_ID,
+                        Identifier.of(ReinforcedShulkerBoxesMod.MOD_ID,
                                 "recipes/decorations/netherite_shulker_box_smithing")));
             }
             add(AdvancementTests.createTest(
                     "Obtain Netherite Shulker Box recipe advancement by having Netherite Ingot",
                     Items.NETHERITE_INGOT,
-                    new Identifier(ReinforcedShulkerBoxesMod.MOD_ID,
+                    Identifier.of(ReinforcedShulkerBoxesMod.MOD_ID,
                             "recipes/decorations/netherite_shulker_box_smithing")));
             add(AdvancementTests.createTest(
                     "Obtain Netherite Shulker Box recipe advancement by having Netherite Chest",
                     atonkish.reinfchest.item.ModItems.REINFORCED_CHEST_MAP
                             .get(ReinforcingMaterials.MAP.get("netherite")),
-                    new Identifier(ReinforcedShulkerBoxesMod.MOD_ID,
+                    Identifier.of(ReinforcedShulkerBoxesMod.MOD_ID,
                             "recipes/decorations/netherite_shulker_box_from_netherite_chest")));
         }
     };

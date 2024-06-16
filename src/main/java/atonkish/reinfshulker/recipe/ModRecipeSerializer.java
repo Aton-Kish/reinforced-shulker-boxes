@@ -17,7 +17,7 @@ public class ModRecipeSerializer {
     }
 
     private static <S extends RecipeSerializer<T>, T extends Recipe<?>> S register(String id, S serializer) {
-        Identifier identifier = new Identifier(ReinforcedShulkerBoxesMod.MOD_ID, id);
+        Identifier identifier = Identifier.of(ReinforcedShulkerBoxesMod.MOD_ID, id);
         return Registry.register(Registries.RECIPE_SERIALIZER, identifier, serializer);
     }
 

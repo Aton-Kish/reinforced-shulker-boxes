@@ -34,7 +34,7 @@ public class ModBlockEntityType {
 
     private static BlockEntityType<ReinforcedShulkerBoxBlockEntity> create(String namespace, String id,
             BlockEntityType.Builder<ReinforcedShulkerBoxBlockEntity> builder) {
-        return Registry.register(Registries.BLOCK_ENTITY_TYPE, new Identifier(namespace, id),
+        return Registry.register(Registries.BLOCK_ENTITY_TYPE, Identifier.of(namespace, id),
                 builder.build(null));
     }
 

@@ -10,10 +10,6 @@ import net.fabricmc.fabric.api.gametest.v1.FabricGameTest;
 
 import net.minecraft.component.DataComponentTypes;
 import net.minecraft.component.type.ContainerComponent;
-import net.minecraft.inventory.CraftingInventory;
-import net.minecraft.inventory.Inventory;
-import net.minecraft.inventory.RecipeInputInventory;
-import net.minecraft.inventory.SimpleInventory;
 import net.minecraft.item.DyeItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -21,6 +17,9 @@ import net.minecraft.item.Items;
 import net.minecraft.recipe.Recipe;
 import net.minecraft.recipe.RecipeManager;
 import net.minecraft.recipe.RecipeType;
+import net.minecraft.recipe.input.CraftingRecipeInput;
+import net.minecraft.recipe.input.RecipeInput;
+import net.minecraft.recipe.input.SmithingRecipeInput;
 import net.minecraft.registry.DynamicRegistryManager;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.test.StructureTestUtil;
@@ -29,7 +28,6 @@ import net.minecraft.util.DyeColor;
 
 import atonkish.reinfcore.util.ReinforcingMaterials;
 import atonkish.reinfshulker.ReinforcedShulkerBoxesMod;
-import atonkish.reinfshulker.gametest.util.VoidScreenHander;
 import atonkish.reinfshulker.item.ModItems;
 
 public class RecipeTests {
@@ -74,10 +72,10 @@ public class RecipeTests {
                 add(RecipeTests.createTest(
                         String.format("Craft %s", baseShulkerBox.getItem().getName().getString()),
                         RecipeType.CRAFTING,
-                        RecipeTests.create3x3CraftingInventory(
+                        CraftingRecipeInput.create(3, 3, List.of(
                                 material, material, material,
                                 material, baseShulkerBox, material,
-                                material, material, material),
+                                material, material, material)),
                         shulkerBox));
             }
 
@@ -100,10 +98,9 @@ public class RecipeTests {
                                     baseShulkerBox.getItem().getName().getString(),
                                     dyedShulkerBox.getItem().getName().getString()),
                             RecipeType.CRAFTING,
-                            RecipeTests.create3x3CraftingInventory(
-                                    baseShulkerBox, dye, ItemStack.EMPTY,
-                                    ItemStack.EMPTY, ItemStack.EMPTY, ItemStack.EMPTY,
-                                    ItemStack.EMPTY, ItemStack.EMPTY, ItemStack.EMPTY),
+                            CraftingRecipeInput.create(2, 2, List.of(
+                                    baseShulkerBox, dye,
+                                    ItemStack.EMPTY, ItemStack.EMPTY)),
                             dyedShulkerBox));
                 }
             }
@@ -122,10 +119,10 @@ public class RecipeTests {
                                 shulkerBox.getItem().getName().getString(),
                                 chest.getItem().getName().getString()),
                         RecipeType.CRAFTING,
-                        RecipeTests.create3x3CraftingInventory(
+                        CraftingRecipeInput.create(3, 3, List.of(
                                 shell, ItemStack.EMPTY, ItemStack.EMPTY,
                                 chest, ItemStack.EMPTY, ItemStack.EMPTY,
-                                shell, ItemStack.EMPTY, ItemStack.EMPTY),
+                                shell, ItemStack.EMPTY, ItemStack.EMPTY)),
                         shulkerBox));
             }
 
@@ -144,10 +141,10 @@ public class RecipeTests {
                 add(RecipeTests.createTest(
                         String.format("Craft %s", baseShulkerBox.getItem().getName().getString()),
                         RecipeType.CRAFTING,
-                        RecipeTests.create3x3CraftingInventory(
+                        CraftingRecipeInput.create(3, 3, List.of(
                                 material, material, material,
                                 material, baseShulkerBox, material,
-                                material, material, material),
+                                material, material, material)),
                         shulkerBox));
             }
 
@@ -170,10 +167,9 @@ public class RecipeTests {
                                     baseShulkerBox.getItem().getName().getString(),
                                     dyedShulkerBox.getItem().getName().getString()),
                             RecipeType.CRAFTING,
-                            RecipeTests.create3x3CraftingInventory(
-                                    baseShulkerBox, dye, ItemStack.EMPTY,
-                                    ItemStack.EMPTY, ItemStack.EMPTY, ItemStack.EMPTY,
-                                    ItemStack.EMPTY, ItemStack.EMPTY, ItemStack.EMPTY),
+                            CraftingRecipeInput.create(2, 2, List.of(
+                                    baseShulkerBox, dye,
+                                    ItemStack.EMPTY, ItemStack.EMPTY)),
                             dyedShulkerBox));
                 }
             }
@@ -192,10 +188,10 @@ public class RecipeTests {
                                 shulkerBox.getItem().getName().getString(),
                                 chest.getItem().getName().getString()),
                         RecipeType.CRAFTING,
-                        RecipeTests.create3x3CraftingInventory(
+                        CraftingRecipeInput.create(3, 3, List.of(
                                 shell, ItemStack.EMPTY, ItemStack.EMPTY,
                                 chest, ItemStack.EMPTY, ItemStack.EMPTY,
-                                shell, ItemStack.EMPTY, ItemStack.EMPTY),
+                                shell, ItemStack.EMPTY, ItemStack.EMPTY)),
                         shulkerBox));
             }
 
@@ -214,10 +210,10 @@ public class RecipeTests {
                 add(RecipeTests.createTest(
                         String.format("Craft %s", baseShulkerBox.getItem().getName().getString()),
                         RecipeType.CRAFTING,
-                        RecipeTests.create3x3CraftingInventory(
+                        CraftingRecipeInput.create(3, 3, List.of(
                                 material, material, material,
                                 material, baseShulkerBox, material,
-                                material, material, material),
+                                material, material, material)),
                         shulkerBox));
             }
 
@@ -240,10 +236,9 @@ public class RecipeTests {
                                     baseShulkerBox.getItem().getName().getString(),
                                     dyedShulkerBox.getItem().getName().getString()),
                             RecipeType.CRAFTING,
-                            RecipeTests.create3x3CraftingInventory(
-                                    baseShulkerBox, dye, ItemStack.EMPTY,
-                                    ItemStack.EMPTY, ItemStack.EMPTY, ItemStack.EMPTY,
-                                    ItemStack.EMPTY, ItemStack.EMPTY, ItemStack.EMPTY),
+                            CraftingRecipeInput.create(2, 2, List.of(
+                                    baseShulkerBox, dye,
+                                    ItemStack.EMPTY, ItemStack.EMPTY)),
                             dyedShulkerBox));
                 }
             }
@@ -262,10 +257,10 @@ public class RecipeTests {
                                 shulkerBox.getItem().getName().getString(),
                                 chest.getItem().getName().getString()),
                         RecipeType.CRAFTING,
-                        RecipeTests.create3x3CraftingInventory(
+                        CraftingRecipeInput.create(3, 3, List.of(
                                 shell, ItemStack.EMPTY, ItemStack.EMPTY,
                                 chest, ItemStack.EMPTY, ItemStack.EMPTY,
-                                shell, ItemStack.EMPTY, ItemStack.EMPTY),
+                                shell, ItemStack.EMPTY, ItemStack.EMPTY)),
                         shulkerBox));
             }
 
@@ -284,10 +279,10 @@ public class RecipeTests {
                 add(RecipeTests.createTest(
                         String.format("Craft %s", baseShulkerBox.getItem().getName().getString()),
                         RecipeType.CRAFTING,
-                        RecipeTests.create3x3CraftingInventory(
+                        CraftingRecipeInput.create(3, 3, List.of(
                                 material, material, material,
                                 material, baseShulkerBox, material,
-                                material, material, material),
+                                material, material, material)),
                         shulkerBox));
             }
 
@@ -310,10 +305,9 @@ public class RecipeTests {
                                     baseShulkerBox.getItem().getName().getString(),
                                     dyedShulkerBox.getItem().getName().getString()),
                             RecipeType.CRAFTING,
-                            RecipeTests.create3x3CraftingInventory(
-                                    baseShulkerBox, dye, ItemStack.EMPTY,
-                                    ItemStack.EMPTY, ItemStack.EMPTY, ItemStack.EMPTY,
-                                    ItemStack.EMPTY, ItemStack.EMPTY, ItemStack.EMPTY),
+                            CraftingRecipeInput.create(2, 2, List.of(
+                                    baseShulkerBox, dye,
+                                    ItemStack.EMPTY, ItemStack.EMPTY)),
                             dyedShulkerBox));
                 }
             }
@@ -332,10 +326,10 @@ public class RecipeTests {
                                 shulkerBox.getItem().getName().getString(),
                                 chest.getItem().getName().getString()),
                         RecipeType.CRAFTING,
-                        RecipeTests.create3x3CraftingInventory(
+                        CraftingRecipeInput.create(3, 3, List.of(
                                 shell, ItemStack.EMPTY, ItemStack.EMPTY,
                                 chest, ItemStack.EMPTY, ItemStack.EMPTY,
-                                shell, ItemStack.EMPTY, ItemStack.EMPTY),
+                                shell, ItemStack.EMPTY, ItemStack.EMPTY)),
                         shulkerBox));
             }
 
@@ -355,7 +349,7 @@ public class RecipeTests {
                 add(RecipeTests.createTest(
                         String.format("Smithing %s", baseShulkerBox.getItem().getName().getString()),
                         RecipeType.SMITHING,
-                        new SimpleInventory(template, baseShulkerBox, material),
+                        new SmithingRecipeInput(template, baseShulkerBox, material),
                         shulkerBox));
             }
 
@@ -378,10 +372,9 @@ public class RecipeTests {
                                     baseShulkerBox.getItem().getName().getString(),
                                     dyedShulkerBox.getItem().getName().getString()),
                             RecipeType.CRAFTING,
-                            RecipeTests.create3x3CraftingInventory(
-                                    baseShulkerBox, dye, ItemStack.EMPTY,
-                                    ItemStack.EMPTY, ItemStack.EMPTY, ItemStack.EMPTY,
-                                    ItemStack.EMPTY, ItemStack.EMPTY, ItemStack.EMPTY),
+                            CraftingRecipeInput.create(2, 2, List.of(
+                                    baseShulkerBox, dye,
+                                    ItemStack.EMPTY, ItemStack.EMPTY)),
                             dyedShulkerBox));
                 }
             }
@@ -400,17 +393,17 @@ public class RecipeTests {
                                 shulkerBox.getItem().getName().getString(),
                                 chest.getItem().getName().getString()),
                         RecipeType.CRAFTING,
-                        RecipeTests.create3x3CraftingInventory(
+                        CraftingRecipeInput.create(3, 3, List.of(
                                 shell, ItemStack.EMPTY, ItemStack.EMPTY,
                                 chest, ItemStack.EMPTY, ItemStack.EMPTY,
-                                shell, ItemStack.EMPTY, ItemStack.EMPTY),
+                                shell, ItemStack.EMPTY, ItemStack.EMPTY)),
                         shulkerBox));
             }
         }
     };
 
-    private static <C extends Inventory, T extends Recipe<C>> TestFunction createTest(
-            String name, RecipeType<T> type, C inventory, ItemStack expected) {
+    private static <I extends RecipeInput, T extends Recipe<I>> TestFunction createTest(String name,
+            RecipeType<T> type, I input, ItemStack expected) {
         String testName = String.format("%s %s %s",
                 ReinforcedShulkerBoxesMod.MOD_ID,
                 RecipeTests.class.getSimpleName(),
@@ -434,10 +427,10 @@ public class RecipeTests {
                     ServerWorld world = context.getWorld();
                     RecipeManager recipeManager = world.getRecipeManager();
                     DynamicRegistryManager registryManager = world.getRegistryManager();
-                    T recipe = recipeManager.getFirstMatch(type, inventory, world).orElseThrow().value();
+                    T recipe = recipeManager.getFirstMatch(type, input, world).orElseThrow().value();
 
                     // Act
-                    ItemStack actual = recipe.craft(inventory, registryManager);
+                    ItemStack actual = recipe.craft(input, registryManager);
 
                     // Assert
                     try {
@@ -450,22 +443,5 @@ public class RecipeTests {
 
                     context.complete();
                 });
-    }
-
-    private static RecipeInputInventory create3x3CraftingInventory(
-            ItemStack stack1, ItemStack stack2, ItemStack stack3,
-            ItemStack stack4, ItemStack stack5, ItemStack stack6,
-            ItemStack stack7, ItemStack stack8, ItemStack stack9) {
-        RecipeInputInventory inventory = new CraftingInventory(new VoidScreenHander(), 3, 3);
-        inventory.setStack(0, stack1);
-        inventory.setStack(1, stack2);
-        inventory.setStack(2, stack3);
-        inventory.setStack(3, stack4);
-        inventory.setStack(4, stack5);
-        inventory.setStack(5, stack6);
-        inventory.setStack(6, stack7);
-        inventory.setStack(7, stack8);
-        inventory.setStack(8, stack9);
-        return inventory;
     }
 }

@@ -39,10 +39,10 @@ repositories {
 	// 	url "https://maven.kyrptonaught.dev"
 	// }
 
-	// Shulker Box Tooltip
-	maven {
-		url "https://maven.misterpemodder.com/libs-release"
-	}
+	// // Shulker Box Tooltip
+	// maven {
+	// 	url "https://maven.misterpemodder.com/libs-release"
+	// }
 }
 
 loom {
@@ -97,8 +97,8 @@ dependencies {
 	// // Quick Shulker deps
 	// modImplementation "net.kyrptonaught:shulkerutils:${project.shulkerutils_version}"
 
-	// Shulker Box Tooltip
-	modImplementation "com.misterpemodder:shulkerboxtooltip-fabric:${project.shulker_box_tooltip_version}"
+	// // Shulker Box Tooltip
+	// modImplementation "com.misterpemodder:shulkerboxtooltip-fabric:${project.shulker_box_tooltip_version}"
 }
 
 processResources {
@@ -166,14 +166,13 @@ curseforge {
 
 		addGameVersion "Fabric"
 		addGameVersion "Java 21"
-		addGameVersion "1.20.5"
-		addGameVersion "1.20.6"
+		addGameVersion "1.21"
 
 		relations {
 			requiredDependency "fabric-api"
 			embeddedLibrary "cloth-config"
 			optionalDependency "modmenu"
-			optionalDependency "shulkerboxtooltip"
+			// optionalDependency "shulkerboxtooltip"
 			// optionalDependency "quick-shulker"
 			optionalDependency "reinforced-chests"
 		}
@@ -191,14 +190,14 @@ modrinth {
 	versionType = "release"
 	changelog = "[v${project.version}](https://github.com/Aton-Kish/reinforced-shulker-boxes/releases/tag/v" + java.net.URLEncoder.encode(project.version, "UTF-8") + ")"
 
-	gameVersions = ["1.20.5", "1.20.6"]
+	gameVersions = ["1.21"]
 	loaders = ["fabric"]
 
 	dependencies {
 		required.project "fabric-api"
 		embedded.project "cloth-config"
 		optional.project "modmenu"
-		optional.project "shulkerboxtooltip"
+		// optional.project "shulkerboxtooltip"
 		// optional.project "quickshulker"
 		optional.project "reinforced-chests"
 	}

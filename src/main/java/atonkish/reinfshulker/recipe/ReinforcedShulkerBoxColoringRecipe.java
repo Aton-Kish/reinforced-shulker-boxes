@@ -1,7 +1,6 @@
 package atonkish.reinfshulker.recipe;
 
 import net.minecraft.block.Block;
-import net.minecraft.inventory.RecipeInputInventory;
 import net.minecraft.item.DyeItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -9,6 +8,7 @@ import net.minecraft.item.Items;
 import net.minecraft.recipe.RecipeSerializer;
 import net.minecraft.recipe.SpecialCraftingRecipe;
 import net.minecraft.recipe.book.CraftingRecipeCategory;
+import net.minecraft.recipe.input.CraftingRecipeInput;
 import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.world.World;
 
@@ -23,12 +23,12 @@ public class ReinforcedShulkerBoxColoringRecipe extends SpecialCraftingRecipe {
     }
 
     @Override
-    public boolean matches(RecipeInputInventory recipeInputInventory, World world) {
+    public boolean matches(CraftingRecipeInput craftingRecipeInput, World world) {
         int i = 0;
         int j = 0;
 
-        for (int k = 0; k < recipeInputInventory.size(); ++k) {
-            ItemStack itemStack = recipeInputInventory.getStack(k);
+        for (int k = 0; k < craftingRecipeInput.getSize(); ++k) {
+            ItemStack itemStack = craftingRecipeInput.getStackInSlot(k);
             if (itemStack.isEmpty()) {
                 continue;
             }
@@ -52,15 +52,15 @@ public class ReinforcedShulkerBoxColoringRecipe extends SpecialCraftingRecipe {
     }
 
     @Override
-    public ItemStack craft(RecipeInputInventory recipeInputInventory, RegistryWrapper.WrapperLookup wrapperLookup) {
+    public ItemStack craft(CraftingRecipeInput craftingRecipeInput, RegistryWrapper.WrapperLookup wrapperLookup) {
         ItemStack itemStack = ItemStack.EMPTY;
         DyeItem dyeItem = (DyeItem) Items.WHITE_DYE;
 
         @Nullable
         ReinforcingMaterial material = null;
 
-        for (int i = 0; i < recipeInputInventory.size(); ++i) {
-            ItemStack itemStack2 = recipeInputInventory.getStack(i);
+        for (int i = 0; i < craftingRecipeInput.getSize(); ++i) {
+            ItemStack itemStack2 = craftingRecipeInput.getStackInSlot(i);
             if (itemStack2.isEmpty()) {
                 continue;
             }
