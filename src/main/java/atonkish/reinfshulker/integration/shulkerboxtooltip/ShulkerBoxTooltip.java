@@ -16,7 +16,7 @@ import atonkish.reinfshulker.item.ModItems;
 public class ShulkerBoxTooltip implements ShulkerBoxTooltipApi {
     private static void register(PreviewProviderRegistry registry, String namespace, String id,
             PreviewProvider provider, Item... items) {
-        registry.register(new Identifier(namespace, id), provider, items);
+        registry.register(Identifier.of(namespace, id), provider, items);
     }
 
     @Override
