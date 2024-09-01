@@ -62,7 +62,8 @@ public class ReinforcedShulkerBoxBlockEntityRenderer implements BlockEntityRende
         ModelPart modelPart = this.model.getLid();
         modelPart.setPivot(0.0F, 24.0F - reinforcedShulkerBoxBlockEntity.getAnimationProgress(tickDelta) * 0.5F * 16.0F,
                 0.0F);
-        modelPart.yaw = 270.0F * reinforcedShulkerBoxBlockEntity.getAnimationProgress(tickDelta) * 0.017453292F;
+        modelPart.yaw = 270.0F * reinforcedShulkerBoxBlockEntity.getAnimationProgress(tickDelta)
+                * (float) (Math.PI / 180.0);
         VertexConsumer vertexConsumer = spriteIdentifier2.getVertexConsumer(vertexConsumers,
                 RenderLayer::getEntityCutoutNoCull);
         this.model.render(matrices, vertexConsumer, light, overlay);
