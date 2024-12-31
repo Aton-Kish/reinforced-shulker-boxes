@@ -10,7 +10,10 @@
     "ShulkerBoxBlockMixin",
     "ShulkerBoxColoringRecipeMixin",
     "RecipeManagerMixin",
-    "ServerAdvancementLoaderMixin"
+    "ServerAdvancementLoaderMixin",
+
+    "datafixer.fix.ItemStackComponentizationFixMixin",
+    "datafixer.schema.Schema1460Mixin"
   ],
   "injectors": {
     "defaultRequire": 1
