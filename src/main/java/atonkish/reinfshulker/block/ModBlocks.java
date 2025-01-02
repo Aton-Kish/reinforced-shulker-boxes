@@ -2,10 +2,14 @@ package atonkish.reinfshulker.block;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.function.Function;
 
+import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
+import net.minecraft.registry.RegistryKey;
+import net.minecraft.registry.RegistryKeys;
 import net.minecraft.util.DyeColor;
 import net.minecraft.util.Identifier;
 
@@ -33,14 +37,28 @@ public class ModBlocks {
             String id = color == null
                     ? material.getName() + "_shulker_box"
                     : color.getName() + "_" + material.getName() + "_shulker_box";
-            Block block = ModBlocks.register(namespace, id, new ReinforcedShulkerBoxBlock(material, color, settings));
+            Block block = ModBlocks.register(
+                    Identifier.of(namespace, id),
+                    (abstractBlockSettings) -> new ReinforcedShulkerBoxBlock(material, color, abstractBlockSettings),
+                    REINFORCED_SHULKER_BOX_SETTINGS_MAP.get(material).get(color));
             REINFORCED_SHULKER_BOX_MAP.get(material).put(color, block);
         }
 
         return REINFORCED_SHULKER_BOX_MAP.get(material).get(color);
     }
 
-    private static Block register(String namespace, String id, Block block) {
-        return Registry.register(Registries.BLOCK, Identifier.of(namespace, id), block);
+    private static Block register(RegistryKey<Block> key, Function<AbstractBlock.Settings, Block> factory,
+            AbstractBlock.Settings settings) {
+        Block block = factory.apply(settings.registryKey(key));
+        return Registry.register(Registries.BLOCK, key, block);
+    }
+
+    private static RegistryKey<Block> keyOf(Identifier id) {
+        return RegistryKey.of(RegistryKeys.BLOCK, id);
+    }
+
+    private static Block register(Identifier id, Function<AbstractBlock.Settings, Block> factory,
+            AbstractBlock.Settings settings) {
+        return register(keyOf(id), factory, settings);
     }
 }
