@@ -9,7 +9,6 @@
     "BlockEntityTypeInvoker",
     "ItemStackAccessor",
     "ShulkerBoxBlockMixin",
-    "RecipeManagerMixin",
     "ServerAdvancementLoaderMixin",
 
     "datafixer.fix.ItemStackComponentizationFixMixin",
