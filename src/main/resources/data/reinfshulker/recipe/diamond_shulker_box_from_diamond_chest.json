@@ -3,12 +3,8 @@
   "category": "misc",
   "pattern": ["S", "C", "S"],
   "key": {
-    "C": {
-      "item": "reinfchest:diamond_chest"
-    },
-    "S": {
-      "item": "minecraft:shulker_shell"
-    }
+    "C": "reinfchest:diamond_chest",
+    "S": "minecraft:shulker_shell"
   },
   "result": {
     "count": 1,

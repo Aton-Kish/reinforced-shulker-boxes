@@ -3,12 +3,8 @@
   "category": "misc",
   "pattern": ["MMM", "MSM", "MMM"],
   "key": {
-    "S": {
-      "item": "reinfshulker:red_copper_shulker_box"
-    },
-    "M": {
-      "item": "minecraft:iron_ingot"
-    }
+    "M": "minecraft:iron_ingot",
+    "S": "reinfshulker:red_copper_shulker_box"
   },
   "result": {
     "count": 1,
