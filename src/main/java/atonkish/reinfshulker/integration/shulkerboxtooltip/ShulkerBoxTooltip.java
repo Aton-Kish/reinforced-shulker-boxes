@@ -10,6 +10,7 @@ import net.minecraft.util.Identifier;
 
 import atonkish.reinfcore.util.ReinforcingMaterial;
 import atonkish.reinfcore.util.ReinforcingMaterials;
+
 import atonkish.reinfshulker.block.entity.ModBlockEntityType;
 import atonkish.reinfshulker.item.ModItems;
 

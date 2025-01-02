@@ -1,8 +1,5 @@
 package atonkish.reinfshulker.client.render.block.entity;
 
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
-
 import java.util.Objects;
 
 import net.minecraft.block.BlockState;
@@ -21,7 +18,11 @@ import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.DyeColor;
 import net.minecraft.util.math.Direction;
 
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
+
 import atonkish.reinfcore.util.ReinforcingMaterial;
+
 import atonkish.reinfshulker.block.entity.ReinforcedShulkerBoxBlockEntity;
 import atonkish.reinfshulker.client.render.ModTexturedRenderLayers;
 

@@ -2,6 +2,8 @@ package atonkish.reinfshulker.block.entity;
 
 import java.util.stream.IntStream;
 
+import org.jetbrains.annotations.Nullable;
+
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.block.entity.ShulkerBoxBlockEntity;
@@ -14,10 +16,9 @@ import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 
-import org.jetbrains.annotations.Nullable;
-
 import atonkish.reinfcore.screen.ReinforcedStorageScreenHandler;
 import atonkish.reinfcore.util.ReinforcingMaterial;
+
 import atonkish.reinfshulker.mixin.BlockEntityAccessor;
 
 public class ReinforcedShulkerBoxBlockEntity extends ShulkerBoxBlockEntity {

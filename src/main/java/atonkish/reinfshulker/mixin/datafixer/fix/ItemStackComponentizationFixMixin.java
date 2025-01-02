@@ -16,6 +16,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import atonkish.reinfcore.util.ReinforcingMaterial;
 import atonkish.reinfcore.util.ReinforcingMaterials;
+
 import atonkish.reinfshulker.ReinforcedShulkerBoxesMod;
 
 @Mixin(ItemStackComponentizationFix.class)

@@ -7,6 +7,7 @@ import net.minecraft.util.DyeColor;
 import net.minecraft.util.Identifier;
 
 import atonkish.reinfcore.util.ReinforcingMaterial;
+
 import atonkish.reinfshulker.block.ModBlocks;
 import atonkish.reinfshulker.block.entity.ModBlockEntityType;
 import atonkish.reinfshulker.block.entity.ReinforcedShulkerBoxBlockEntity;

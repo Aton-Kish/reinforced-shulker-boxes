@@ -6,8 +6,6 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-import net.fabricmc.fabric.api.gametest.v1.FabricGameTest;
-
 import net.minecraft.component.DataComponentTypes;
 import net.minecraft.component.type.ContainerComponent;
 import net.minecraft.item.DyeItem;
@@ -26,7 +24,10 @@ import net.minecraft.test.StructureTestUtil;
 import net.minecraft.test.TestFunction;
 import net.minecraft.util.DyeColor;
 
+import net.fabricmc.fabric.api.gametest.v1.FabricGameTest;
+
 import atonkish.reinfcore.util.ReinforcingMaterials;
+
 import atonkish.reinfshulker.ReinforcedShulkerBoxesMod;
 import atonkish.reinfshulker.item.ModItems;
 

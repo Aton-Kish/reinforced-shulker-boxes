@@ -1,17 +1,19 @@
 package atonkish.reinfshulker;
 
-import net.fabricmc.api.ModInitializer;
-import net.fabricmc.loader.api.FabricLoader;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import net.minecraft.util.DyeColor;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import net.fabricmc.api.ModInitializer;
+import net.fabricmc.loader.api.FabricLoader;
 
 import atonkish.reinfcore.api.ReinforcedCoreModInitializer;
 import atonkish.reinfcore.api.ReinforcedCoreRegistry;
 import atonkish.reinfcore.util.ReinforcingMaterial;
+
 import atonkish.reinfchest.ReinforcedChestsMod;
+
 import atonkish.reinfshulker.api.ReinforcedShulkerBoxesModInitializer;
 import atonkish.reinfshulker.api.ReinforcedShulkerBoxesRegistry;
 import atonkish.reinfshulker.block.cauldron.ModCauldronBehavior;

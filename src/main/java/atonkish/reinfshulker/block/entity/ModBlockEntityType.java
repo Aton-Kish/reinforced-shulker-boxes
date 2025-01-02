@@ -9,6 +9,7 @@ import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.util.Identifier;
 
 import atonkish.reinfcore.util.ReinforcingMaterial;
+
 import atonkish.reinfshulker.block.ModBlocks;
 import atonkish.reinfshulker.mixin.BlockEntityTypeAccessor;
 import atonkish.reinfshulker.mixin.BlockEntityTypeInvoker;
