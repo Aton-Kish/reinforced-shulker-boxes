@@ -81,6 +81,10 @@ public class RecipeTests {
 
             for (DyeColor baseColor : SHULKER_BOX_MAP.keySet()) {
                 for (DyeColor dyeColor : DyeColor.values()) {
+                    if (dyeColor.equals(baseColor)) {
+                        continue;
+                    }
+
                     ItemStack baseShulkerBox = new ItemStack(
                             ModItems.REINFORCED_SHULKER_BOX_MAP.get(ReinforcingMaterials.MAP.get("copper"))
                                     .get(baseColor));
@@ -150,6 +154,10 @@ public class RecipeTests {
 
             for (DyeColor baseColor : SHULKER_BOX_MAP.keySet()) {
                 for (DyeColor dyeColor : DyeColor.values()) {
+                    if (dyeColor.equals(baseColor)) {
+                        continue;
+                    }
+
                     ItemStack baseShulkerBox = new ItemStack(
                             ModItems.REINFORCED_SHULKER_BOX_MAP.get(ReinforcingMaterials.MAP.get("iron"))
                                     .get(baseColor));
@@ -219,6 +227,10 @@ public class RecipeTests {
 
             for (DyeColor baseColor : SHULKER_BOX_MAP.keySet()) {
                 for (DyeColor dyeColor : DyeColor.values()) {
+                    if (dyeColor.equals(baseColor)) {
+                        continue;
+                    }
+
                     ItemStack baseShulkerBox = new ItemStack(
                             ModItems.REINFORCED_SHULKER_BOX_MAP.get(ReinforcingMaterials.MAP.get("gold"))
                                     .get(baseColor));
@@ -288,6 +300,10 @@ public class RecipeTests {
 
             for (DyeColor baseColor : SHULKER_BOX_MAP.keySet()) {
                 for (DyeColor dyeColor : DyeColor.values()) {
+                    if (dyeColor.equals(baseColor)) {
+                        continue;
+                    }
+
                     ItemStack baseShulkerBox = new ItemStack(
                             ModItems.REINFORCED_SHULKER_BOX_MAP.get(ReinforcingMaterials.MAP.get("diamond"))
                                     .get(baseColor));
@@ -355,6 +371,10 @@ public class RecipeTests {
 
             for (DyeColor baseColor : SHULKER_BOX_MAP.keySet()) {
                 for (DyeColor dyeColor : DyeColor.values()) {
+                    if (dyeColor.equals(baseColor)) {
+                        continue;
+                    }
+
                     ItemStack baseShulkerBox = new ItemStack(
                             ModItems.REINFORCED_SHULKER_BOX_MAP.get(ReinforcingMaterials.MAP.get("netherite"))
                                     .get(baseColor));
