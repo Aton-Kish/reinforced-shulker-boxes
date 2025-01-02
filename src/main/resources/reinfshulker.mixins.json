@@ -6,6 +6,7 @@
   "mixins": [
     "BlockEntityAccessor",
     "BlockEntityTypeAccessor",
+    "BlockEntityTypeInvoker",
     "ItemStackAccessor",
     "ShulkerBoxBlockMixin",
     "ShulkerBoxColoringRecipeMixin",
