@@ -2,7 +2,6 @@ package atonkish.reinfshulker.recipe;
 
 import net.minecraft.recipe.Recipe;
 import net.minecraft.recipe.RecipeSerializer;
-import net.minecraft.recipe.SpecialRecipeSerializer;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.util.Identifier;
@@ -11,7 +10,6 @@ import atonkish.reinfshulker.ReinforcedShulkerBoxesMod;
 
 public class ModRecipeSerializer {
     public static final RecipeSerializer<ReinforcedShulkerBoxCraftingRecipe> REINFORCED_SHULKER_BOX;
-    public static final SpecialRecipeSerializer<ReinforcedShulkerBoxColoringRecipe> REINFORCED_SHULKER_BOX_COLORING;
 
     public static void init() {
     }
@@ -24,7 +22,5 @@ public class ModRecipeSerializer {
     static {
         REINFORCED_SHULKER_BOX = register("crafting_special_reinforcedshulkerbox",
                 new ReinforcedShulkerBoxCraftingRecipe.Serializer());
-        REINFORCED_SHULKER_BOX_COLORING = register("crafting_special_reinforcedshulkerboxcoloring",
-                new SpecialRecipeSerializer<>(ReinforcedShulkerBoxColoringRecipe::new));
     }
 }

@@ -9,7 +9,6 @@
     "BlockEntityTypeInvoker",
     "ItemStackAccessor",
     "ShulkerBoxBlockMixin",
-    "ShulkerBoxColoringRecipeMixin",
     "RecipeManagerMixin",
     "ServerAdvancementLoaderMixin",
 

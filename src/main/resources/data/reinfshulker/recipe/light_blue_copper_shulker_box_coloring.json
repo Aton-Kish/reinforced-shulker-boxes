@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:crafting_transmute",
+  "category": "misc",
+  "group": "copper_shulker_box_dye",
+  "input": "#reinfshulker:copper_shulker_boxes",
+  "material": "minecraft:light_blue_dye",
+  "result": "reinfshulker:light_blue_copper_shulker_box"
+}

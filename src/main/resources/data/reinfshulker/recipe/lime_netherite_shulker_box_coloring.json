@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:crafting_transmute",
+  "category": "misc",
+  "group": "netherite_shulker_box_dye",
+  "input": "#reinfshulker:netherite_shulker_boxes",
+  "material": "minecraft:lime_dye",
+  "result": "reinfshulker:lime_netherite_shulker_box"
+}
