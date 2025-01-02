@@ -12,6 +12,7 @@ import net.minecraft.entity.mob.PiglinBrain;
 import net.minecraft.entity.mob.ShulkerEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.DyeColor;
 import net.minecraft.util.hit.BlockHitResult;
@@ -63,7 +64,7 @@ public class ReinforcedShulkerBoxBlock extends ShulkerBoxBlock {
                 if (canOpen(state, world, pos, shulkerBoxBlockEntity)) {
                     player.openHandledScreen(shulkerBoxBlockEntity);
                     player.incrementStat(ModStats.OPEN_REINFORCED_SHULKER_BOX_MAP.get(this.material));
-                    PiglinBrain.onGuardedBlockInteracted(player, true);
+                    PiglinBrain.onGuardedBlockInteracted((ServerWorld) world, player, true);
                 }
 
                 return ActionResult.CONSUME;
