@@ -3,12 +3,8 @@
   "category": "misc",
   "pattern": ["MMM", "MSM", "MMM"],
   "key": {
-    "S": {
-      "item": "minecraft:gray_shulker_box"
-    },
-    "M": {
-      "item": "minecraft:copper_ingot"
-    }
+    "M": "minecraft:copper_ingot",
+    "S": "minecraft:gray_shulker_box"
   },
   "result": {
     "count": 1,

@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:crafting_transmute",
+  "category": "misc",
+  "group": "iron_shulker_box_dye",
+  "input": "#reinfshulker:iron_shulker_boxes",
+  "material": "minecraft:black_dye",
+  "result": "reinfshulker:black_iron_shulker_box"
+}

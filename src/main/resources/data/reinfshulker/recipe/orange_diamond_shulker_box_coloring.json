@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:crafting_transmute",
+  "category": "misc",
+  "group": "diamond_shulker_box_dye",
+  "input": "#reinfshulker:diamond_shulker_boxes",
+  "material": "minecraft:orange_dye",
+  "result": "reinfshulker:orange_diamond_shulker_box"
+}

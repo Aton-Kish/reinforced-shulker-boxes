@@ -19,18 +19,22 @@
   "entrypoints": {
     "main": ["atonkish.reinfshulker.ReinforcedShulkerBoxesMod"],
     "reinfcore": ["atonkish.reinfshulker.ReinforcedShulkerBoxesMod"],
-    "reinfcore-client": ["atonkish.reinfshulker.ReinforcedShulkerBoxesClientMod"],
-    "reinfcore-gametest": ["atonkish.reinfshulker.gametest.ReinforcedShulkerBoxesModGameTest"],
-    "shulkerboxtooltip": ["atonkish.reinfshulker.integration.shulkerboxtooltip.ShulkerBoxTooltip"],
+    "reinfcore-client": [
+      "atonkish.reinfshulker.ReinforcedShulkerBoxesClientMod"
+    ],
+    "reinfcore-gametest": [
+      "atonkish.reinfshulker.gametest.ReinforcedShulkerBoxesModGameTest"
+    ],
+    "shulkerboxtooltip": [
+      "atonkish.reinfshulker.integration.shulkerboxtooltip.ShulkerBoxTooltip"
+    ],
     "modmenu": ["atonkish.reinfcore.integration.modmenu.ModMenu"]
   },
-  "mixins": [
-    "reinfshulker.mixins.json"
-  ],
+  "mixins": ["reinfshulker.mixins.json"],
 
   "depends": {
-    "fabricloader": ">=0.15.11",
-    "minecraft": "~1.21",
+    "fabricloader": ">=0.16.7",
+    "minecraft": "~1.21.2",
     "java": ">=21",
     "fabric-api": "*"
   },

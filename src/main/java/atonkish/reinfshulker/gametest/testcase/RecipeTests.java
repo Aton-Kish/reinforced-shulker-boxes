@@ -6,8 +6,6 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-import net.fabricmc.fabric.api.gametest.v1.FabricGameTest;
-
 import net.minecraft.component.DataComponentTypes;
 import net.minecraft.component.type.ContainerComponent;
 import net.minecraft.item.DyeItem;
@@ -15,8 +13,8 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.recipe.Recipe;
-import net.minecraft.recipe.RecipeManager;
 import net.minecraft.recipe.RecipeType;
+import net.minecraft.recipe.ServerRecipeManager;
 import net.minecraft.recipe.input.CraftingRecipeInput;
 import net.minecraft.recipe.input.RecipeInput;
 import net.minecraft.recipe.input.SmithingRecipeInput;
@@ -26,7 +24,10 @@ import net.minecraft.test.StructureTestUtil;
 import net.minecraft.test.TestFunction;
 import net.minecraft.util.DyeColor;
 
+import net.fabricmc.fabric.api.gametest.v1.FabricGameTest;
+
 import atonkish.reinfcore.util.ReinforcingMaterials;
+
 import atonkish.reinfshulker.ReinforcedShulkerBoxesMod;
 import atonkish.reinfshulker.item.ModItems;
 
@@ -81,6 +82,10 @@ public class RecipeTests {
 
             for (DyeColor baseColor : SHULKER_BOX_MAP.keySet()) {
                 for (DyeColor dyeColor : DyeColor.values()) {
+                    if (dyeColor.equals(baseColor)) {
+                        continue;
+                    }
+
                     ItemStack baseShulkerBox = new ItemStack(
                             ModItems.REINFORCED_SHULKER_BOX_MAP.get(ReinforcingMaterials.MAP.get("copper"))
                                     .get(baseColor));
@@ -150,6 +155,10 @@ public class RecipeTests {
 
             for (DyeColor baseColor : SHULKER_BOX_MAP.keySet()) {
                 for (DyeColor dyeColor : DyeColor.values()) {
+                    if (dyeColor.equals(baseColor)) {
+                        continue;
+                    }
+
                     ItemStack baseShulkerBox = new ItemStack(
                             ModItems.REINFORCED_SHULKER_BOX_MAP.get(ReinforcingMaterials.MAP.get("iron"))
                                     .get(baseColor));
@@ -219,6 +228,10 @@ public class RecipeTests {
 
             for (DyeColor baseColor : SHULKER_BOX_MAP.keySet()) {
                 for (DyeColor dyeColor : DyeColor.values()) {
+                    if (dyeColor.equals(baseColor)) {
+                        continue;
+                    }
+
                     ItemStack baseShulkerBox = new ItemStack(
                             ModItems.REINFORCED_SHULKER_BOX_MAP.get(ReinforcingMaterials.MAP.get("gold"))
                                     .get(baseColor));
@@ -288,6 +301,10 @@ public class RecipeTests {
 
             for (DyeColor baseColor : SHULKER_BOX_MAP.keySet()) {
                 for (DyeColor dyeColor : DyeColor.values()) {
+                    if (dyeColor.equals(baseColor)) {
+                        continue;
+                    }
+
                     ItemStack baseShulkerBox = new ItemStack(
                             ModItems.REINFORCED_SHULKER_BOX_MAP.get(ReinforcingMaterials.MAP.get("diamond"))
                                     .get(baseColor));
@@ -355,6 +372,10 @@ public class RecipeTests {
 
             for (DyeColor baseColor : SHULKER_BOX_MAP.keySet()) {
                 for (DyeColor dyeColor : DyeColor.values()) {
+                    if (dyeColor.equals(baseColor)) {
+                        continue;
+                    }
+
                     ItemStack baseShulkerBox = new ItemStack(
                             ModItems.REINFORCED_SHULKER_BOX_MAP.get(ReinforcingMaterials.MAP.get("netherite"))
                                     .get(baseColor));
@@ -425,7 +446,7 @@ public class RecipeTests {
                 (context) -> {
                     // Arrange
                     ServerWorld world = context.getWorld();
-                    RecipeManager recipeManager = world.getRecipeManager();
+                    ServerRecipeManager recipeManager = world.getRecipeManager();
                     DynamicRegistryManager registryManager = world.getRegistryManager();
                     T recipe = recipeManager.getFirstMatch(type, input, world).orElseThrow().value();
 

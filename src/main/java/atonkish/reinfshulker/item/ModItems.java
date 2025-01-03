@@ -2,8 +2,8 @@ package atonkish.reinfshulker.item;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
-
-import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
+import java.util.function.BiFunction;
+import java.util.function.Function;
 
 import net.minecraft.block.Block;
 import net.minecraft.item.BlockItem;
@@ -11,12 +11,16 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroups;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
+import net.minecraft.registry.RegistryKey;
+import net.minecraft.registry.RegistryKeys;
 import net.minecraft.util.DyeColor;
-import net.minecraft.util.Identifier;
+
+import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 
 import atonkish.reinfcore.item.ModItemGroup;
 import atonkish.reinfcore.item.ModItemGroups;
 import atonkish.reinfcore.util.ReinforcingMaterial;
+
 import atonkish.reinfshulker.block.ModBlocks;
 
 public class ModItems {
@@ -38,9 +42,8 @@ public class ModItems {
         }
 
         if (!REINFORCED_SHULKER_BOX_MAP.get(material).containsKey(color)) {
-            Item item = ModItems.register(
-                    new BlockItem(ModBlocks.REINFORCED_SHULKER_BOX_MAP.get(material).get(color),
-                            REINFORCED_SHULKER_BOX_SETTINGS_MAP.get(material).get(color)));
+            Item item = ModItems.register(ModBlocks.REINFORCED_SHULKER_BOX_MAP.get(material).get(color),
+                    REINFORCED_SHULKER_BOX_SETTINGS_MAP.get(material).get(color));
             ItemGroupEvents.modifyEntriesEvent(ItemGroups.COLORED_BLOCKS).register(content -> content.add(item));
             ItemGroupEvents.modifyEntriesEvent(ItemGroups.FUNCTIONAL).register(content -> content.add(item));
             ItemGroupEvents.modifyEntriesEvent(ModItemGroups.REINFORCED_STORAGE).register(content -> content.add(item));
@@ -55,19 +58,26 @@ public class ModItems {
         ModItemGroup.setIcon(Registries.ITEM_GROUP.get(ModItemGroups.REINFORCED_STORAGE), item);
     }
 
-    private static Item register(BlockItem item) {
-        return ModItems.register(item.getBlock(), (Item) item);
+    private static RegistryKey<Item> keyOf(RegistryKey<Block> blockKey) {
+        return RegistryKey.of(RegistryKeys.ITEM, blockKey.getValue());
     }
 
-    protected static Item register(Block block, Item item) {
-        return ModItems.register(Registries.BLOCK.getId(block), item);
+    public static Item register(Block block, Item.Settings settings) {
+        return register(block, BlockItem::new, settings);
     }
 
-    private static Item register(Identifier id, Item item) {
-        if (item instanceof BlockItem) {
-            ((BlockItem) item).appendBlocks(Item.BLOCK_ITEMS, item);
+    private static Item register(Block block, BiFunction<Block, Item.Settings, Item> factory, Item.Settings settings) {
+        return register(
+                keyOf(block.getRegistryEntry().registryKey()),
+                itemSettings -> (Item) factory.apply(block, itemSettings), settings.useBlockPrefixedTranslationKey());
+    }
+
+    private static Item register(RegistryKey<Item> key, Function<Item.Settings, Item> factory, Item.Settings settings) {
+        Item item = factory.apply(settings.registryKey(key));
+        if (item instanceof BlockItem blockItem) {
+            blockItem.appendBlocks(Item.BLOCK_ITEMS, item);
         }
 
-        return Registry.register(Registries.ITEM, id, item);
+        return Registry.register(Registries.ITEM, key, item);
     }
 }

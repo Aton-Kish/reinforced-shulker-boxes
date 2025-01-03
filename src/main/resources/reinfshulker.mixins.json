@@ -6,10 +6,9 @@
   "mixins": [
     "BlockEntityAccessor",
     "BlockEntityTypeAccessor",
+    "BlockEntityTypeInvoker",
     "ItemStackAccessor",
     "ShulkerBoxBlockMixin",
-    "ShulkerBoxColoringRecipeMixin",
-    "RecipeManagerMixin",
     "ServerAdvancementLoaderMixin",
 
     "datafixer.fix.ItemStackComponentizationFixMixin",

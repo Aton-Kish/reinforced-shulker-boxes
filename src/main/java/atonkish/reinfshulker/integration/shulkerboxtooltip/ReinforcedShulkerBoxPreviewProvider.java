@@ -4,13 +4,14 @@ import com.misterpemodder.shulkerboxtooltip.api.PreviewContext;
 import com.misterpemodder.shulkerboxtooltip.api.color.ColorKey;
 import com.misterpemodder.shulkerboxtooltip.api.provider.BlockEntityPreviewProvider;
 
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
-
 import net.minecraft.block.Block;
 import net.minecraft.util.DyeColor;
 
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
+
 import atonkish.reinfcore.util.ReinforcingMaterial;
+
 import atonkish.reinfshulker.block.ReinforcedShulkerBoxBlock;
 
 public class ReinforcedShulkerBoxPreviewProvider extends BlockEntityPreviewProvider {

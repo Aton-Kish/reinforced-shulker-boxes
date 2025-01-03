@@ -1,5 +1,7 @@
 package atonkish.reinfshulker.block;
 
+import org.jetbrains.annotations.Nullable;
+
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -12,6 +14,7 @@ import net.minecraft.entity.mob.PiglinBrain;
 import net.minecraft.entity.mob.ShulkerEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.DyeColor;
 import net.minecraft.util.hit.BlockHitResult;
@@ -19,9 +22,9 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Box;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
-import org.jetbrains.annotations.Nullable;
 
 import atonkish.reinfcore.util.ReinforcingMaterial;
+
 import atonkish.reinfshulker.block.entity.ModBlockEntityType;
 import atonkish.reinfshulker.block.entity.ReinforcedShulkerBoxBlockEntity;
 import atonkish.reinfshulker.stat.ModStats;
@@ -63,7 +66,7 @@ public class ReinforcedShulkerBoxBlock extends ShulkerBoxBlock {
                 if (canOpen(state, world, pos, shulkerBoxBlockEntity)) {
                     player.openHandledScreen(shulkerBoxBlockEntity);
                     player.incrementStat(ModStats.OPEN_REINFORCED_SHULKER_BOX_MAP.get(this.material));
-                    PiglinBrain.onGuardedBlockInteracted(player, true);
+                    PiglinBrain.onGuardedBlockInteracted((ServerWorld) world, player, true);
                 }
 
                 return ActionResult.CONSUME;

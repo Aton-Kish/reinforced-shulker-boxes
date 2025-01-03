@@ -3,12 +3,8 @@
   "category": "misc",
   "pattern": ["S", "C", "S"],
   "key": {
-    "C": {
-      "item": "reinfchest:copper_chest"
-    },
-    "S": {
-      "item": "minecraft:shulker_shell"
-    }
+    "C": "reinfchest:copper_chest",
+    "S": "minecraft:shulker_shell"
   },
   "result": {
     "count": 1,

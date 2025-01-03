@@ -1,19 +1,19 @@
 package atonkish.reinfshulker.client.render;
 
-import com.google.common.collect.ImmutableList;
-
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Stream;
 
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
+import com.google.common.collect.ImmutableList;
 
 import net.minecraft.client.render.TexturedRenderLayers;
 import net.minecraft.client.util.SpriteIdentifier;
 import net.minecraft.util.DyeColor;
 import net.minecraft.util.Identifier;
+
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 
 import atonkish.reinfcore.util.ReinforcingMaterial;
 

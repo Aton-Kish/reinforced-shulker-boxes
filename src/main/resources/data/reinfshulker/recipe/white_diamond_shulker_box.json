@@ -3,12 +3,8 @@
   "category": "misc",
   "pattern": ["MMM", "MSM", "MMM"],
   "key": {
-    "S": {
-      "item": "reinfshulker:white_gold_shulker_box"
-    },
-    "M": {
-      "item": "minecraft:diamond"
-    }
+    "M": "minecraft:diamond",
+    "S": "reinfshulker:white_gold_shulker_box"
   },
   "result": {
     "count": 1,

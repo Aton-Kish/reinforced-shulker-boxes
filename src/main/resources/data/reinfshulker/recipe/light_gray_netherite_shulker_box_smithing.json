@@ -1,16 +1,10 @@
 {
   "type": "minecraft:smithing_transform",
-  "addition": {
-    "item": "minecraft:netherite_ingot"
-  },
-  "base": {
-    "item": "reinfshulker:light_gray_diamond_shulker_box"
-  },
+  "addition": "minecraft:netherite_ingot",
+  "base": "reinfshulker:light_gray_diamond_shulker_box",
   "result": {
     "count": 1,
     "id": "reinfshulker:light_gray_netherite_shulker_box"
   },
-  "template": {
-    "item": "minecraft:netherite_upgrade_smithing_template"
-  }
+  "template": "minecraft:netherite_upgrade_smithing_template"
 }

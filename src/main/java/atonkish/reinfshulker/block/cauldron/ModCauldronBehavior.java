@@ -6,10 +6,11 @@ import net.minecraft.block.Block;
 import net.minecraft.block.LeveledCauldronBlock;
 import net.minecraft.block.cauldron.CauldronBehavior;
 import net.minecraft.item.Item;
+import net.minecraft.util.ActionResult;
 import net.minecraft.util.DyeColor;
-import net.minecraft.util.ItemActionResult;
 
 import atonkish.reinfcore.util.ReinforcingMaterial;
+
 import atonkish.reinfshulker.block.ModBlocks;
 import atonkish.reinfshulker.block.ReinforcedShulkerBoxBlock;
 import atonkish.reinfshulker.item.ModItems;
@@ -31,7 +32,7 @@ public class ModCauldronBehavior {
         CLEAN_REINFORCED_SHULKER_BOX = (state, world, pos, player, hand, stack) -> {
             Block block = Block.getBlockFromItem(stack.getItem());
             if (!(block instanceof ReinforcedShulkerBoxBlock)) {
-                return ItemActionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
+                return ActionResult.PASS_TO_DEFAULT_BLOCK_ACTION;
             } else {
                 if (!world.isClient) {
                     ReinforcingMaterial material = ((ReinforcedShulkerBoxBlock) block).getMaterial();
@@ -41,7 +42,7 @@ public class ModCauldronBehavior {
                     LeveledCauldronBlock.decrementFluidLevel(state, world, pos);
                 }
 
-                return ItemActionResult.success(world.isClient);
+                return ActionResult.SUCCESS;
             }
         };
     }

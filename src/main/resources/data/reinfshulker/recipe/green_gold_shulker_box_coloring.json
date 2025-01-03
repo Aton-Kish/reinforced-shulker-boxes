@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:crafting_transmute",
+  "category": "misc",
+  "group": "gold_shulker_box_dye",
+  "input": "#reinfshulker:gold_shulker_boxes",
+  "material": "minecraft:green_dye",
+  "result": "reinfshulker:green_gold_shulker_box"
+}
