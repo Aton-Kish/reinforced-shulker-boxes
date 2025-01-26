@@ -80,7 +80,8 @@ public class ReinforcedShulkerBoxBlock extends ShulkerBoxBlock {
         if (entity.getAnimationStage() != ShulkerBoxBlockEntity.AnimationStage.CLOSED) {
             return true;
         } else {
-            Box box = ShulkerEntity.calculateBoundingBox(1.0F, (Direction) state.get(FACING), 0.0F, 0.5F).offset(pos)
+            Box box = ShulkerEntity
+                    .calculateBoundingBox(1.0F, (Direction) state.get(FACING), 0.0F, 0.5F, pos.toBottomCenterPos())
                     .contract(1.0E-6D);
             return world.isSpaceEmpty(box);
         }

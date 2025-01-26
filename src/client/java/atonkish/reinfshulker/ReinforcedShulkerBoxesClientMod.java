@@ -1,18 +1,9 @@
 package atonkish.reinfshulker;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.block.entity.BlockEntityRendererFactories;
-import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.ModelTransformationMode;
-import net.minecraft.util.math.BlockPos;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.fabricmc.fabric.api.client.rendering.v1.BuiltinItemRendererRegistry;
 import net.fabricmc.loader.api.FabricLoader;
 
 import atonkish.reinfcore.api.ReinforcedCoreClientModInitializer;
@@ -21,9 +12,7 @@ import atonkish.reinfcore.util.ReinforcingMaterial;
 
 import atonkish.reinfshulker.api.ReinforcedShulkerBoxesClientModInitializer;
 import atonkish.reinfshulker.api.ReinforcedShulkerBoxesClientRegistry;
-import atonkish.reinfshulker.block.ModBlocks;
 import atonkish.reinfshulker.block.entity.ModBlockEntityType;
-import atonkish.reinfshulker.block.entity.ReinforcedShulkerBoxBlockEntity;
 import atonkish.reinfshulker.client.render.block.entity.ReinforcedShulkerBoxBlockEntityRenderer;
 import atonkish.reinfshulker.util.ReinforcingMaterialSettings;
 
@@ -67,17 +56,6 @@ public class ReinforcedShulkerBoxesClientMod implements ReinforcedCoreClientModI
 			BlockEntityRendererFactories
 					.register(ModBlockEntityType.REINFORCED_SHULKER_BOX_MAP.get(material),
 							ReinforcedShulkerBoxBlockEntityRenderer::new);
-
-			// Item Renderer
-			for (Block block : ModBlocks.REINFORCED_SHULKER_BOX_MAP.get(material).values()) {
-				BuiltinItemRendererRegistry.INSTANCE.register(block, (ItemStack stack, ModelTransformationMode mode,
-						MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, int overlay) -> {
-					BlockEntity blockEntity = new ReinforcedShulkerBoxBlockEntity(material, BlockPos.ORIGIN,
-							block.getDefaultState());
-					MinecraftClient.getInstance().getBlockEntityRenderDispatcher().renderEntity(blockEntity, matrices,
-							vertexConsumers, light, overlay);
-				});
-			}
 		}
 	}
 }
