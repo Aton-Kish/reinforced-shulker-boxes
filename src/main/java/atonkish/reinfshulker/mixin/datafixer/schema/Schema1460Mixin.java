@@ -33,7 +33,7 @@ public class Schema1460Mixin {
             for (DyeColor color : DyeColor.values()) {
                 schema.register(map,
                         String.format("%s:%s_%s_shulker_box",
-                                ReinforcedShulkerBoxesMod.MOD_ID, color.getName(), material),
+                                ReinforcedShulkerBoxesMod.MOD_ID, color.getId(), material),
                         () -> {
                             return DSL.optionalFields("Items", DSL.list(TypeReferences.ITEM_STACK.in(schema)));
                         });

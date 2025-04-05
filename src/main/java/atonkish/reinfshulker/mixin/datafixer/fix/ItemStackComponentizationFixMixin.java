@@ -29,7 +29,7 @@ public class ItemStackComponentizationFixMixin {
             itemIds.add(String.format("%s:%s_shulker_box", ReinforcedShulkerBoxesMod.MOD_ID, material.getName()));
             for (DyeColor color : DyeColor.values()) {
                 itemIds.add(String.format("%s:%s_%s_shulker_box",
-                        ReinforcedShulkerBoxesMod.MOD_ID, color.getName(), material.getName()));
+                        ReinforcedShulkerBoxesMod.MOD_ID, color.getId(), material.getName()));
             }
         }
 
