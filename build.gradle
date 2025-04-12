@@ -35,8 +35,15 @@ repositories {
 	}
 
 	// Shulker Box Tooltip
+	// maven {
+	// 	url "https://maven.misterpemodder.com/libs-release"
+	// }
+	// [2025-04-13] maven.misterpemodder.com temporarily unavailable
 	maven {
-		url "https://maven.misterpemodder.com/libs-release"
+		url "https://www.cursemaven.com"
+		content {
+			includeGroup "curse.maven"
+		}
 	}
 
 	// // Quick Shulker
@@ -95,7 +102,9 @@ dependencies {
 	modImplementation "atonkish.reinfchest:reinforced-chests:${project.reinforced_chests_version}"
 
 	// Shulker Box Tooltip
-	modImplementation "com.misterpemodder:shulkerboxtooltip-fabric:${project.shulker_box_tooltip_version}"
+	// modImplementation "com.misterpemodder:shulkerboxtooltip-fabric:${project.shulker_box_tooltip_version}"
+	// [2025-04-13] maven.misterpemodder.com temporarily unavailable
+	modImplementation "curse.maven:shulkerboxtooltip-315811:${project.shulker_box_tooltip_file_id}"
 
 	// // Quick Shulker
 	// modImplementation "net.kyrptonaught:quickshulker:${project.quick_shulker_version}"
