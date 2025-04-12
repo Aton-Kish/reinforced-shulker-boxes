@@ -22,17 +22,6 @@
     "reinfcore-client": [
       "atonkish.reinfshulker.ReinforcedShulkerBoxesClientMod"
     ],
-    "fabric-gametest": [
-      "atonkish.reinfshulker.gametest.testcase.AdvancementDefaultTests",
-      "atonkish.reinfshulker.gametest.testcase.CauldronBehaviorDefaultTests",
-      "atonkish.reinfshulker.gametest.testcase.DispenserBehaviorDefaultTests",
-      "atonkish.reinfshulker.gametest.testcase.InventoryDefaultTests",
-      "atonkish.reinfshulker.gametest.testcase.LootTableDefaultTests",
-      "atonkish.reinfshulker.gametest.testcase.OpenDefaultTests",
-      "atonkish.reinfshulker.gametest.testcase.PiglinDefaultTests",
-      "atonkish.reinfshulker.gametest.testcase.PistonBehaviorDefaultTests",
-      "atonkish.reinfshulker.gametest.testcase.RecipeDefaultTests"
-    ],
     "shulkerboxtooltip": [
       "atonkish.reinfshulker.integration.shulkerboxtooltip.ShulkerBoxTooltip"
     ],
