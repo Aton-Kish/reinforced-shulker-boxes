@@ -22,6 +22,9 @@
     "reinfcore-client": [
       "atonkish.reinfshulker.ReinforcedShulkerBoxesClientMod"
     ],
+    "reinfcore-gametest": [
+      "atonkish.reinfshulker.gametest.ReinforcedShulkerBoxesModGameTest"
+    ],
     "shulkerboxtooltip": [
       "atonkish.reinfshulker.integration.shulkerboxtooltip.ShulkerBoxTooltip"
     ],
