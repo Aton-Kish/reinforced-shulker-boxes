@@ -13,20 +13,20 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.test.StructureTestUtil;
-import net.minecraft.test.TestFunction;
+import net.minecraft.text.Text;
+import net.minecraft.util.BlockRotation;
 import net.minecraft.util.DyeColor;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.GameMode;
 
-import net.fabricmc.fabric.api.gametest.v1.FabricGameTest;
-
+import atonkish.reinfcore.gametest.TestFunction;
 import atonkish.reinfcore.util.ReinforcingMaterials;
 
 import atonkish.reinfshulker.ReinforcedShulkerBoxesMod;
 import atonkish.reinfshulker.gametest.util.MockServerPlayerHelper;
+import atonkish.reinfshulker.gametest.util.TestIdentifier;
 import atonkish.reinfshulker.item.ModItems;
 
 public class AdvancementTests {
@@ -52,8 +52,9 @@ public class AdvancementTests {
         }
     };
 
-    private static final String BATCH_ID = String.format("%s:AdvancementBatch",
+    private static final String TEST_ENVIRONMENT_DEFAULT = String.format("%s:advancement/default",
             ReinforcedShulkerBoxesMod.MOD_ID);
+    private static final String TEST_STRUCTURE_EMPTY = "fabric-gametest-api-v1:empty";
 
     public static final Collection<TestFunction> TEST_FUNCTIONS = new ArrayList<>() {
         {
@@ -63,77 +64,93 @@ public class AdvancementTests {
                         String.format("Obtain Copper Shulker Box recipe advancement by having %s",
                                 item.getName().getString()),
                         item,
-                        Identifier.of(ReinforcedShulkerBoxesMod.MOD_ID, "recipes/decorations/copper_shulker_box")));
+                        Identifier.of(ReinforcedShulkerBoxesMod.MOD_ID,
+                                "recipes/decorations/copper_shulker_box")));
             }
             add(AdvancementTests.createTest(
                     "Obtain Copper Shulker Box recipe advancement by having Copper Ingot",
                     Items.COPPER_INGOT,
-                    Identifier.of(ReinforcedShulkerBoxesMod.MOD_ID, "recipes/decorations/copper_shulker_box")));
+                    Identifier.of(ReinforcedShulkerBoxesMod.MOD_ID,
+                            "recipes/decorations/copper_shulker_box")));
             add(AdvancementTests.createTest(
                     "Obtain Copper Shulker Box recipe advancement by having Copper Chest",
-                    atonkish.reinfchest.item.ModItems.REINFORCED_CHEST_MAP.get(ReinforcingMaterials.MAP.get("copper")),
+                    atonkish.reinfchest.item.ModItems.REINFORCED_CHEST_MAP
+                            .get(ReinforcingMaterials.MAP.get("copper")),
                     Identifier.of(ReinforcedShulkerBoxesMod.MOD_ID,
                             "recipes/decorations/copper_shulker_box_from_copper_chest")));
 
             // Iron Shulker Box
-            for (Item item : ModItems.REINFORCED_SHULKER_BOX_MAP.get(ReinforcingMaterials.MAP.get("copper"))
+            for (Item item : ModItems.REINFORCED_SHULKER_BOX_MAP
+                    .get(ReinforcingMaterials.MAP.get("copper"))
                     .values()) {
                 add(AdvancementTests.createTest(
                         String.format("Obtain Iron Shulker Box recipe advancement by having %s",
                                 item.getName().getString()),
                         item,
-                        Identifier.of(ReinforcedShulkerBoxesMod.MOD_ID, "recipes/decorations/iron_shulker_box")));
+                        Identifier.of(ReinforcedShulkerBoxesMod.MOD_ID,
+                                "recipes/decorations/iron_shulker_box")));
             }
             add(AdvancementTests.createTest(
                     "Obtain Iron Shulker Box recipe advancement by having Iron Ingot",
                     Items.IRON_INGOT,
-                    Identifier.of(ReinforcedShulkerBoxesMod.MOD_ID, "recipes/decorations/iron_shulker_box")));
+                    Identifier.of(ReinforcedShulkerBoxesMod.MOD_ID,
+                            "recipes/decorations/iron_shulker_box")));
             add(AdvancementTests.createTest(
                     "Obtain Iron Shulker Box recipe advancement by having Iron Chest",
-                    atonkish.reinfchest.item.ModItems.REINFORCED_CHEST_MAP.get(ReinforcingMaterials.MAP.get("iron")),
+                    atonkish.reinfchest.item.ModItems.REINFORCED_CHEST_MAP
+                            .get(ReinforcingMaterials.MAP.get("iron")),
                     Identifier.of(ReinforcedShulkerBoxesMod.MOD_ID,
                             "recipes/decorations/iron_shulker_box_from_iron_chest")));
 
             // Gold Shulker Box
-            for (Item item : ModItems.REINFORCED_SHULKER_BOX_MAP.get(ReinforcingMaterials.MAP.get("iron"))
+            for (Item item : ModItems.REINFORCED_SHULKER_BOX_MAP
+                    .get(ReinforcingMaterials.MAP.get("iron"))
                     .values()) {
                 add(AdvancementTests.createTest(
                         String.format("Obtain Gold Shulker Box recipe advancement by having %s",
                                 item.getName().getString()),
                         item,
-                        Identifier.of(ReinforcedShulkerBoxesMod.MOD_ID, "recipes/decorations/gold_shulker_box")));
+                        Identifier.of(ReinforcedShulkerBoxesMod.MOD_ID,
+                                "recipes/decorations/gold_shulker_box")));
             }
             add(AdvancementTests.createTest(
                     "Obtain Gold Shulker Box recipe advancement by having Gold Ingot",
                     Items.GOLD_INGOT,
-                    Identifier.of(ReinforcedShulkerBoxesMod.MOD_ID, "recipes/decorations/gold_shulker_box")));
+                    Identifier.of(ReinforcedShulkerBoxesMod.MOD_ID,
+                            "recipes/decorations/gold_shulker_box")));
             add(AdvancementTests.createTest(
                     "Obtain Gold Shulker Box recipe advancement by having Gold Chest",
-                    atonkish.reinfchest.item.ModItems.REINFORCED_CHEST_MAP.get(ReinforcingMaterials.MAP.get("gold")),
+                    atonkish.reinfchest.item.ModItems.REINFORCED_CHEST_MAP
+                            .get(ReinforcingMaterials.MAP.get("gold")),
                     Identifier.of(ReinforcedShulkerBoxesMod.MOD_ID,
                             "recipes/decorations/gold_shulker_box_from_gold_chest")));
 
             // Diamond Shulker Box
-            for (Item item : ModItems.REINFORCED_SHULKER_BOX_MAP.get(ReinforcingMaterials.MAP.get("gold"))
+            for (Item item : ModItems.REINFORCED_SHULKER_BOX_MAP
+                    .get(ReinforcingMaterials.MAP.get("gold"))
                     .values()) {
                 add(AdvancementTests.createTest(
                         String.format("Obtain Diamond Shulker Box recipe advancement by having %s",
                                 item.getName().getString()),
                         item,
-                        Identifier.of(ReinforcedShulkerBoxesMod.MOD_ID, "recipes/decorations/diamond_shulker_box")));
+                        Identifier.of(ReinforcedShulkerBoxesMod.MOD_ID,
+                                "recipes/decorations/diamond_shulker_box")));
             }
             add(AdvancementTests.createTest(
                     "Obtain Diamond Shulker Box recipe advancement by having Diamond Ingot",
                     Items.DIAMOND,
-                    Identifier.of(ReinforcedShulkerBoxesMod.MOD_ID, "recipes/decorations/diamond_shulker_box")));
+                    Identifier.of(ReinforcedShulkerBoxesMod.MOD_ID,
+                            "recipes/decorations/diamond_shulker_box")));
             add(AdvancementTests.createTest(
                     "Obtain Diamond Shulker Box recipe advancement by having Diamond Chest",
-                    atonkish.reinfchest.item.ModItems.REINFORCED_CHEST_MAP.get(ReinforcingMaterials.MAP.get("diamond")),
+                    atonkish.reinfchest.item.ModItems.REINFORCED_CHEST_MAP
+                            .get(ReinforcingMaterials.MAP.get("diamond")),
                     Identifier.of(ReinforcedShulkerBoxesMod.MOD_ID,
                             "recipes/decorations/diamond_shulker_box_from_diamond_chest")));
 
             // Netherite Shulker Box
-            for (Item item : ModItems.REINFORCED_SHULKER_BOX_MAP.get(ReinforcingMaterials.MAP.get("diamond"))
+            for (Item item : ModItems.REINFORCED_SHULKER_BOX_MAP
+                    .get(ReinforcingMaterials.MAP.get("diamond"))
                     .values()) {
                 add(AdvancementTests.createTest(
                         String.format("Obtain Netherite Shulker Box recipe advancement by having %s",
@@ -157,20 +174,18 @@ public class AdvancementTests {
     };
 
     private static TestFunction createTest(String name, Item item, Identifier advancementId) {
-        String testName = String.format("%s %s %s",
-                ReinforcedShulkerBoxesMod.MOD_ID,
-                AdvancementTests.class.getSimpleName(),
-                name)
-                .replace(" ", "_");
+        Identifier testIdentifier = TestIdentifier.of(ReinforcedShulkerBoxesMod.MOD_ID,
+                AdvancementTests.class,
+                name);
 
         return new TestFunction(
-                AdvancementTests.BATCH_ID,
-                testName,
-                FabricGameTest.EMPTY_STRUCTURE,
-                StructureTestUtil.getRotation(0),
-                100,
-                0L,
+                testIdentifier,
+                AdvancementTests.TEST_ENVIRONMENT_DEFAULT,
+                AdvancementTests.TEST_STRUCTURE_EMPTY,
+                20,
+                0,
                 true,
+                BlockRotation.NONE,
                 false,
                 1,
                 1,
@@ -178,7 +193,8 @@ public class AdvancementTests {
                 (context) -> {
                     // Arrange
                     ServerPlayerEntity player = MockServerPlayerHelper.spawn(context,
-                            GameMode.SURVIVAL, Vec3d.of(BlockPos.ORIGIN));
+                            GameMode.SURVIVAL,
+                            Vec3d.of(BlockPos.ORIGIN));
                     AdvancementEntry entry = context.getWorld().getServer().getAdvancementLoader().get(advancementId);
                     AdvancementProgress progress = player.getAdvancementTracker().getProgress(entry);
 
@@ -210,15 +226,17 @@ public class AdvancementTests {
                     CompletableFuture.allOf(futurePartialAct1, futurePartialAct2).thenRun(() -> {
                         try {
                             context.assertFalse(
-                                    progressMap.get(progressMapKeyBeforeHavingItem), String.format(
+                                    progressMap.get(progressMapKeyBeforeHavingItem),
+                                    Text.of(String.format(
                                             "Expected that advancement %s has not been done yet, but it has been already done.",
-                                            entry));
+                                            entry)));
                             context.assertTrue(
-                                    progressMap.get(progressMapKeyAfterHavingItem), String.format(
+                                    progressMap.get(progressMapKeyAfterHavingItem),
+                                    Text.of(String.format(
                                             "Expected that advancement %s has been done, but it has not been done yet.",
-                                            entry));
+                                            entry)));
                         } catch (Exception e) {
-                            ReinforcedShulkerBoxesMod.LOGGER.error("[{}] {}", testName, e.getMessage());
+                            ReinforcedShulkerBoxesMod.LOGGER.error("[{}] {}", testIdentifier, e.getMessage());
                             throw e;
                         } finally {
                             MockServerPlayerHelper.destroy(context, player);

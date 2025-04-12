@@ -12,8 +12,8 @@ import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.stat.Stat;
 import net.minecraft.stat.Stats;
 import net.minecraft.state.property.Properties;
-import net.minecraft.test.StructureTestUtil;
-import net.minecraft.test.TestFunction;
+import net.minecraft.text.Text;
+import net.minecraft.util.BlockRotation;
 import net.minecraft.util.DyeColor;
 import net.minecraft.util.Hand;
 import net.minecraft.util.Identifier;
@@ -21,27 +21,29 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.GameMode;
 
-import net.fabricmc.fabric.api.gametest.v1.FabricGameTest;
-
+import atonkish.reinfcore.gametest.TestFunction;
 import atonkish.reinfcore.util.ReinforcingMaterials;
 
 import atonkish.reinfshulker.ReinforcedShulkerBoxesMod;
 import atonkish.reinfshulker.block.ModBlocks;
 import atonkish.reinfshulker.block.ReinforcedShulkerBoxBlock;
 import atonkish.reinfshulker.gametest.util.MockServerPlayerHelper;
+import atonkish.reinfshulker.gametest.util.TestIdentifier;
 import atonkish.reinfshulker.item.ModItems;
 import atonkish.reinfshulker.stat.ModStats;
 
 public class CauldronBehaviorTests {
-    private static final String BATCH_ID = String.format("%s:CauldronBehaviorBatch",
+    private static final String TEST_ENVIRONMENT_DEFAULT = String.format("%s:cauldron_behavior/default",
             ReinforcedShulkerBoxesMod.MOD_ID);
+    private static final String TEST_STRUCTURE_EMPTY = "fabric-gametest-api-v1:empty";
 
     public static final Collection<TestFunction> TEST_FUNCTIONS = new ArrayList<>() {
         {
             // Copper Shulker Box
             for (DyeColor color : DyeColor.values()) {
                 ReinforcedShulkerBoxBlock shulkerBoxBlock = (ReinforcedShulkerBoxBlock) ModBlocks.REINFORCED_SHULKER_BOX_MAP
-                        .get(ReinforcingMaterials.MAP.get("copper")).get(color);
+                        .get(ReinforcingMaterials.MAP.get("copper"))
+                        .get(color);
 
                 add(CauldronBehaviorTests.createTest(
                         String.format("Clean %s", shulkerBoxBlock.getName().getString()),
@@ -51,7 +53,8 @@ public class CauldronBehaviorTests {
             // Iron Shulker Box
             for (DyeColor color : DyeColor.values()) {
                 ReinforcedShulkerBoxBlock shulkerBoxBlock = (ReinforcedShulkerBoxBlock) ModBlocks.REINFORCED_SHULKER_BOX_MAP
-                        .get(ReinforcingMaterials.MAP.get("iron")).get(color);
+                        .get(ReinforcingMaterials.MAP.get("iron"))
+                        .get(color);
 
                 add(CauldronBehaviorTests.createTest(
                         String.format("Clean %s", shulkerBoxBlock.getName().getString()),
@@ -61,7 +64,8 @@ public class CauldronBehaviorTests {
             // Gold Shulker Box
             for (DyeColor color : DyeColor.values()) {
                 ReinforcedShulkerBoxBlock shulkerBoxBlock = (ReinforcedShulkerBoxBlock) ModBlocks.REINFORCED_SHULKER_BOX_MAP
-                        .get(ReinforcingMaterials.MAP.get("gold")).get(color);
+                        .get(ReinforcingMaterials.MAP.get("gold"))
+                        .get(color);
 
                 add(CauldronBehaviorTests.createTest(
                         String.format("Clean %s", shulkerBoxBlock.getName().getString()),
@@ -71,7 +75,8 @@ public class CauldronBehaviorTests {
             // Diamond Shulker Box
             for (DyeColor color : DyeColor.values()) {
                 ReinforcedShulkerBoxBlock shulkerBoxBlock = (ReinforcedShulkerBoxBlock) ModBlocks.REINFORCED_SHULKER_BOX_MAP
-                        .get(ReinforcingMaterials.MAP.get("diamond")).get(color);
+                        .get(ReinforcingMaterials.MAP.get("diamond"))
+                        .get(color);
 
                 add(CauldronBehaviorTests.createTest(
                         String.format("Clean %s", shulkerBoxBlock.getName().getString()),
@@ -81,7 +86,8 @@ public class CauldronBehaviorTests {
             // Netherite Shulker Box
             for (DyeColor color : DyeColor.values()) {
                 ReinforcedShulkerBoxBlock shulkerBoxBlock = (ReinforcedShulkerBoxBlock) ModBlocks.REINFORCED_SHULKER_BOX_MAP
-                        .get(ReinforcingMaterials.MAP.get("netherite")).get(color);
+                        .get(ReinforcingMaterials.MAP.get("netherite"))
+                        .get(color);
 
                 add(CauldronBehaviorTests.createTest(
                         String.format("Clean %s", shulkerBoxBlock.getName().getString()),
@@ -91,20 +97,18 @@ public class CauldronBehaviorTests {
     };
 
     private static TestFunction createTest(String name, ReinforcedShulkerBoxBlock shulkerBoxBlock) {
-        String testName = String.format("%s %s %s",
-                ReinforcedShulkerBoxesMod.MOD_ID,
-                CauldronBehaviorTests.class.getSimpleName(),
-                name)
-                .replace(" ", "_");
+        Identifier testIdentifier = TestIdentifier.of(ReinforcedShulkerBoxesMod.MOD_ID,
+                CauldronBehaviorTests.class,
+                name);
 
         return new TestFunction(
-                CauldronBehaviorTests.BATCH_ID,
-                testName,
-                FabricGameTest.EMPTY_STRUCTURE,
-                StructureTestUtil.getRotation(0),
-                100,
-                0L,
+                testIdentifier,
+                CauldronBehaviorTests.TEST_ENVIRONMENT_DEFAULT,
+                CauldronBehaviorTests.TEST_STRUCTURE_EMPTY,
+                20,
+                0,
                 true,
+                BlockRotation.NONE,
                 false,
                 1,
                 1,
@@ -112,16 +116,17 @@ public class CauldronBehaviorTests {
                 (context) -> {
                     // Arrange
                     BlockPos blockPos = BlockPos.ORIGIN;
-                    context.setBlockState(blockPos, Blocks.WATER_CAULDRON
-                            .getDefaultState().with(Properties.LEVEL_3, 3));
+                    context.setBlockState(blockPos,
+                            Blocks.WATER_CAULDRON.getDefaultState().with(Properties.LEVEL_3, 3));
 
                     ServerPlayerEntity player = MockServerPlayerHelper.spawn(context,
-                            GameMode.SURVIVAL, Vec3d.of(blockPos.south(4)));
+                            GameMode.SURVIVAL,
+                            Vec3d.of(blockPos.south(4)));
                     player.setStackInHand(Hand.MAIN_HAND, new ItemStack(shulkerBoxBlock.asItem()));
 
                     Stat<Identifier> stat = Stats.CUSTOM
-                            .getOrCreateStat(
-                                    ModStats.CLEAN_REINFORCED_SHULKER_BOX_MAP.get(shulkerBoxBlock.getMaterial()));
+                            .getOrCreateStat(ModStats.CLEAN_REINFORCED_SHULKER_BOX_MAP
+                                    .get(shulkerBoxBlock.getMaterial()));
 
                     // Act
                     CompletableFuture<Void> futurePartialAct1 = new CompletableFuture<>();
@@ -150,17 +155,20 @@ public class CauldronBehaviorTests {
                     // Assert
                     CompletableFuture.allOf(futurePartialAct1, futurePartialAct2).thenRun(() -> {
                         try {
+                            context.assertEquals(player.getMainHandStack().getItem(),
+                                    ModItems.REINFORCED_SHULKER_BOX_MAP
+                                            .get(shulkerBoxBlock.getMaterial())
+                                            .get((DyeColor) null),
+                                    Text.of("main hand item"));
+                            context.assertEquals(context.getBlockState(blockPos).get(Properties.LEVEL_3),
+                                    2,
+                                    Text.of("fluid level"));
                             context.assertEquals(
-                                    player.getMainHandStack().getItem(), ModItems.REINFORCED_SHULKER_BOX_MAP
-                                            .get(shulkerBoxBlock.getMaterial()).get((DyeColor) null),
-                                    "main hand item");
-                            context.assertEquals(context.getBlockState(blockPos).get(Properties.LEVEL_3), 2,
-                                    "fluid level");
-                            context.assertEquals(
-                                    statMap.get(statMapKeyAfterCleaning) - statMap.get(statMapKeyBeforeCleaning), 1,
-                                    String.format("diff %s value", stat.getName()));
+                                    statMap.get(statMapKeyAfterCleaning) - statMap.get(statMapKeyBeforeCleaning),
+                                    1,
+                                    Text.of(String.format("diff %s value", stat.getName())));
                         } catch (Exception e) {
-                            ReinforcedShulkerBoxesMod.LOGGER.error("[{}] {}", testName, e.getMessage());
+                            ReinforcedShulkerBoxesMod.LOGGER.error("[{}] {}", testIdentifier, e.getMessage());
                             throw e;
                         } finally {
                             MockServerPlayerHelper.destroy(context, player);

@@ -20,15 +20,16 @@ import net.minecraft.recipe.input.RecipeInput;
 import net.minecraft.recipe.input.SmithingRecipeInput;
 import net.minecraft.registry.DynamicRegistryManager;
 import net.minecraft.server.world.ServerWorld;
-import net.minecraft.test.StructureTestUtil;
-import net.minecraft.test.TestFunction;
+import net.minecraft.text.Text;
+import net.minecraft.util.BlockRotation;
 import net.minecraft.util.DyeColor;
+import net.minecraft.util.Identifier;
 
-import net.fabricmc.fabric.api.gametest.v1.FabricGameTest;
-
+import atonkish.reinfcore.gametest.TestFunction;
 import atonkish.reinfcore.util.ReinforcingMaterials;
 
 import atonkish.reinfshulker.ReinforcedShulkerBoxesMod;
+import atonkish.reinfshulker.gametest.util.TestIdentifier;
 import atonkish.reinfshulker.item.ModItems;
 
 public class RecipeTests {
@@ -54,8 +55,9 @@ public class RecipeTests {
         }
     };
 
-    private static final String BATCH_ID = String.format("%s:RecipeBatch",
+    private static final String TEST_ENVIRONMENT_DEFAULT = String.format("%s:recipe/default",
             ReinforcedShulkerBoxesMod.MOD_ID);
+    private static final String TEST_STRUCTURE_EMPTY = "fabric-gametest-api-v1:empty";
 
     public static final Collection<TestFunction> TEST_FUNCTIONS = new ArrayList<>() {
         {
@@ -65,8 +67,9 @@ public class RecipeTests {
                 baseShulkerBox.set(DataComponentTypes.CONTAINER,
                         ContainerComponent.fromStacks(List.of(new ItemStack(Items.DIRT))));
                 ItemStack material = new ItemStack(Items.COPPER_INGOT);
-                ItemStack shulkerBox = new ItemStack(
-                        ModItems.REINFORCED_SHULKER_BOX_MAP.get(ReinforcingMaterials.MAP.get("copper")).get(color));
+                ItemStack shulkerBox = new ItemStack(ModItems.REINFORCED_SHULKER_BOX_MAP
+                        .get(ReinforcingMaterials.MAP.get("copper"))
+                        .get(color));
                 shulkerBox.set(DataComponentTypes.CONTAINER,
                         ContainerComponent.fromStacks(List.of(new ItemStack(Items.DIRT))));
 
@@ -86,15 +89,15 @@ public class RecipeTests {
                         continue;
                     }
 
-                    ItemStack baseShulkerBox = new ItemStack(
-                            ModItems.REINFORCED_SHULKER_BOX_MAP.get(ReinforcingMaterials.MAP.get("copper"))
-                                    .get(baseColor));
+                    ItemStack baseShulkerBox = new ItemStack(ModItems.REINFORCED_SHULKER_BOX_MAP
+                            .get(ReinforcingMaterials.MAP.get("copper"))
+                            .get(baseColor));
                     baseShulkerBox.set(DataComponentTypes.CONTAINER,
                             ContainerComponent.fromStacks(List.of(new ItemStack(Items.DIRT))));
                     ItemStack dye = new ItemStack(DyeItem.byColor(dyeColor));
-                    ItemStack dyedShulkerBox = new ItemStack(
-                            ModItems.REINFORCED_SHULKER_BOX_MAP.get(ReinforcingMaterials.MAP.get("copper"))
-                                    .get(dyeColor));
+                    ItemStack dyedShulkerBox = new ItemStack(ModItems.REINFORCED_SHULKER_BOX_MAP
+                            .get(ReinforcingMaterials.MAP.get("copper"))
+                            .get(dyeColor));
                     dyedShulkerBox.set(DataComponentTypes.CONTAINER,
                             ContainerComponent.fromStacks(List.of(new ItemStack(Items.DIRT))));
 
@@ -111,13 +114,12 @@ public class RecipeTests {
             }
 
             {
-                ItemStack chest = new ItemStack(
-                        atonkish.reinfchest.item.ModItems.REINFORCED_CHEST_MAP
-                                .get(ReinforcingMaterials.MAP.get("copper")));
+                ItemStack chest = new ItemStack(atonkish.reinfchest.item.ModItems.REINFORCED_CHEST_MAP
+                        .get(ReinforcingMaterials.MAP.get("copper")));
                 ItemStack shell = new ItemStack(Items.SHULKER_SHELL);
-                ItemStack shulkerBox = new ItemStack(
-                        ModItems.REINFORCED_SHULKER_BOX_MAP.get(ReinforcingMaterials.MAP.get("copper"))
-                                .get((DyeColor) null));
+                ItemStack shulkerBox = new ItemStack(ModItems.REINFORCED_SHULKER_BOX_MAP
+                        .get(ReinforcingMaterials.MAP.get("copper"))
+                        .get((DyeColor) null));
 
                 add(RecipeTests.createTest(
                         String.format("Craft %s from %s",
@@ -133,13 +135,15 @@ public class RecipeTests {
 
             // Iron Shulker Box
             for (DyeColor color : SHULKER_BOX_MAP.keySet()) {
-                ItemStack baseShulkerBox = new ItemStack(
-                        ModItems.REINFORCED_SHULKER_BOX_MAP.get(ReinforcingMaterials.MAP.get("copper")).get(color));
+                ItemStack baseShulkerBox = new ItemStack(ModItems.REINFORCED_SHULKER_BOX_MAP
+                        .get(ReinforcingMaterials.MAP.get("copper"))
+                        .get(color));
                 baseShulkerBox.set(DataComponentTypes.CONTAINER,
                         ContainerComponent.fromStacks(List.of(new ItemStack(Items.DIRT))));
                 ItemStack material = new ItemStack(Items.IRON_INGOT);
-                ItemStack shulkerBox = new ItemStack(
-                        ModItems.REINFORCED_SHULKER_BOX_MAP.get(ReinforcingMaterials.MAP.get("iron")).get(color));
+                ItemStack shulkerBox = new ItemStack(ModItems.REINFORCED_SHULKER_BOX_MAP
+                        .get(ReinforcingMaterials.MAP.get("iron"))
+                        .get(color));
                 shulkerBox.set(DataComponentTypes.CONTAINER,
                         ContainerComponent.fromStacks(List.of(new ItemStack(Items.DIRT))));
 
@@ -159,15 +163,15 @@ public class RecipeTests {
                         continue;
                     }
 
-                    ItemStack baseShulkerBox = new ItemStack(
-                            ModItems.REINFORCED_SHULKER_BOX_MAP.get(ReinforcingMaterials.MAP.get("iron"))
-                                    .get(baseColor));
+                    ItemStack baseShulkerBox = new ItemStack(ModItems.REINFORCED_SHULKER_BOX_MAP
+                            .get(ReinforcingMaterials.MAP.get("iron"))
+                            .get(baseColor));
                     baseShulkerBox.set(DataComponentTypes.CONTAINER,
                             ContainerComponent.fromStacks(List.of(new ItemStack(Items.DIRT))));
                     ItemStack dye = new ItemStack(DyeItem.byColor(dyeColor));
-                    ItemStack dyedShulkerBox = new ItemStack(
-                            ModItems.REINFORCED_SHULKER_BOX_MAP.get(ReinforcingMaterials.MAP.get("iron"))
-                                    .get(dyeColor));
+                    ItemStack dyedShulkerBox = new ItemStack(ModItems.REINFORCED_SHULKER_BOX_MAP
+                            .get(ReinforcingMaterials.MAP.get("iron"))
+                            .get(dyeColor));
                     dyedShulkerBox.set(DataComponentTypes.CONTAINER,
                             ContainerComponent.fromStacks(List.of(new ItemStack(Items.DIRT))));
 
@@ -184,13 +188,12 @@ public class RecipeTests {
             }
 
             {
-                ItemStack chest = new ItemStack(
-                        atonkish.reinfchest.item.ModItems.REINFORCED_CHEST_MAP
-                                .get(ReinforcingMaterials.MAP.get("iron")));
+                ItemStack chest = new ItemStack(atonkish.reinfchest.item.ModItems.REINFORCED_CHEST_MAP
+                        .get(ReinforcingMaterials.MAP.get("iron")));
                 ItemStack shell = new ItemStack(Items.SHULKER_SHELL);
-                ItemStack shulkerBox = new ItemStack(
-                        ModItems.REINFORCED_SHULKER_BOX_MAP.get(ReinforcingMaterials.MAP.get("iron"))
-                                .get((DyeColor) null));
+                ItemStack shulkerBox = new ItemStack(ModItems.REINFORCED_SHULKER_BOX_MAP
+                        .get(ReinforcingMaterials.MAP.get("iron"))
+                        .get((DyeColor) null));
 
                 add(RecipeTests.createTest(
                         String.format("Craft %s from %s",
@@ -206,13 +209,15 @@ public class RecipeTests {
 
             // Gold Shulker Box
             for (DyeColor color : SHULKER_BOX_MAP.keySet()) {
-                ItemStack baseShulkerBox = new ItemStack(
-                        ModItems.REINFORCED_SHULKER_BOX_MAP.get(ReinforcingMaterials.MAP.get("iron")).get(color));
+                ItemStack baseShulkerBox = new ItemStack(ModItems.REINFORCED_SHULKER_BOX_MAP
+                        .get(ReinforcingMaterials.MAP.get("iron"))
+                        .get(color));
                 baseShulkerBox.set(DataComponentTypes.CONTAINER,
                         ContainerComponent.fromStacks(List.of(new ItemStack(Items.DIRT))));
                 ItemStack material = new ItemStack(Items.GOLD_INGOT);
-                ItemStack shulkerBox = new ItemStack(
-                        ModItems.REINFORCED_SHULKER_BOX_MAP.get(ReinforcingMaterials.MAP.get("gold")).get(color));
+                ItemStack shulkerBox = new ItemStack(ModItems.REINFORCED_SHULKER_BOX_MAP
+                        .get(ReinforcingMaterials.MAP.get("gold"))
+                        .get(color));
                 shulkerBox.set(DataComponentTypes.CONTAINER,
                         ContainerComponent.fromStacks(List.of(new ItemStack(Items.DIRT))));
 
@@ -232,15 +237,15 @@ public class RecipeTests {
                         continue;
                     }
 
-                    ItemStack baseShulkerBox = new ItemStack(
-                            ModItems.REINFORCED_SHULKER_BOX_MAP.get(ReinforcingMaterials.MAP.get("gold"))
-                                    .get(baseColor));
+                    ItemStack baseShulkerBox = new ItemStack(ModItems.REINFORCED_SHULKER_BOX_MAP
+                            .get(ReinforcingMaterials.MAP.get("gold"))
+                            .get(baseColor));
                     baseShulkerBox.set(DataComponentTypes.CONTAINER,
                             ContainerComponent.fromStacks(List.of(new ItemStack(Items.DIRT))));
                     ItemStack dye = new ItemStack(DyeItem.byColor(dyeColor));
-                    ItemStack dyedShulkerBox = new ItemStack(
-                            ModItems.REINFORCED_SHULKER_BOX_MAP.get(ReinforcingMaterials.MAP.get("gold"))
-                                    .get(dyeColor));
+                    ItemStack dyedShulkerBox = new ItemStack(ModItems.REINFORCED_SHULKER_BOX_MAP
+                            .get(ReinforcingMaterials.MAP.get("gold"))
+                            .get(dyeColor));
                     dyedShulkerBox.set(DataComponentTypes.CONTAINER,
                             ContainerComponent.fromStacks(List.of(new ItemStack(Items.DIRT))));
 
@@ -257,13 +262,12 @@ public class RecipeTests {
             }
 
             {
-                ItemStack chest = new ItemStack(
-                        atonkish.reinfchest.item.ModItems.REINFORCED_CHEST_MAP
-                                .get(ReinforcingMaterials.MAP.get("gold")));
+                ItemStack chest = new ItemStack(atonkish.reinfchest.item.ModItems.REINFORCED_CHEST_MAP
+                        .get(ReinforcingMaterials.MAP.get("gold")));
                 ItemStack shell = new ItemStack(Items.SHULKER_SHELL);
-                ItemStack shulkerBox = new ItemStack(
-                        ModItems.REINFORCED_SHULKER_BOX_MAP.get(ReinforcingMaterials.MAP.get("gold"))
-                                .get((DyeColor) null));
+                ItemStack shulkerBox = new ItemStack(ModItems.REINFORCED_SHULKER_BOX_MAP
+                        .get(ReinforcingMaterials.MAP.get("gold"))
+                        .get((DyeColor) null));
 
                 add(RecipeTests.createTest(
                         String.format("Craft %s from %s",
@@ -279,13 +283,15 @@ public class RecipeTests {
 
             // Diamond Shulker Box
             for (DyeColor color : SHULKER_BOX_MAP.keySet()) {
-                ItemStack baseShulkerBox = new ItemStack(
-                        ModItems.REINFORCED_SHULKER_BOX_MAP.get(ReinforcingMaterials.MAP.get("gold")).get(color));
+                ItemStack baseShulkerBox = new ItemStack(ModItems.REINFORCED_SHULKER_BOX_MAP
+                        .get(ReinforcingMaterials.MAP.get("gold"))
+                        .get(color));
                 baseShulkerBox.set(DataComponentTypes.CONTAINER,
                         ContainerComponent.fromStacks(List.of(new ItemStack(Items.DIRT))));
                 ItemStack material = new ItemStack(Items.DIAMOND);
-                ItemStack shulkerBox = new ItemStack(
-                        ModItems.REINFORCED_SHULKER_BOX_MAP.get(ReinforcingMaterials.MAP.get("diamond")).get(color));
+                ItemStack shulkerBox = new ItemStack(ModItems.REINFORCED_SHULKER_BOX_MAP
+                        .get(ReinforcingMaterials.MAP.get("diamond"))
+                        .get(color));
                 shulkerBox.set(DataComponentTypes.CONTAINER,
                         ContainerComponent.fromStacks(List.of(new ItemStack(Items.DIRT))));
 
@@ -305,15 +311,15 @@ public class RecipeTests {
                         continue;
                     }
 
-                    ItemStack baseShulkerBox = new ItemStack(
-                            ModItems.REINFORCED_SHULKER_BOX_MAP.get(ReinforcingMaterials.MAP.get("diamond"))
-                                    .get(baseColor));
+                    ItemStack baseShulkerBox = new ItemStack(ModItems.REINFORCED_SHULKER_BOX_MAP
+                            .get(ReinforcingMaterials.MAP.get("diamond"))
+                            .get(baseColor));
                     baseShulkerBox.set(DataComponentTypes.CONTAINER,
                             ContainerComponent.fromStacks(List.of(new ItemStack(Items.DIRT))));
                     ItemStack dye = new ItemStack(DyeItem.byColor(dyeColor));
-                    ItemStack dyedShulkerBox = new ItemStack(
-                            ModItems.REINFORCED_SHULKER_BOX_MAP.get(ReinforcingMaterials.MAP.get("diamond"))
-                                    .get(dyeColor));
+                    ItemStack dyedShulkerBox = new ItemStack(ModItems.REINFORCED_SHULKER_BOX_MAP
+                            .get(ReinforcingMaterials.MAP.get("diamond"))
+                            .get(dyeColor));
                     dyedShulkerBox.set(DataComponentTypes.CONTAINER,
                             ContainerComponent.fromStacks(List.of(new ItemStack(Items.DIRT))));
 
@@ -330,13 +336,12 @@ public class RecipeTests {
             }
 
             {
-                ItemStack chest = new ItemStack(
-                        atonkish.reinfchest.item.ModItems.REINFORCED_CHEST_MAP
-                                .get(ReinforcingMaterials.MAP.get("diamond")));
+                ItemStack chest = new ItemStack(atonkish.reinfchest.item.ModItems.REINFORCED_CHEST_MAP
+                        .get(ReinforcingMaterials.MAP.get("diamond")));
                 ItemStack shell = new ItemStack(Items.SHULKER_SHELL);
-                ItemStack shulkerBox = new ItemStack(
-                        ModItems.REINFORCED_SHULKER_BOX_MAP.get(ReinforcingMaterials.MAP.get("diamond"))
-                                .get((DyeColor) null));
+                ItemStack shulkerBox = new ItemStack(ModItems.REINFORCED_SHULKER_BOX_MAP
+                        .get(ReinforcingMaterials.MAP.get("diamond"))
+                        .get((DyeColor) null));
 
                 add(RecipeTests.createTest(
                         String.format("Craft %s from %s",
@@ -353,13 +358,15 @@ public class RecipeTests {
             // Netherite Shulker Box
             for (DyeColor color : SHULKER_BOX_MAP.keySet()) {
                 ItemStack template = new ItemStack(Items.NETHERITE_UPGRADE_SMITHING_TEMPLATE);
-                ItemStack baseShulkerBox = new ItemStack(
-                        ModItems.REINFORCED_SHULKER_BOX_MAP.get(ReinforcingMaterials.MAP.get("diamond")).get(color));
+                ItemStack baseShulkerBox = new ItemStack(ModItems.REINFORCED_SHULKER_BOX_MAP
+                        .get(ReinforcingMaterials.MAP.get("diamond"))
+                        .get(color));
                 baseShulkerBox.set(DataComponentTypes.CONTAINER,
                         ContainerComponent.fromStacks(List.of(new ItemStack(Items.DIRT))));
                 ItemStack material = new ItemStack(Items.NETHERITE_INGOT);
-                ItemStack shulkerBox = new ItemStack(
-                        ModItems.REINFORCED_SHULKER_BOX_MAP.get(ReinforcingMaterials.MAP.get("netherite")).get(color));
+                ItemStack shulkerBox = new ItemStack(ModItems.REINFORCED_SHULKER_BOX_MAP
+                        .get(ReinforcingMaterials.MAP.get("netherite"))
+                        .get(color));
                 shulkerBox.set(DataComponentTypes.CONTAINER,
                         ContainerComponent.fromStacks(List.of(new ItemStack(Items.DIRT))));
 
@@ -376,15 +383,15 @@ public class RecipeTests {
                         continue;
                     }
 
-                    ItemStack baseShulkerBox = new ItemStack(
-                            ModItems.REINFORCED_SHULKER_BOX_MAP.get(ReinforcingMaterials.MAP.get("netherite"))
-                                    .get(baseColor));
+                    ItemStack baseShulkerBox = new ItemStack(ModItems.REINFORCED_SHULKER_BOX_MAP
+                            .get(ReinforcingMaterials.MAP.get("netherite"))
+                            .get(baseColor));
                     baseShulkerBox.set(DataComponentTypes.CONTAINER,
                             ContainerComponent.fromStacks(List.of(new ItemStack(Items.DIRT))));
                     ItemStack dye = new ItemStack(DyeItem.byColor(dyeColor));
-                    ItemStack dyedShulkerBox = new ItemStack(
-                            ModItems.REINFORCED_SHULKER_BOX_MAP.get(ReinforcingMaterials.MAP.get("netherite"))
-                                    .get(dyeColor));
+                    ItemStack dyedShulkerBox = new ItemStack(ModItems.REINFORCED_SHULKER_BOX_MAP
+                            .get(ReinforcingMaterials.MAP.get("netherite"))
+                            .get(dyeColor));
                     dyedShulkerBox.set(DataComponentTypes.CONTAINER,
                             ContainerComponent.fromStacks(List.of(new ItemStack(Items.DIRT))));
 
@@ -401,13 +408,12 @@ public class RecipeTests {
             }
 
             {
-                ItemStack chest = new ItemStack(
-                        atonkish.reinfchest.item.ModItems.REINFORCED_CHEST_MAP
-                                .get(ReinforcingMaterials.MAP.get("netherite")));
+                ItemStack chest = new ItemStack(atonkish.reinfchest.item.ModItems.REINFORCED_CHEST_MAP
+                        .get(ReinforcingMaterials.MAP.get("netherite")));
                 ItemStack shell = new ItemStack(Items.SHULKER_SHELL);
-                ItemStack shulkerBox = new ItemStack(
-                        ModItems.REINFORCED_SHULKER_BOX_MAP.get(ReinforcingMaterials.MAP.get("netherite"))
-                                .get((DyeColor) null));
+                ItemStack shulkerBox = new ItemStack(ModItems.REINFORCED_SHULKER_BOX_MAP
+                        .get(ReinforcingMaterials.MAP.get("netherite"))
+                        .get((DyeColor) null));
 
                 add(RecipeTests.createTest(
                         String.format("Craft %s from %s",
@@ -424,21 +430,21 @@ public class RecipeTests {
     };
 
     private static <I extends RecipeInput, T extends Recipe<I>> TestFunction createTest(String name,
-            RecipeType<T> type, I input, ItemStack expected) {
-        String testName = String.format("%s %s %s",
-                ReinforcedShulkerBoxesMod.MOD_ID,
-                RecipeTests.class.getSimpleName(),
-                name)
-                .replace(" ", "_");
+            RecipeType<T> type,
+            I input,
+            ItemStack expected) {
+        Identifier testIdentifier = TestIdentifier.of(ReinforcedShulkerBoxesMod.MOD_ID,
+                RecipeTests.class,
+                name);
 
         return new TestFunction(
-                RecipeTests.BATCH_ID,
-                testName,
-                FabricGameTest.EMPTY_STRUCTURE,
-                StructureTestUtil.getRotation(0),
-                100,
-                0L,
+                testIdentifier,
+                RecipeTests.TEST_ENVIRONMENT_DEFAULT,
+                RecipeTests.TEST_STRUCTURE_EMPTY,
+                20,
+                0,
                 true,
+                BlockRotation.NONE,
                 false,
                 1,
                 1,
@@ -456,9 +462,9 @@ public class RecipeTests {
                     // Assert
                     try {
                         context.assertTrue(ItemStack.areEqual(actual, expected),
-                                "Recipe result differs from expected.");
+                                Text.of("Recipe result differs from expected."));
                     } catch (Exception e) {
-                        ReinforcedShulkerBoxesMod.LOGGER.error("[{}] {}", testName, e.getMessage());
+                        ReinforcedShulkerBoxesMod.LOGGER.error("[{}] {}", testIdentifier, e.getMessage());
                         throw e;
                     }
 

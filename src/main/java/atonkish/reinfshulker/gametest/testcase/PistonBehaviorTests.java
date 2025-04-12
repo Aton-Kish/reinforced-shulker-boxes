@@ -6,53 +6,59 @@ import java.util.concurrent.CompletableFuture;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
-import net.minecraft.test.StructureTestUtil;
-import net.minecraft.test.TestFunction;
+import net.minecraft.util.BlockRotation;
+import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 
-import net.fabricmc.fabric.api.gametest.v1.FabricGameTest;
-
+import atonkish.reinfcore.gametest.TestFunction;
 import atonkish.reinfcore.util.ReinforcingMaterials;
 
 import atonkish.reinfshulker.ReinforcedShulkerBoxesMod;
 import atonkish.reinfshulker.block.ModBlocks;
+import atonkish.reinfshulker.gametest.util.TestIdentifier;
 
 public class PistonBehaviorTests {
-    private static final String BATCH_ID = String.format("%s:PistonBehaviorBatch",
+    private static final String TEST_ENVIRONMENT_DEFAULT = String.format("%s:piston_behavior/default",
             ReinforcedShulkerBoxesMod.MOD_ID);
+    private static final String TEST_STRUCTURE_EMPTY = "fabric-gametest-api-v1:empty";
 
     public static final Collection<TestFunction> TEST_FUNCTIONS = new ArrayList<>() {
         {
             // Copper Shulker Box
-            for (Block block : ModBlocks.REINFORCED_SHULKER_BOX_MAP.get(ReinforcingMaterials.MAP.get("copper"))
+            for (Block block : ModBlocks.REINFORCED_SHULKER_BOX_MAP
+                    .get(ReinforcingMaterials.MAP.get("copper"))
                     .values()) {
                 add(PistonBehaviorTests.createTest(
                         String.format("Piston breaks %s", block.getName().getString()), block));
             }
 
             // Iron Shulker Box
-            for (Block block : ModBlocks.REINFORCED_SHULKER_BOX_MAP.get(ReinforcingMaterials.MAP.get("iron"))
+            for (Block block : ModBlocks.REINFORCED_SHULKER_BOX_MAP
+                    .get(ReinforcingMaterials.MAP.get("iron"))
                     .values()) {
                 add(PistonBehaviorTests.createTest(
                         String.format("Piston breaks %s", block.getName().getString()), block));
             }
 
             // Gold Shulker Box
-            for (Block block : ModBlocks.REINFORCED_SHULKER_BOX_MAP.get(ReinforcingMaterials.MAP.get("gold"))
+            for (Block block : ModBlocks.REINFORCED_SHULKER_BOX_MAP
+                    .get(ReinforcingMaterials.MAP.get("gold"))
                     .values()) {
                 add(PistonBehaviorTests.createTest(
                         String.format("Piston breaks %s", block.getName().getString()), block));
             }
 
             // Diamond Shulker Box
-            for (Block block : ModBlocks.REINFORCED_SHULKER_BOX_MAP.get(ReinforcingMaterials.MAP.get("diamond"))
+            for (Block block : ModBlocks.REINFORCED_SHULKER_BOX_MAP
+                    .get(ReinforcingMaterials.MAP.get("diamond"))
                     .values()) {
                 add(PistonBehaviorTests.createTest(
                         String.format("Piston breaks %s", block.getName().getString()), block));
             }
 
             // Netherite Shulker Box
-            for (Block block : ModBlocks.REINFORCED_SHULKER_BOX_MAP.get(ReinforcingMaterials.MAP.get("netherite"))
+            for (Block block : ModBlocks.REINFORCED_SHULKER_BOX_MAP
+                    .get(ReinforcingMaterials.MAP.get("netherite"))
                     .values()) {
                 add(PistonBehaviorTests.createTest(
                         String.format("Piston breaks %s", block.getName().getString()), block));
@@ -61,20 +67,18 @@ public class PistonBehaviorTests {
     };
 
     private static TestFunction createTest(String name, Block shulkerBoxBlock) {
-        String testName = String.format("%s %s %s",
-                ReinforcedShulkerBoxesMod.MOD_ID,
-                PistonBehaviorTests.class.getSimpleName(),
-                name)
-                .replace(" ", "_");
+        Identifier testIdentifier = TestIdentifier.of(ReinforcedShulkerBoxesMod.MOD_ID,
+                PistonBehaviorTests.class,
+                name);
 
         return new TestFunction(
-                PistonBehaviorTests.BATCH_ID,
-                testName,
-                FabricGameTest.EMPTY_STRUCTURE,
-                StructureTestUtil.getRotation(0),
-                100,
-                0L,
+                testIdentifier,
+                PistonBehaviorTests.TEST_ENVIRONMENT_DEFAULT,
+                PistonBehaviorTests.TEST_STRUCTURE_EMPTY,
+                20,
+                0,
                 true,
+                BlockRotation.NONE,
                 false,
                 1,
                 1,
@@ -107,7 +111,7 @@ public class PistonBehaviorTests {
                             context.expectBlock(Blocks.AIR, blockPos);
                             context.expectItemAt(shulkerBoxBlock.asItem(), blockPos, 1);
                         } catch (Exception e) {
-                            ReinforcedShulkerBoxesMod.LOGGER.error("[{}] {}", testName, e.getMessage());
+                            ReinforcedShulkerBoxesMod.LOGGER.error("[{}] {}", testIdentifier, e.getMessage());
                             throw e;
                         }
 

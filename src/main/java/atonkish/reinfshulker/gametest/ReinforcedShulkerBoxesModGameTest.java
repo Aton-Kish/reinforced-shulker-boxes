@@ -3,8 +3,8 @@ package atonkish.reinfshulker.gametest;
 import java.util.ArrayList;
 import java.util.Collection;
 
-import net.minecraft.test.CustomTestProvider;
-import net.minecraft.test.TestFunction;
+import atonkish.reinfcore.gametest.CustomTestProvider;
+import atonkish.reinfcore.gametest.TestFunction;
 
 import atonkish.reinfshulker.gametest.testcase.AdvancementTests;
 import atonkish.reinfshulker.gametest.testcase.CauldronBehaviorTests;

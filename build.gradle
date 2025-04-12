@@ -1,5 +1,5 @@
 plugins {
-	id "fabric-loom" version "1.9-SNAPSHOT"
+	id "fabric-loom" version "1.10-SNAPSHOT"
 	id "maven-publish"
 	id "com.matthewprenger.cursegradle" version "1.4.0"
 	id "com.modrinth.minotaur" version "2.+"
@@ -35,8 +35,15 @@ repositories {
 	}
 
 	// Shulker Box Tooltip
+	// maven {
+	// 	url "https://maven.misterpemodder.com/libs-release"
+	// }
+	// [2025-04-13] maven.misterpemodder.com temporarily unavailable
 	maven {
-		url "https://maven.misterpemodder.com/libs-release"
+		url "https://www.cursemaven.com"
+		content {
+			includeGroup "curse.maven"
+		}
 	}
 
 	// // Quick Shulker
@@ -95,7 +102,9 @@ dependencies {
 	modImplementation "atonkish.reinfchest:reinforced-chests:${project.reinforced_chests_version}"
 
 	// Shulker Box Tooltip
-	modImplementation "com.misterpemodder:shulkerboxtooltip-fabric:${project.shulker_box_tooltip_version}"
+	// modImplementation "com.misterpemodder:shulkerboxtooltip-fabric:${project.shulker_box_tooltip_version}"
+	// [2025-04-13] maven.misterpemodder.com temporarily unavailable
+	modImplementation "curse.maven:shulkerboxtooltip-315811:${project.shulker_box_tooltip_file_id}"
 
 	// // Quick Shulker
 	// modImplementation "net.kyrptonaught:quickshulker:${project.quick_shulker_version}"
@@ -107,7 +116,7 @@ processResources {
 	inputs.property "version", project.version
 
 	filesMatching("fabric.mod.json") {
-		expand "version": project.version
+		expand "version": inputs.properties.version
 	}
 }
 
@@ -128,7 +137,7 @@ java {
 
 jar {
 	from("LICENSE") {
-		rename { "${it}_${project.base.archivesName.get()}"}
+		rename { "${it}_${inputs.properties.archivesName}"}
 	}
 }
 
@@ -168,7 +177,7 @@ curseforge {
 
 		addGameVersion "Fabric"
 		addGameVersion "Java 21"
-		addGameVersion "1.21.4"
+		addGameVersion "1.21.5"
 
 		relations {
 			requiredDependency "fabric-api"
@@ -192,7 +201,7 @@ modrinth {
 	versionType = "release"
 	changelog = "[v${project.version}](https://github.com/Aton-Kish/reinforced-shulker-boxes/releases/tag/v" + java.net.URLEncoder.encode(project.version, "UTF-8") + ")"
 
-	gameVersions = ["1.21.4"]
+	gameVersions = ["1.21.5"]
 	loaders = ["fabric"]
 
 	dependencies {

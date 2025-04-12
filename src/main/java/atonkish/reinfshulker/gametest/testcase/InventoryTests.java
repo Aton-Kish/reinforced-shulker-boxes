@@ -5,25 +5,28 @@ import java.util.Collection;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.entity.ShulkerBoxBlockEntity;
-import net.minecraft.test.StructureTestUtil;
-import net.minecraft.test.TestFunction;
+import net.minecraft.text.Text;
+import net.minecraft.util.BlockRotation;
+import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 
-import net.fabricmc.fabric.api.gametest.v1.FabricGameTest;
-
+import atonkish.reinfcore.gametest.TestFunction;
 import atonkish.reinfcore.util.ReinforcingMaterials;
 
 import atonkish.reinfshulker.ReinforcedShulkerBoxesMod;
 import atonkish.reinfshulker.block.ModBlocks;
+import atonkish.reinfshulker.gametest.util.TestIdentifier;
 
 public class InventoryTests {
-    private static final String BATCH_ID = String.format("%s:InventoryBatch",
+    private static final String TEST_ENVIRONMENT_DEFAULT = String.format("%s:inventory/default",
             ReinforcedShulkerBoxesMod.MOD_ID);
+    private static final String TEST_STRUCTURE_EMPTY = "fabric-gametest-api-v1:empty";
 
     public static final Collection<TestFunction> TEST_FUNCTIONS = new ArrayList<>() {
         {
             // Copper Shulker Box
-            for (Block block : ModBlocks.REINFORCED_SHULKER_BOX_MAP.get(ReinforcingMaterials.MAP.get("copper"))
+            for (Block block : ModBlocks.REINFORCED_SHULKER_BOX_MAP
+                    .get(ReinforcingMaterials.MAP.get("copper"))
                     .values()) {
                 add(InventoryTests.createTest(
                         String.format("%s inventory size", block.getName().getString()),
@@ -32,7 +35,8 @@ public class InventoryTests {
             }
 
             // Iron Shulker Box
-            for (Block block : ModBlocks.REINFORCED_SHULKER_BOX_MAP.get(ReinforcingMaterials.MAP.get("iron"))
+            for (Block block : ModBlocks.REINFORCED_SHULKER_BOX_MAP
+                    .get(ReinforcingMaterials.MAP.get("iron"))
                     .values()) {
                 add(InventoryTests.createTest(
                         String.format("%s inventory size", block.getName().getString()),
@@ -41,7 +45,8 @@ public class InventoryTests {
             }
 
             // Gold Shulker Box
-            for (Block block : ModBlocks.REINFORCED_SHULKER_BOX_MAP.get(ReinforcingMaterials.MAP.get("gold"))
+            for (Block block : ModBlocks.REINFORCED_SHULKER_BOX_MAP
+                    .get(ReinforcingMaterials.MAP.get("gold"))
                     .values()) {
                 add(InventoryTests.createTest(
                         String.format("%s inventory size", block.getName().getString()),
@@ -50,7 +55,8 @@ public class InventoryTests {
             }
 
             // Diamond Shulker Box
-            for (Block block : ModBlocks.REINFORCED_SHULKER_BOX_MAP.get(ReinforcingMaterials.MAP.get("diamond"))
+            for (Block block : ModBlocks.REINFORCED_SHULKER_BOX_MAP
+                    .get(ReinforcingMaterials.MAP.get("diamond"))
                     .values()) {
                 add(InventoryTests.createTest(
                         String.format("%s inventory size", block.getName().getString()),
@@ -59,7 +65,8 @@ public class InventoryTests {
             }
 
             // Netherite Shulker Box
-            for (Block block : ModBlocks.REINFORCED_SHULKER_BOX_MAP.get(ReinforcingMaterials.MAP.get("netherite"))
+            for (Block block : ModBlocks.REINFORCED_SHULKER_BOX_MAP
+                    .get(ReinforcingMaterials.MAP.get("netherite"))
                     .values()) {
                 add(InventoryTests.createTest(
                         String.format("%s inventory size", block.getName().getString()),
@@ -70,20 +77,18 @@ public class InventoryTests {
     };
 
     private static TestFunction createTest(String name, Block shulkerBoxBlock, int size) {
-        String testName = String.format("%s %s %s",
-                ReinforcedShulkerBoxesMod.MOD_ID,
-                InventoryTests.class.getSimpleName(),
-                name)
-                .replace(" ", "_");
+        Identifier testIdentifier = TestIdentifier.of(ReinforcedShulkerBoxesMod.MOD_ID,
+                InventoryTests.class,
+                name);
 
         return new TestFunction(
-                InventoryTests.BATCH_ID,
-                testName,
-                FabricGameTest.EMPTY_STRUCTURE,
-                StructureTestUtil.getRotation(0),
-                100,
-                0L,
+                testIdentifier,
+                InventoryTests.TEST_ENVIRONMENT_DEFAULT,
+                InventoryTests.TEST_STRUCTURE_EMPTY,
+                20,
+                0,
                 true,
+                BlockRotation.NONE,
                 false,
                 1,
                 1,
@@ -94,14 +99,14 @@ public class InventoryTests {
                     context.setBlockState(blockPos, shulkerBoxBlock);
 
                     // Act
-                    ShulkerBoxBlockEntity entity = (ShulkerBoxBlockEntity) context.getBlockEntity(blockPos);
+                    ShulkerBoxBlockEntity entity = context.getBlockEntity(blockPos, ShulkerBoxBlockEntity.class);
 
                     // Assert
                     try {
                         context.assertEquals(entity.size(), size,
-                                String.format("%s inventory size", shulkerBoxBlock.getName().getString()));
+                                Text.of(String.format("%s inventory size", shulkerBoxBlock.getName().getString())));
                     } catch (Exception e) {
-                        ReinforcedShulkerBoxesMod.LOGGER.error("[{}] {}", testName, e.getMessage());
+                        ReinforcedShulkerBoxesMod.LOGGER.error("[{}] {}", testIdentifier, e.getMessage());
                         throw e;
                     }
 

@@ -36,7 +36,7 @@ public class ModBlocks {
         if (!REINFORCED_SHULKER_BOX_MAP.get(material).containsKey(color)) {
             String id = color == null
                     ? material.getName() + "_shulker_box"
-                    : color.getName() + "_" + material.getName() + "_shulker_box";
+                    : color.getId() + "_" + material.getName() + "_shulker_box";
             Block block = ModBlocks.register(
                     Identifier.of(namespace, id),
                     (abstractBlockSettings) -> new ReinforcedShulkerBoxBlock(material, color, abstractBlockSettings),

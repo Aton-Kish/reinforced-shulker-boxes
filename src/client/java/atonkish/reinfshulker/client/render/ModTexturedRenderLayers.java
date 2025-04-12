@@ -38,7 +38,7 @@ public class ModTexturedRenderLayers {
             List<SpriteIdentifier> identifiers = Stream.of(DyeColor.values()).map((color) -> {
                 return new SpriteIdentifier(TexturedRenderLayers.SHULKER_BOXES_ATLAS_TEXTURE,
                         Identifier.of(namespace,
-                                String.format("entity/shulker/%s/shulker_%s", material.getName(), color.getName())));
+                                String.format("entity/shulker/%s/shulker_%s", material.getName(), color.getId())));
             }).collect(ImmutableList.toImmutableList());
             COLORED_REINFORCED_SHULKER_BOXES_TEXTURES_MAP.put(material, identifiers);
         }
