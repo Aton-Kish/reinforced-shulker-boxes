@@ -55,25 +55,18 @@ public class ReinforcedShulkerBoxBlock extends ShulkerBoxBlock {
     @Override
     public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player,
             BlockHitResult hit) {
-        if (world.isClient) {
-            return ActionResult.SUCCESS;
-        } else if (player.isSpectator()) {
-            return ActionResult.CONSUME;
-        } else {
+        if (world instanceof ServerWorld serverWorld) {
             BlockEntity blockEntity = world.getBlockEntity(pos);
-            if (blockEntity instanceof ShulkerBoxBlockEntity) {
-                ShulkerBoxBlockEntity shulkerBoxBlockEntity = (ShulkerBoxBlockEntity) blockEntity;
+            if (blockEntity instanceof ShulkerBoxBlockEntity shulkerBoxBlockEntity) {
                 if (canOpen(state, world, pos, shulkerBoxBlockEntity)) {
                     player.openHandledScreen(shulkerBoxBlockEntity);
                     player.incrementStat(ModStats.OPEN_REINFORCED_SHULKER_BOX_MAP.get(this.material));
-                    PiglinBrain.onGuardedBlockInteracted((ServerWorld) world, player, true);
+                    PiglinBrain.onGuardedBlockInteracted(serverWorld, player, true);
                 }
-
-                return ActionResult.CONSUME;
-            } else {
-                return ActionResult.PASS;
             }
         }
+
+        return ActionResult.SUCCESS;
     }
 
     private static boolean canOpen(BlockState state, World world, BlockPos pos, ShulkerBoxBlockEntity entity) {

@@ -34,7 +34,7 @@ public class ModCauldronBehavior {
             if (!(block instanceof ReinforcedShulkerBoxBlock)) {
                 return ActionResult.PASS_TO_DEFAULT_BLOCK_ACTION;
             } else {
-                if (!world.isClient) {
+                if (!world.isClient()) {
                     ReinforcingMaterial material = ((ReinforcedShulkerBoxBlock) block).getMaterial();
                     player.setStackInHand(hand, stack.copyComponentsToNewStack(
                             ModBlocks.REINFORCED_SHULKER_BOX_MAP.get(material).get((DyeColor) null), 1));
