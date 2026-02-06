@@ -1,15 +1,18 @@
 package atonkish.reinfshulker.client.render.block.entity;
 
 import java.util.Set;
+import java.util.function.Consumer;
 
 import org.jetbrains.annotations.Nullable;
 import org.joml.Vector3f;
+import org.joml.Vector3fc;
 
 import net.minecraft.block.ShulkerBoxBlock;
 import net.minecraft.client.model.Model;
 import net.minecraft.client.model.ModelPart;
 import net.minecraft.client.render.OverlayTexture;
 import net.minecraft.client.render.RenderLayer;
+import net.minecraft.client.render.RenderLayers;
 import net.minecraft.client.render.block.entity.BlockEntityRenderer;
 import net.minecraft.client.render.block.entity.BlockEntityRendererFactory;
 import net.minecraft.client.render.block.entity.state.BlockEntityRenderState;
@@ -102,10 +105,10 @@ public class ReinforcedShulkerBoxBlockEntityRenderer
         this.model.setAngles(openness);
     }
 
-    public void collectVertices(Direction facing, float openness, Set<Vector3f> vertices) {
+    public void collectVertices(Direction facing, float openness, Consumer<Vector3fc> consumer) {
         MatrixStack matrixStack = new MatrixStack();
         this.setTransforms(matrixStack, facing, openness);
-        this.model.getRootPart().collectVertices(matrixStack, vertices);
+        this.model.getRootPart().collectVertices(matrixStack, consumer);
     }
 
     @Environment(EnvType.CLIENT)
@@ -113,7 +116,7 @@ public class ReinforcedShulkerBoxBlockEntityRenderer
         private final ModelPart lid;
 
         public ShulkerBoxBlockModel(ModelPart root) {
-            super(root, RenderLayer::getEntityCutoutNoCull);
+            super(root, RenderLayers::entityCutoutNoCull);
             this.lid = root.getChild("lid");
         }
 
