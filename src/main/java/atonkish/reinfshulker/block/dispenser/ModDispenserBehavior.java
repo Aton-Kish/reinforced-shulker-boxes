@@ -10,11 +10,11 @@ import net.minecraft.util.DyeColor;
 import atonkish.reinfshulker.item.ModItems;
 
 public interface ModDispenserBehavior {
-    public static void init() {
-        for (Map<DyeColor, Item> materialShulkerBoxMap : ModItems.REINFORCED_SHULKER_BOX_MAP.values()) {
-            for (Item item : materialShulkerBoxMap.values()) {
-                DispenserBlock.registerBehavior(item, new BlockPlacementDispenserBehavior());
-            }
-        }
+  public static void init() {
+    for (Map<DyeColor, Item> materialShulkerBoxMap : ModItems.REINFORCED_SHULKER_BOX_MAP.values()) {
+      for (Item item : materialShulkerBoxMap.values()) {
+        DispenserBlock.registerBehavior(item, new BlockPlacementDispenserBehavior());
+      }
     }
+  }
 }

@@ -9,18 +9,20 @@ import net.minecraft.util.Identifier;
 import atonkish.reinfshulker.ReinforcedShulkerBoxesMod;
 
 public class ModRecipeSerializer {
-    public static final RecipeSerializer<ReinforcedShulkerBoxCraftingRecipe> REINFORCED_SHULKER_BOX;
+  public static final RecipeSerializer<ReinforcedShulkerBoxCraftingRecipe> REINFORCED_SHULKER_BOX;
 
-    public static void init() {
-    }
+  public static void init() {}
 
-    private static <S extends RecipeSerializer<T>, T extends Recipe<?>> S register(String id, S serializer) {
-        Identifier identifier = Identifier.of(ReinforcedShulkerBoxesMod.MOD_ID, id);
-        return Registry.register(Registries.RECIPE_SERIALIZER, identifier, serializer);
-    }
+  private static <S extends RecipeSerializer<T>, T extends Recipe<?>> S register(
+      String id, S serializer) {
+    Identifier identifier = Identifier.of(ReinforcedShulkerBoxesMod.MOD_ID, id);
+    return Registry.register(Registries.RECIPE_SERIALIZER, identifier, serializer);
+  }
 
-    static {
-        REINFORCED_SHULKER_BOX = register("crafting_special_reinforcedshulkerbox",
-                new ReinforcedShulkerBoxCraftingRecipe.Serializer());
-    }
+  static {
+    REINFORCED_SHULKER_BOX =
+        register(
+            "crafting_special_reinforcedshulkerbox",
+            new ReinforcedShulkerBoxCraftingRecipe.Serializer());
+  }
 }

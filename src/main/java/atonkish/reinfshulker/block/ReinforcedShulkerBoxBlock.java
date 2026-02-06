@@ -1,7 +1,5 @@
 package atonkish.reinfshulker.block;
 
-import org.jetbrains.annotations.Nullable;
-
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -23,72 +21,75 @@ import net.minecraft.util.math.Box;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
 
-import atonkish.reinfcore.util.ReinforcingMaterial;
+import org.jetbrains.annotations.Nullable;
 
+import atonkish.reinfcore.util.ReinforcingMaterial;
 import atonkish.reinfshulker.block.entity.ModBlockEntityType;
 import atonkish.reinfshulker.block.entity.ReinforcedShulkerBoxBlockEntity;
 import atonkish.reinfshulker.stat.ModStats;
 
 public class ReinforcedShulkerBoxBlock extends ShulkerBoxBlock {
-    private final ReinforcingMaterial material;
+  private final ReinforcingMaterial material;
 
-    public ReinforcedShulkerBoxBlock(ReinforcingMaterial material, @Nullable DyeColor color,
-            AbstractBlock.Settings settings) {
-        super(color, settings);
-        this.material = material;
-    }
+  public ReinforcedShulkerBoxBlock(
+      ReinforcingMaterial material, @Nullable DyeColor color, AbstractBlock.Settings settings) {
+    super(color, settings);
+    this.material = material;
+  }
 
-    @Override
-    public BlockEntity createBlockEntity(BlockPos pos, BlockState state) {
-        return new ReinforcedShulkerBoxBlockEntity(this.material, this.getColor(), pos, state);
-    }
+  @Override
+  public BlockEntity createBlockEntity(BlockPos pos, BlockState state) {
+    return new ReinforcedShulkerBoxBlockEntity(this.material, this.getColor(), pos, state);
+  }
 
-    @Override
-    @Nullable
-    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(World world, BlockState state,
-            BlockEntityType<T> type) {
-        return ReinforcedShulkerBoxBlock.validateTicker(type,
-                ModBlockEntityType.REINFORCED_SHULKER_BOX_MAP.get(this.material),
-                ReinforcedShulkerBoxBlockEntity::tick);
-    }
+  @Override
+  @Nullable public <T extends BlockEntity> BlockEntityTicker<T> getTicker(
+      World world, BlockState state, BlockEntityType<T> type) {
+    return ReinforcedShulkerBoxBlock.validateTicker(
+        type,
+        ModBlockEntityType.REINFORCED_SHULKER_BOX_MAP.get(this.material),
+        ReinforcedShulkerBoxBlockEntity::tick);
+  }
 
-    @Override
-    public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player,
-            BlockHitResult hit) {
-        if (world instanceof ServerWorld serverWorld) {
-            BlockEntity blockEntity = world.getBlockEntity(pos);
-            if (blockEntity instanceof ShulkerBoxBlockEntity shulkerBoxBlockEntity) {
-                if (canOpen(state, world, pos, shulkerBoxBlockEntity)) {
-                    player.openHandledScreen(shulkerBoxBlockEntity);
-                    player.incrementStat(ModStats.OPEN_REINFORCED_SHULKER_BOX_MAP.get(this.material));
-                    PiglinBrain.onGuardedBlockInteracted(serverWorld, player, true);
-                }
-            }
+  @Override
+  public ActionResult onUse(
+      BlockState state, World world, BlockPos pos, PlayerEntity player, BlockHitResult hit) {
+    if (world instanceof ServerWorld serverWorld) {
+      BlockEntity blockEntity = world.getBlockEntity(pos);
+      if (blockEntity instanceof ShulkerBoxBlockEntity shulkerBoxBlockEntity) {
+        if (canOpen(state, world, pos, shulkerBoxBlockEntity)) {
+          player.openHandledScreen(shulkerBoxBlockEntity);
+          player.incrementStat(ModStats.OPEN_REINFORCED_SHULKER_BOX_MAP.get(this.material));
+          PiglinBrain.onGuardedBlockInteracted(serverWorld, player, true);
         }
-
-        return ActionResult.SUCCESS;
+      }
     }
 
-    private static boolean canOpen(BlockState state, World world, BlockPos pos, ShulkerBoxBlockEntity entity) {
-        if (entity.getAnimationStage() != ShulkerBoxBlockEntity.AnimationStage.CLOSED) {
-            return true;
-        } else {
-            Box box = ShulkerEntity
-                    .calculateBoundingBox(1.0F, (Direction) state.get(FACING), 0.0F, 0.5F, pos.toBottomCenterPos())
-                    .contract(1.0E-6D);
-            return world.isSpaceEmpty(box);
-        }
-    }
+    return ActionResult.SUCCESS;
+  }
 
-    public static Block get(ReinforcingMaterial material, @Nullable DyeColor color) {
-        return ModBlocks.REINFORCED_SHULKER_BOX_MAP.get(material).get(color);
+  private static boolean canOpen(
+      BlockState state, World world, BlockPos pos, ShulkerBoxBlockEntity entity) {
+    if (entity.getAnimationStage() != ShulkerBoxBlockEntity.AnimationStage.CLOSED) {
+      return true;
+    } else {
+      Box box =
+          ShulkerEntity.calculateBoundingBox(
+                  1.0F, (Direction) state.get(FACING), 0.0F, 0.5F, pos.toBottomCenterPos())
+              .contract(1.0E-6D);
+      return world.isSpaceEmpty(box);
     }
+  }
 
-    public ReinforcingMaterial getMaterial() {
-        return this.material;
-    }
+  public static Block get(ReinforcingMaterial material, @Nullable DyeColor color) {
+    return ModBlocks.REINFORCED_SHULKER_BOX_MAP.get(material).get(color);
+  }
 
-    public static ItemStack getItemStack(ReinforcingMaterial material, @Nullable DyeColor color) {
-        return new ItemStack(get(material, color));
-    }
+  public ReinforcingMaterial getMaterial() {
+    return this.material;
+  }
+
+  public static ItemStack getItemStack(ReinforcingMaterial material, @Nullable DyeColor color) {
+    return new ItemStack(get(material, color));
+  }
 }
