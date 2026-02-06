@@ -30,13 +30,13 @@ The Reinforced Shulker Boxes mod adds reinforced shulker boxes.
 
 ### Crafting from [Reinforced Chests](https://github.com/Aton-Kish/reinforced-chests)
 
-| Name                  | Ingredients                     | Recipe                                                                                                                       |
-| --------------------- | ------------------------------- | ---------------------------------------------------------------------------------------------------------------------------- |
-| Copper Shulker Box    | Copper Chest + Shulker Shell    | <img alt="Copper Shulker Box Recipe" src="./images/recipes/copper_shulker_box_from_copper_chest.png" width="256" />          |
-| Iron Shulker Box      | Iron Chest + Shulker Shell      | <img alt="Iron Shulker Box Recipe" src="./images/recipes/iron_shulker_box_from_iron_chest.png" width="256" />                |
-| Gold Shulker Box      | Gold Chest + Shulker Shell      | <img alt="Gold Shulker Box Recipe" src="./images/recipes/gold_shulker_box_from_gold_chest.png" width="256" />                |
-| Diamond Shulker Box   | Diamond Chest + Shulker Shell   | <img alt="Diamond Shulker Box Recipe" src="./images/recipes/diamond_shulker_box_from_diamond_chest.png" width="256" />       |
-| Netherite Shulker Box | Netherite Chest + Shulker Shell | <img alt="Netherite Shulker Box Recipe" src="./images/recipes/netherite_shulker_box_from_netherite_chest.png" width="256" /> |
+| Name                  | Ingredients                      | Recipe                                                                                                                       |
+| --------------------- | -------------------------------- | ---------------------------------------------------------------------------------------------------------------------------- |
+| Copper Shulker Box    | Any Copper Chest + Shulker Shell | <img alt="Copper Shulker Box Recipe" src="./images/recipes/copper_shulker_box_from_copper_chest.png" width="256" />          |
+| Iron Shulker Box      | Iron Chest + Shulker Shell       | <img alt="Iron Shulker Box Recipe" src="./images/recipes/iron_shulker_box_from_iron_chest.png" width="256" />                |
+| Gold Shulker Box      | Gold Chest + Shulker Shell       | <img alt="Gold Shulker Box Recipe" src="./images/recipes/gold_shulker_box_from_gold_chest.png" width="256" />                |
+| Diamond Shulker Box   | Diamond Chest + Shulker Shell    | <img alt="Diamond Shulker Box Recipe" src="./images/recipes/diamond_shulker_box_from_diamond_chest.png" width="256" />       |
+| Netherite Shulker Box | Netherite Chest + Shulker Shell  | <img alt="Netherite Shulker Box Recipe" src="./images/recipes/netherite_shulker_box_from_netherite_chest.png" width="256" /> |
 
 ### Dyeing
 
