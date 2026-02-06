@@ -136,6 +136,7 @@ public class RecipeTests {
           }
 
           {
+            // from Modded Copper Chest (for backward compatible)
             ItemStack chest =
                 new ItemStack(
                     atonkish.reinfchest.item.ModItems.REINFORCED_CHEST_MAP.get(
@@ -149,10 +150,7 @@ public class RecipeTests {
 
             add(
                 RecipeTests.createTest(
-                    String.format(
-                        "Craft %s from %s",
-                        shulkerBox.getItem().getName().getString(),
-                        chest.getItem().getName().getString()),
+                    "Craft Copper Shulker Box from Reinforced Copper Chest",
                     RecipeType.CRAFTING,
                     CraftingRecipeInput.create(
                         3,
@@ -168,6 +166,49 @@ public class RecipeTests {
                             ItemStack.EMPTY,
                             ItemStack.EMPTY)),
                     shulkerBox));
+          }
+
+          {
+            // from Copper Chests
+            for (Item item :
+                List.of(
+                    Items.COPPER_CHEST,
+                    Items.EXPOSED_COPPER_CHEST,
+                    Items.WEATHERED_COPPER_CHEST,
+                    Items.OXIDIZED_COPPER_CHEST,
+                    Items.WAXED_COPPER_CHEST,
+                    Items.WAXED_EXPOSED_COPPER_CHEST,
+                    Items.WAXED_WEATHERED_COPPER_CHEST,
+                    Items.WAXED_OXIDIZED_COPPER_CHEST)) {
+              ItemStack chest = new ItemStack(item);
+              ItemStack shell = new ItemStack(Items.SHULKER_SHELL);
+              ItemStack shulkerBox =
+                  new ItemStack(
+                      ModItems.REINFORCED_SHULKER_BOX_MAP
+                          .get(ReinforcingMaterials.MAP.get("copper"))
+                          .get((DyeColor) null));
+
+              add(
+                  RecipeTests.createTest(
+                      String.format(
+                          "Craft Copper Shulker Box from %s",
+                          chest.getItem().getName().getString()),
+                      RecipeType.CRAFTING,
+                      CraftingRecipeInput.create(
+                          3,
+                          3,
+                          List.of(
+                              shell,
+                              ItemStack.EMPTY,
+                              ItemStack.EMPTY,
+                              chest,
+                              ItemStack.EMPTY,
+                              ItemStack.EMPTY,
+                              shell,
+                              ItemStack.EMPTY,
+                              ItemStack.EMPTY)),
+                      shulkerBox));
+            }
           }
 
           // Iron Shulker Box

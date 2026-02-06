@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 
@@ -21,6 +22,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.GameMode;
 
+import atonkish.reinfchest.ReinforcedChestsMod;
 import atonkish.reinfcore.gametest.TestFunction;
 import atonkish.reinfcore.util.ReinforcingMaterials;
 import atonkish.reinfshulker.ReinforcedShulkerBoxesMod;
@@ -79,12 +81,32 @@ public class AdvancementTests {
                       ReinforcedShulkerBoxesMod.MOD_ID, "recipes/decorations/copper_shulker_box")));
           add(
               AdvancementTests.createTest(
-                  "Obtain Copper Shulker Box recipe advancement by having Copper Chest",
+                  "Obtain Copper Shulker Box recipe advancement by having Reinforced Copper Chest",
                   atonkish.reinfchest.item.ModItems.REINFORCED_CHEST_MAP.get(
                       ReinforcingMaterials.MAP.get("copper")),
                   Identifier.of(
                       ReinforcedShulkerBoxesMod.MOD_ID,
-                      "recipes/decorations/copper_shulker_box_from_copper_chest")));
+                      "recipes/decorations/copper_shulker_box_from_reinforced_copper_chest")));
+          for (Item item :
+              List.of(
+                  Items.COPPER_CHEST,
+                  Items.EXPOSED_COPPER_CHEST,
+                  Items.WEATHERED_COPPER_CHEST,
+                  Items.OXIDIZED_COPPER_CHEST,
+                  Items.WAXED_COPPER_CHEST,
+                  Items.WAXED_EXPOSED_COPPER_CHEST,
+                  Items.WAXED_WEATHERED_COPPER_CHEST,
+                  Items.WAXED_OXIDIZED_COPPER_CHEST)) {
+            add(
+                AdvancementTests.createTest(
+                    String.format(
+                        "Obtain Copper Shulker Box recipe advancement by having %s",
+                        item.getName().getString()),
+                    item,
+                    Identifier.of(
+                        ReinforcedChestsMod.MOD_ID,
+                        "recipes/decorations/iron_chest_from_copper_chests")));
+          }
 
           // Iron Shulker Box
           for (Item item :

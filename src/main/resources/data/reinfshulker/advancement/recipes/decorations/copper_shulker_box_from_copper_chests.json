@@ -1,0 +1,34 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": ["reinfshulker:copper_shulker_box_from_copper_chests"]
+  },
+  "criteria": {
+    "has_copper_chests": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "minecraft:copper_chest",
+              "minecraft:exposed_copper_chest",
+              "minecraft:weathered_copper_chest",
+              "minecraft:oxidized_copper_chest",
+              "minecraft:waxed_copper_chest",
+              "minecraft:waxed_exposed_copper_chest",
+              "minecraft:waxed_weathered_copper_chest",
+              "minecraft:waxed_oxidized_copper_chest"
+            ]
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "reinfshulker:copper_shulker_box_from_copper_chest"
+      }
+    }
+  },
+  "requirements": [["has_copper_chests", "has_the_recipe"]]
+}

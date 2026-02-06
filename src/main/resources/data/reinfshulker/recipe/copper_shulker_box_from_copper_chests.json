@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": ["S", "C", "S"],
+  "key": {
+    "C": "#minecraft:copper_chests",
+    "S": "minecraft:shulker_shell"
+  },
+  "result": {
+    "count": 1,
+    "id": "reinfshulker:copper_shulker_box"
+  }
+}
