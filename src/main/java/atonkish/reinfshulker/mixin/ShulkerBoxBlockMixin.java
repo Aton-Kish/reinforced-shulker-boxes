@@ -20,14 +20,27 @@ import atonkish.reinfshulker.block.entity.ReinforcedShulkerBoxBlockEntity;
 
 @Mixin(ShulkerBoxBlock.class)
 public class ShulkerBoxBlockMixin {
-    @Inject(method = "onBreak", at = @At(value = "INVOKE", target = "Lnet/minecraft/item/ItemStack;applyComponentsFrom(Lnet/minecraft/component/ComponentMap;)V"), locals = LocalCapture.CAPTURE_FAILHARD)
-    public void onBreak(World world, BlockPos pos, BlockState state, PlayerEntity player,
-            CallbackInfoReturnable<BlockState> cir, BlockEntity blockEntity,
-            ShulkerBoxBlockEntity shulkerBoxBlockEntity, ItemStack itemStack) {
-        if (blockEntity instanceof ReinforcedShulkerBoxBlockEntity) {
-            ReinforcedShulkerBoxBlockEntity entity = (ReinforcedShulkerBoxBlockEntity) blockEntity;
-            ((ItemStackAccessor) (Object) itemStack)
-                    .setItem(ReinforcedShulkerBoxBlock.get(entity.getMaterial(), entity.getColor()).asItem());
-        }
+  @Inject(
+      method = "onBreak",
+      at =
+          @At(
+              value = "INVOKE",
+              target =
+                  "Lnet/minecraft/item/ItemStack;applyComponentsFrom(Lnet/minecraft/component/ComponentMap;)V"),
+      locals = LocalCapture.CAPTURE_FAILHARD)
+  public void onBreak(
+      World world,
+      BlockPos pos,
+      BlockState state,
+      PlayerEntity player,
+      CallbackInfoReturnable<BlockState> cir,
+      BlockEntity blockEntity,
+      ShulkerBoxBlockEntity shulkerBoxBlockEntity,
+      ItemStack itemStack) {
+    if (blockEntity instanceof ReinforcedShulkerBoxBlockEntity) {
+      ReinforcedShulkerBoxBlockEntity entity = (ReinforcedShulkerBoxBlockEntity) blockEntity;
+      ((ItemStackAccessor) (Object) itemStack)
+          .setItem(ReinforcedShulkerBoxBlock.get(entity.getMaterial(), entity.getColor()).asItem());
     }
+  }
 }
