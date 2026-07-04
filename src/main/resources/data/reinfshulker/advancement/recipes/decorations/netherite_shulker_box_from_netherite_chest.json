@@ -1,4 +1,10 @@
 {
+  "fabric:load_conditions": [
+    {
+      "condition": "fabric:all_mods_loaded",
+      "values": ["reinfchest"]
+    }
+  ],
   "parent": "minecraft:recipes/root",
   "rewards": {
     "recipes": ["reinfshulker:netherite_shulker_box_from_netherite_chest"]
