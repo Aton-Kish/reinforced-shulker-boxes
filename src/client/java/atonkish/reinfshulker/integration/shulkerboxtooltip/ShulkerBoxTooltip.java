@@ -2,37 +2,37 @@ package atonkish.reinfshulker.integration.shulkerboxtooltip;
 
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.level.block.entity.BlockEntityType;
 
 import com.misterpemodder.shulkerboxtooltip.api.ShulkerBoxTooltipApi;
-import com.misterpemodder.shulkerboxtooltip.api.provider.PreviewProvider;
 import com.misterpemodder.shulkerboxtooltip.api.provider.PreviewProviderRegistry;
 
 import atonkish.reinfcore.util.ReinforcingMaterial;
 import atonkish.reinfcore.util.ReinforcingMaterials;
-import atonkish.reinfshulker.block.entity.ModBlockEntityType;
+import atonkish.reinfshulker.ReinforcedShulkerBoxesMod;
 import atonkish.reinfshulker.item.ModItems;
 
 public class ShulkerBoxTooltip implements ShulkerBoxTooltipApi {
-  private static void register(
-      PreviewProviderRegistry registry,
-      String namespace,
-      String id,
-      PreviewProvider provider,
-      Item... items) {
-    registry.register(Identifier.fromNamespaceAndPath(namespace, id), provider, items);
-  }
-
   @Override
   public void registerProviders(PreviewProviderRegistry registry) {
+    System.out.println("[reinfshulker] Registering Shulker Box Tooltip providers");
+
     for (ReinforcingMaterial material : ReinforcingMaterials.MAP.values()) {
-      String namespace =
-          BlockEntityType.getKey(ModBlockEntityType.REINFORCED_SHULKER_BOX_MAP.get(material))
-              .getNamespace();
-      String id = material.getName() + "_shulker_box";
       Item[] items =
           ModItems.REINFORCED_SHULKER_BOX_MAP.get(material).values().toArray(new Item[0]);
-      register(registry, namespace, id, new ReinforcedShulkerBoxPreviewProvider(material), items);
+
+      System.out.println(
+          "[reinfshulker] Registering SBT provider for "
+              + material.getName()
+              + " size="
+              + material.getSize()
+              + " items="
+              + items.length);
+
+      registry.register(
+          Identifier.fromNamespaceAndPath(
+              ReinforcedShulkerBoxesMod.MOD_ID, material.getName() + "_shulker_box"),
+          new ReinforcedShulkerBoxPreviewProvider(material),
+          items);
     }
   }
 }

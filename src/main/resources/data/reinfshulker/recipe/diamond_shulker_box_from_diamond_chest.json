@@ -9,7 +9,7 @@
   "category": "misc",
   "pattern": ["S", "C", "S"],
   "key": {
-    "C": "reinfchest:diamond_chest",
+    "C": "ironchest:diamond_chest",
     "S": "minecraft:shulker_shell"
   },
   "result": {

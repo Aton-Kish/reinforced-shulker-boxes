@@ -1,34 +1,23 @@
 package atonkish.reinfshulker.client.render.block.entity;
 
-import java.util.function.Consumer;
-
 import com.mojang.blaze3d.vertex.PoseStack;
 
-import net.minecraft.client.model.Model;
-import net.minecraft.client.model.geom.ModelLayers;
-import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
+import net.minecraft.client.renderer.blockentity.ShulkerBoxRenderer;
 import net.minecraft.client.renderer.blockentity.state.ShulkerBoxRenderState;
 import net.minecraft.client.renderer.feature.ModelFeatureRenderer;
-import net.minecraft.client.renderer.rendertype.RenderTypes;
 import net.minecraft.client.renderer.state.level.CameraRenderState;
 import net.minecraft.client.renderer.texture.OverlayTexture;
-import net.minecraft.client.resources.model.sprite.SpriteGetter;
 import net.minecraft.client.resources.model.sprite.SpriteId;
-import net.minecraft.core.Direction;
-import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.DyeColor;
-import net.minecraft.world.level.block.ShulkerBoxBlock;
 import net.minecraft.world.phys.Vec3;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 
-import org.jetbrains.annotations.Nullable;
-import org.joml.Quaternionfc;
-import org.joml.Vector3fc;
+import org.jspecify.annotations.Nullable;
 
 import atonkish.reinfcore.util.ReinforcingMaterial;
 import atonkish.reinfshulker.block.entity.ReinforcedShulkerBoxBlockEntity;
@@ -39,13 +28,10 @@ public class ReinforcedShulkerBoxBlockEntityRenderer
     implements BlockEntityRenderer<
         ReinforcedShulkerBoxBlockEntity,
         ReinforcedShulkerBoxBlockEntityRenderer.ReinforcedShulkerBoxRenderState> {
-  private final SpriteGetter sprites;
-  private final ShulkerBoxBlockModel model;
+  private final ShulkerBoxRenderer vanillaRenderer;
 
   public ReinforcedShulkerBoxBlockEntityRenderer(BlockEntityRendererProvider.Context context) {
-    this.sprites = context.sprites();
-    this.model =
-        new ShulkerBoxBlockModel(context.entityModelSet().bakeLayer(ModelLayers.SHULKER_BOX));
+    this.vanillaRenderer = new ShulkerBoxRenderer(context);
   }
 
   @Override
@@ -55,21 +41,14 @@ public class ReinforcedShulkerBoxBlockEntityRenderer
 
   @Override
   public void extractRenderState(
-      ReinforcedShulkerBoxBlockEntity shulkerBoxBlockEntity,
+      ReinforcedShulkerBoxBlockEntity blockEntity,
       ReinforcedShulkerBoxRenderState state,
-      float tickProgress,
+      float partialTicks,
       Vec3 cameraPosition,
       ModelFeatureRenderer.@Nullable CrumblingOverlay breakProgress) {
-    BlockEntityRenderer.super.extractRenderState(
-        shulkerBoxBlockEntity, state, tickProgress, cameraPosition, breakProgress);
-    state.direction =
-        (Direction)
-            shulkerBoxBlockEntity
-                .getBlockState()
-                .getValueOrElse(ShulkerBoxBlock.FACING, Direction.UP);
-    state.color = shulkerBoxBlockEntity.getColor();
-    state.progress = shulkerBoxBlockEntity.getProgress(tickProgress);
-    state.material = shulkerBoxBlockEntity.getMaterial();
+    this.vanillaRenderer.extractRenderState(
+        blockEntity, state, partialTicks, cameraPosition, breakProgress);
+    state.material = blockEntity.getMaterial();
   }
 
   @Override
@@ -78,90 +57,33 @@ public class ReinforcedShulkerBoxBlockEntityRenderer
       PoseStack poseStack,
       SubmitNodeCollector submitNodeCollector,
       CameraRenderState cameraRenderState) {
-    DyeColor color = state.color;
-    ReinforcingMaterial material = state.material;
+    SpriteId sprite = getSprite(state.material, state.color);
 
-    SpriteId spriteIdentifier =
-        color == null
-            ? ModTexturedRenderLayers.REINFORCED_SHULKER_TEXTURE_ID_MAP.get(material)
-            : ModTexturedRenderLayers.COLORED_REINFORCED_SHULKER_BOXES_TEXTURES_MAP
-                .get(material)
-                .get(color.getId());
-
-    this.submit(
+    poseStack.pushPose();
+    poseStack.mulPose(ShulkerBoxRenderer.modelTransform(state.direction));
+    this.vanillaRenderer.submit(
         poseStack,
         submitNodeCollector,
         state.lightCoords,
         OverlayTexture.NO_OVERLAY,
-        state.direction,
         state.progress,
         state.breakProgress,
-        spriteIdentifier,
-        0);
-  }
-
-  public void submit(
-      PoseStack poseStack,
-      SubmitNodeCollector submitNodeCollector,
-      int lightCoords,
-      int overlayCoords,
-      Direction direction,
-      float progress,
-      ModelFeatureRenderer.@Nullable CrumblingOverlay breakProgress,
-      SpriteId sprite,
-      int outlineColor) {
-    poseStack.pushPose();
-    this.prepareModel(poseStack, direction, progress);
-
-    submitNodeCollector.submitModel(
-        this.model,
-        progress,
-        poseStack,
-        lightCoords,
-        overlayCoords,
-        -1,
         sprite,
-        this.sprites,
-        outlineColor,
-        breakProgress);
-
+        0);
     poseStack.popPose();
   }
 
-  private void prepareModel(PoseStack poseStack, Direction direction, float progress) {
-    poseStack.translate(0.5F, 0.5F, 0.5F);
-    float scale = 0.9995F;
-    poseStack.scale(scale, scale, scale);
-    poseStack.mulPose((Quaternionfc) direction.getRotation());
-    poseStack.scale(1.0F, -1.0F, -1.0F);
-    poseStack.translate(0.0F, -1.0F, 0.0F);
-    this.model.setupAnim(progress);
-  }
-
-  public void getExtents(Direction direction, float progress, Consumer<Vector3fc> consumer) {
-    PoseStack poseStack = new PoseStack();
-    this.prepareModel(poseStack, direction, progress);
-    this.model.root().getExtentsForGui(poseStack, consumer);
-  }
-
-  @Environment(EnvType.CLIENT)
-  static class ShulkerBoxBlockModel extends Model {
-    private final ModelPart lid;
-
-    public ShulkerBoxBlockModel(ModelPart root) {
-      super(root, id -> RenderTypes.entityCutout((Identifier) id));
-      this.lid = root.getChild("lid");
+  private static SpriteId getSprite(ReinforcingMaterial material, @Nullable DyeColor color) {
+    if (color == null) {
+      return ModTexturedRenderLayers.REINFORCED_SHULKER_TEXTURE_ID_MAP.get(material);
     }
 
-    public void setupAnim(Float progress) {
-      super.setupAnim(progress);
-      this.lid.setPos(0.0F, 24.0F - progress * 0.5F * 16.0F, 0.0F);
-      this.lid.yRot = 270.0F * progress * (float) (Math.PI / 180.0);
-    }
+    return ModTexturedRenderLayers.COLORED_REINFORCED_SHULKER_BOXES_TEXTURES_MAP
+        .get(material)
+        .get(color.getId());
   }
 
-  @Environment(EnvType.CLIENT)
   public static class ReinforcedShulkerBoxRenderState extends ShulkerBoxRenderState {
-    ReinforcingMaterial material;
+    public ReinforcingMaterial material;
   }
 }

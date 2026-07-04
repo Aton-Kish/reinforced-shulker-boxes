@@ -7,7 +7,6 @@ import net.fabricmc.fabric.api.client.rendering.v1.BlockEntityRendererRegistry;
 import net.fabricmc.loader.api.FabricLoader;
 
 import atonkish.reinfcore.api.ReinforcedCoreClientModInitializer;
-import atonkish.reinfcore.api.ReinforcedCoreClientRegistry;
 import atonkish.reinfcore.util.ReinforcingMaterial;
 import atonkish.reinfshulker.api.ReinforcedShulkerBoxesClientModInitializer;
 import atonkish.reinfshulker.api.ReinforcedShulkerBoxesClientRegistry;
@@ -50,7 +49,10 @@ public class ReinforcedShulkerBoxesClientMod
   private static void initializeReinforcedCoreClient() {
     for (ReinforcingMaterialSettings materialSettings : ReinforcingMaterialSettings.values()) {
       ReinforcingMaterial material = materialSettings.getMaterial();
-      ReinforcedCoreClientRegistry.registerMaterialShulkerBoxScreen(material);
+
+      net.minecraft.client.gui.screens.MenuScreens.register(
+          atonkish.reinfcore.screen.ModScreenHandlerType.REINFORCED_SHULKER_BOX_MAP.get(material),
+          atonkish.reinfshulker.client.gui.screen.ReinforcedShulkerBoxScreen::new);
     }
   }
 

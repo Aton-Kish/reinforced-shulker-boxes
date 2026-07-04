@@ -27,12 +27,12 @@ public class ModTexturedRenderLayers {
   public static SpriteId registerMaterialDefaultSprite(
       String namespace, ReinforcingMaterial material) {
     if (!REINFORCED_SHULKER_TEXTURE_ID_MAP.containsKey(material)) {
-      SpriteId identifier =
+      SpriteId spriteId =
           new SpriteId(
               Sheets.SHULKER_SHEET,
               Identifier.fromNamespaceAndPath(
-                  namespace, String.format("entity/shulker/%s/shulker", material.getName())));
-      REINFORCED_SHULKER_TEXTURE_ID_MAP.put(material, identifier);
+                  "minecraft", String.format("entity/shulker/%s/shulker", material.getName())));
+      REINFORCED_SHULKER_TEXTURE_ID_MAP.put(material, spriteId);
     }
 
     return REINFORCED_SHULKER_TEXTURE_ID_MAP.get(material);
@@ -41,20 +41,19 @@ public class ModTexturedRenderLayers {
   public static List<SpriteId> registerMaterialColoringSprites(
       String namespace, ReinforcingMaterial material) {
     if (!COLORED_REINFORCED_SHULKER_BOXES_TEXTURES_MAP.containsKey(material)) {
-      List<SpriteId> identifiers =
+      List<SpriteId> spriteIds =
           Stream.of(DyeColor.values())
               .map(
-                  (color) -> {
-                    return new SpriteId(
-                        Sheets.SHULKER_SHEET,
-                        Identifier.fromNamespaceAndPath(
-                            namespace,
-                            String.format(
-                                "entity/shulker/%s/shulker_%s",
-                                material.getName(), color.getId())));
-                  })
+                  color ->
+                      new SpriteId(
+                          Sheets.SHULKER_SHEET,
+                          Identifier.fromNamespaceAndPath(
+                              "minecraft",
+                              String.format(
+                                  "entity/shulker/%s/shulker_%s",
+                                  material.getName(), color.getName()))))
               .collect(ImmutableList.toImmutableList());
-      COLORED_REINFORCED_SHULKER_BOXES_TEXTURES_MAP.put(material, identifiers);
+      COLORED_REINFORCED_SHULKER_BOXES_TEXTURES_MAP.put(material, spriteIds);
     }
 
     return COLORED_REINFORCED_SHULKER_BOXES_TEXTURES_MAP.get(material);

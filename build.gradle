@@ -89,6 +89,13 @@ sourceSets {
 }
 
 dependencies {
+	def appData = System.getenv("APPDATA")
+	if (appData != null) {
+		def prismModsDir = file(appData + "/PrismLauncher/instances/Server new modded/minecraft/mods")
+		if (prismModsDir.exists()) {
+			compileOnly fileTree(dir: prismModsDir, include: ["modmenu-*.jar", "cloth-config-*.jar", "shulkerboxtooltip-*.jar"])
+		}
+	}
 	// To change the versions see the gradle.properties file
 	minecraft "com.mojang:minecraft:${project.minecraft_version}"
 
@@ -261,11 +268,26 @@ modrinth {
 	loaders = ["fabric"]
 
 	dependencies {
+	def appData = System.getenv("APPDATA")
+	if (appData != null) {
+		def prismModsDir = file(appData + "/PrismLauncher/instances/Server new modded/minecraft/mods")
+		if (prismModsDir.exists()) {
+			compileOnly fileTree(dir: prismModsDir, include: ["modmenu-*.jar", "cloth-config-*.jar", "shulkerboxtooltip-*.jar"])
+		}
+	}
 		required.project "fabric-api"
 		embedded.project "cloth-config"
 		optional.project "modmenu"
 		optional.project "shulkerboxtooltip"
 		// optional.project "quickshulker"
 		optional.project "reinforced-chests"
+	}
+}
+
+// Include client source set classes in the runtime jar.
+// Needed for client integrations such as Mod Menu and Shulker Box Tooltip.
+tasks.named("jar") {
+	from(sourceSets.client.output.classesDirs) {
+		duplicatesStrategy = DuplicatesStrategy.EXCLUDE
 	}
 }

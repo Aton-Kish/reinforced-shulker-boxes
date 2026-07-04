@@ -1,40 +1,47 @@
 {
-  "schemaVersion": 1,
-  "id": "reinfshulker",
-  "version": "${version}",
-
-  "name": "Reinforced Shulker Boxes",
-  "description": "Adds reinforced shulker boxes.",
-  "authors": ["Aton-Kish"],
-  "contact": {
-    "homepage": "https://www.curseforge.com/minecraft/mc-mods/reinforced-shulker-boxes",
-    "sources": "https://github.com/Aton-Kish/reinforced-shulker-boxes",
-    "issues": "https://github.com/Aton-Kish/reinforced-shulker-boxes/issues"
-  },
-
-  "license": "MIT",
-  "icon": "assets/reinfshulker/icon.png",
-
-  "environment": "*",
-  "entrypoints": {
-    "main": ["atonkish.reinfshulker.ReinforcedShulkerBoxesMod"],
-    "client": ["atonkish.reinfshulker.ReinforcedShulkerBoxesClientMod"],
-    "reinfcore": ["atonkish.reinfshulker.ReinforcedShulkerBoxesMod"],
-    "reinfcore-client": [
-      "atonkish.reinfshulker.ReinforcedShulkerBoxesClientMod"
-    ]
-  },
-  "mixins": ["reinfshulker.mixins.json"],
-
-  "depends": {
-    "fabricloader": ">=0.19.3",
-    "minecraft": "~26.2",
-    "java": ">=25",
-    "fabric-api": "*"
-  },
-  "suggests": {
-    "modmenu": "*",
-    "reinfchest": "*",
-    "quickshulker": "*"
-  }
+    "schemaVersion":  1,
+    "id":  "reinfshulker",
+    "version":  "${version}",
+    "name":  "Reinforced Shulker Boxes",
+    "description":  "Adds reinforced shulker boxes.",
+    "authors":  [
+                    "Aton-Kish"
+                ],
+    "contact":  {
+                    "homepage":  "https://www.curseforge.com/minecraft/mc-mods/reinforced-shulker-boxes",
+                    "sources":  "https://github.com/Aton-Kish/reinforced-shulker-boxes",
+                    "issues":  "https://github.com/Aton-Kish/reinforced-shulker-boxes/issues"
+                },
+    "license":  "MIT",
+    "icon":  "assets/reinfshulker/icon.png",
+    "environment":  "*",
+    "mixins":  [
+                   "reinfshulker.mixins.json"
+               ],
+    "depends":  {
+                    "fabricloader":  "\u003e=0.19.3",
+                    "minecraft":  "~26.2",
+                    "java":  "\u003e=25",
+                    "fabric-api":  "*"
+                },
+    "suggests":  {
+                     "modmenu":  "*",
+                     "reinfchest":  "*",
+                     "quickshulker":  "*",
+                     "shulkerboxtooltip":  "*"
+                 },
+    "entrypoints":  {
+                        "main":  [
+                                     "atonkish.reinfshulker.ReinforcedShulkerBoxesMod"
+                                 ],
+                        "client":  [
+                                       "atonkish.reinfshulker.ReinforcedShulkerBoxesClientMod"
+                                   ],
+                        "modmenu":  [
+                                        "atonkish.reinfshulker.integration.modmenu.ModMenu"
+                                    ],
+                        "shulkerboxtooltip":  [
+                                                  "atonkish.reinfshulker.integration.shulkerboxtooltip.ShulkerBoxTooltip"
+                                              ]
+                    }
 }

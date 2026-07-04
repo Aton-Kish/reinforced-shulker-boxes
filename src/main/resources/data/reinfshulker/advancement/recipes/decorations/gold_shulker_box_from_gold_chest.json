@@ -15,7 +15,7 @@
       "conditions": {
         "items": [
           {
-            "items": ["reinfchest:gold_chest"]
+            "items": ["ironchest:gold_chest"]
           }
         ]
       }

@@ -1,0 +1,17 @@
+{
+  "type": "reinfshulker:crafting_special_reinforcedshulkerbox",
+  "category": "misc",
+  "pattern": [
+    " S ",
+    " C ",
+    " S "
+  ],
+  "key": {
+    "S": "minecraft:shulker_shell",
+    "C": "ironchest:gold_chest"
+  },
+  "result": {
+    "id": "reinfshulker:gold_shulker_box",
+    "count": 1
+  }
+}
