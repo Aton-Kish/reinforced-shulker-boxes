@@ -1,5 +1,6 @@
 package atonkish.reinfshulker;
 
+import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.client.rendering.v1.BlockEntityRendererRegistry;
@@ -15,9 +16,26 @@ import atonkish.reinfshulker.client.render.block.entity.ReinforcedShulkerBoxBloc
 import atonkish.reinfshulker.util.ReinforcingMaterialSettings;
 
 @Environment(EnvType.CLIENT)
-public class ReinforcedShulkerBoxesClientMod implements ReinforcedCoreClientModInitializer {
+public class ReinforcedShulkerBoxesClientMod
+    implements ClientModInitializer, ReinforcedCoreClientModInitializer {
+  private static boolean initialized = false;
+
+  @Override
+  public void onInitializeClient() {
+    initialize();
+  }
+
   @Override
   public void onInitializeReinforcedCoreClient() {
+    initialize();
+  }
+
+  private static void initialize() {
+    if (initialized) {
+      return;
+    }
+    initialized = true;
+
     initializeReinforcedCoreClient();
     initializeReinforcedShulkerBoxesClient();
 

@@ -11,6 +11,7 @@ import net.fabricmc.loader.api.FabricLoader;
 import atonkish.reinfchest.ReinforcedChestsMod;
 import atonkish.reinfcore.api.ReinforcedCoreModInitializer;
 import atonkish.reinfcore.api.ReinforcedCoreRegistry;
+import atonkish.reinfcore.item.ModItemGroups;
 import atonkish.reinfcore.util.ReinforcingMaterial;
 import atonkish.reinfshulker.api.ReinforcedShulkerBoxesModInitializer;
 import atonkish.reinfshulker.api.ReinforcedShulkerBoxesRegistry;
@@ -24,18 +25,37 @@ public class ReinforcedShulkerBoxesMod implements ModInitializer, ReinforcedCore
   public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
 
   public static boolean IS_REINFCHEST_LOADED = false;
+  private static boolean initialized = false;
 
   @Override
   public void onInitialize() {
     IS_REINFCHEST_LOADED = FabricLoader.getInstance().isModLoaded(ReinforcedChestsMod.MOD_ID);
+    initialize();
   }
 
   @Override
   public void onInitializeReinforcedCore() {
+    initialize();
+  }
+
+  private static void initialize() {
+    if (initialized) {
+      return;
+    }
+    initialized = true;
+
+    LOGGER.info("[reinfshulker] Starting common initialization");
+
+    // init bundled Reinforced Core state
+    LOGGER.info("[reinfshulker] Registering Reinforced Core item group");
+    ModItemGroups.init();
+
     // init Reinforced Core
+    LOGGER.info("[reinfshulker] Registering Reinforced Core shulker support");
     initializeReinforcedCore();
 
     // init Reinforced Shulker Boxes
+    LOGGER.info("[reinfshulker] Registering blocks, items, stats, and block entity types");
     initializeReinforcedShulkerBoxes();
 
     // entrypoint: "reinfshulker"
@@ -44,11 +64,15 @@ public class ReinforcedShulkerBoxesMod implements ModInitializer, ReinforcedCore
         .forEach(ReinforcedShulkerBoxesModInitializer::onInitializeReinforcedShulkerBoxes);
 
     // Recipe Serializer
+    LOGGER.info("[reinfshulker] Registering recipe serializers");
     ModRecipeSerializer.init();
 
     // Block Entity Behaviors
+    LOGGER.info("[reinfshulker] Registering cauldron and dispenser behavior");
     ModCauldronBehavior.init();
     ModDispenserBehavior.init();
+
+    LOGGER.info("[reinfshulker] Common initialization complete");
   }
 
   private static void initializeReinforcedCore() {

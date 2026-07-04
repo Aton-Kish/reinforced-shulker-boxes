@@ -18,11 +18,11 @@
   "environment": "*",
   "entrypoints": {
     "main": ["atonkish.reinfshulker.ReinforcedShulkerBoxesMod"],
+    "client": ["atonkish.reinfshulker.ReinforcedShulkerBoxesClientMod"],
     "reinfcore": ["atonkish.reinfshulker.ReinforcedShulkerBoxesMod"],
     "reinfcore-client": [
       "atonkish.reinfshulker.ReinforcedShulkerBoxesClientMod"
-    ],
-    "modmenu": ["atonkish.reinfcore.integration.modmenu.ModMenu"]
+    ]
   },
   "mixins": ["reinfshulker.mixins.json"],
 
