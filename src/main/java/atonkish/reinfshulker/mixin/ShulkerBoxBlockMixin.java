@@ -40,7 +40,10 @@ public class ShulkerBoxBlockMixin {
     if (blockEntity instanceof ReinforcedShulkerBoxBlockEntity) {
       ReinforcedShulkerBoxBlockEntity entity = (ReinforcedShulkerBoxBlockEntity) blockEntity;
       ((ItemStackAccessor) (Object) itemStack)
-          .setItem(ReinforcedShulkerBoxBlock.get(entity.getMaterial(), entity.getColor()).asItem());
+          .setItem(
+              ReinforcedShulkerBoxBlock.get(entity.getMaterial(), entity.getColor())
+                  .asItem()
+                  .builtInRegistryHolder());
     }
   }
 }
