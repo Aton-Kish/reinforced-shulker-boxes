@@ -17,7 +17,6 @@ import net.minecraft.world.level.block.Block;
 
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 
-import atonkish.reinfcore.item.ModItemGroup;
 import atonkish.reinfcore.item.ModItemGroups;
 import atonkish.reinfcore.util.ReinforcingMaterial;
 import atonkish.reinfshulker.block.ModBlocks;
@@ -61,9 +60,7 @@ public class ModItems {
 
   public static void registerMaterialDyeColorItemGroupIcon(
       ReinforcingMaterial material, DyeColor color) {
-    Item item = REINFORCED_SHULKER_BOX_MAP.get(material).get(color);
-    ModItemGroup.setIcon(
-        BuiltInRegistries.CREATIVE_MODE_TAB.getValue(ModItemGroups.REINFORCED_STORAGE), item);
+    // The 26.2 creative tab icon is supplied when the tab is registered.
   }
 
   private static ResourceKey<Item> keyOf(ResourceKey<Block> blockKey) {

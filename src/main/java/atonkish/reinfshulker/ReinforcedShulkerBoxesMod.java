@@ -3,7 +3,13 @@ package atonkish.reinfshulker;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import net.minecraft.core.Registry;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.network.chat.Component;
+import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.DyeColor;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.loader.api.FabricLoader;
@@ -17,6 +23,7 @@ import atonkish.reinfshulker.api.ReinforcedShulkerBoxesModInitializer;
 import atonkish.reinfshulker.api.ReinforcedShulkerBoxesRegistry;
 import atonkish.reinfshulker.block.cauldron.ModCauldronBehavior;
 import atonkish.reinfshulker.block.dispenser.ModDispenserBehavior;
+import atonkish.reinfshulker.item.ModItems;
 import atonkish.reinfshulker.recipe.ModRecipeSerializer;
 import atonkish.reinfshulker.util.ReinforcingMaterialSettings;
 
@@ -48,7 +55,7 @@ public class ReinforcedShulkerBoxesMod implements ModInitializer, ReinforcedCore
 
     // init bundled Reinforced Core state
     LOGGER.info("[reinfshulker] Registering Reinforced Core item group");
-    ModItemGroups.init();
+    registerReinforcedStorageItemGroup();
 
     // init Reinforced Core
     LOGGER.info("[reinfshulker] Registering Reinforced Core shulker support");
@@ -73,6 +80,30 @@ public class ReinforcedShulkerBoxesMod implements ModInitializer, ReinforcedCore
     ModDispenserBehavior.init();
 
     LOGGER.info("[reinfshulker] Common initialization complete");
+  }
+
+  private static void registerReinforcedStorageItemGroup() {
+    Registry.register(
+        BuiltInRegistries.CREATIVE_MODE_TAB,
+        ModItemGroups.REINFORCED_STORAGE,
+        CreativeModeTab.builder(CreativeModeTab.Row.TOP, 0)
+            .title(Component.translatable("itemGroup.reinfcore.reinforced_storage"))
+            .icon(
+                () -> {
+                  if (ModItems.REINFORCED_SHULKER_BOX_MAP.containsKey(
+                          ReinforcingMaterialSettings.NETHERITE.getMaterial())
+                      && ModItems.REINFORCED_SHULKER_BOX_MAP
+                              .get(ReinforcingMaterialSettings.NETHERITE.getMaterial())
+                              .get(null)
+                          != null) {
+                    return new ItemStack(
+                        ModItems.REINFORCED_SHULKER_BOX_MAP
+                            .get(ReinforcingMaterialSettings.NETHERITE.getMaterial())
+                            .get(null));
+                  }
+                  return new ItemStack(Items.SHULKER_BOX);
+                })
+            .build());
   }
 
   private static void initializeReinforcedCore() {
