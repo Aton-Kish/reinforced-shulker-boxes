@@ -3,11 +3,11 @@ package atonkish.reinfshulker.stat;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-import net.minecraft.registry.Registries;
-import net.minecraft.registry.Registry;
-import net.minecraft.stat.StatFormatter;
-import net.minecraft.stat.Stats;
-import net.minecraft.util.Identifier;
+import net.minecraft.core.Registry;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.resources.Identifier;
+import net.minecraft.stats.StatFormatter;
+import net.minecraft.stats.Stats;
 
 import atonkish.reinfcore.util.ReinforcingMaterial;
 
@@ -38,9 +38,9 @@ public class ModStats {
   }
 
   private static Identifier register(String namespace, String id, StatFormatter formatter) {
-    Identifier identifier = Identifier.of(namespace, id);
-    Registry.register(Registries.CUSTOM_STAT, id, identifier);
-    Stats.CUSTOM.getOrCreateStat(identifier, formatter);
+    Identifier identifier = Identifier.fromNamespaceAndPath(namespace, id);
+    Registry.register(BuiltInRegistries.CUSTOM_STAT, id, identifier);
+    Stats.CUSTOM.get(identifier, formatter);
     return identifier;
   }
 }

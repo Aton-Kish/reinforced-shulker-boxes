@@ -1,7 +1,7 @@
 package atonkish.reinfshulker.integration.shulkerboxtooltip;
 
-import net.minecraft.block.Block;
-import net.minecraft.util.DyeColor;
+import net.minecraft.world.item.DyeColor;
+import net.minecraft.world.level.block.Block;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -34,8 +34,7 @@ public class ReinforcedShulkerBoxPreviewProvider extends BlockEntityPreviewProvi
   @Override
   @Environment(EnvType.CLIENT)
   public ColorKey getWindowColorKey(PreviewContext context) {
-    DyeColor dye =
-        ((ReinforcedShulkerBoxBlock) Block.getBlockFromItem(context.stack().getItem())).getColor();
+    DyeColor dye = ((ReinforcedShulkerBoxBlock) Block.byItem(context.stack().getItem())).getColor();
 
     if (dye == null) {
       return ColorKey.SHULKER_BOX;

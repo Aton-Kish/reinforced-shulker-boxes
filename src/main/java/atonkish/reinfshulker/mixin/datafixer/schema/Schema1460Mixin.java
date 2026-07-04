@@ -8,9 +8,9 @@ import com.mojang.datafixers.DSL;
 import com.mojang.datafixers.schemas.Schema;
 import com.mojang.datafixers.types.templates.TypeTemplate;
 
-import net.minecraft.datafixer.TypeReferences;
-import net.minecraft.datafixer.schema.Schema1460;
-import net.minecraft.util.DyeColor;
+import net.minecraft.util.datafix.fixes.References;
+import net.minecraft.util.datafix.schemas.V1460;
+import net.minecraft.world.item.DyeColor;
 
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -19,7 +19,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import atonkish.reinfshulker.ReinforcedShulkerBoxesMod;
 
-@Mixin(Schema1460.class)
+@Mixin(V1460.class)
 public class Schema1460Mixin {
   @Inject(at = @At("RETURN"), method = "registerBlockEntities", cancellable = true)
   private void registerBlockEntities(
@@ -32,15 +32,16 @@ public class Schema1460Mixin {
           map,
           String.format("%s:%s_shulker_box", ReinforcedShulkerBoxesMod.MOD_ID, material),
           () -> {
-            return DSL.optionalFields("Items", DSL.list(TypeReferences.ITEM_STACK.in(schema)));
+            return DSL.optionalFields("Items", DSL.list(References.ITEM_STACK.in(schema)));
           });
       for (DyeColor color : DyeColor.values()) {
         schema.register(
             map,
             String.format(
-                "%s:%s_%s_shulker_box", ReinforcedShulkerBoxesMod.MOD_ID, color.getId(), material),
+                "%s:%s_%s_shulker_box",
+                ReinforcedShulkerBoxesMod.MOD_ID, color.getName(), material),
             () -> {
-              return DSL.optionalFields("Items", DSL.list(TypeReferences.ITEM_STACK.in(schema)));
+              return DSL.optionalFields("Items", DSL.list(References.ITEM_STACK.in(schema)));
             });
       }
     }

@@ -6,24 +6,24 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-import net.minecraft.component.DataComponentTypes;
-import net.minecraft.component.type.ContainerComponent;
-import net.minecraft.item.DyeItem;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
-import net.minecraft.recipe.Recipe;
-import net.minecraft.recipe.RecipeType;
-import net.minecraft.recipe.ServerRecipeManager;
-import net.minecraft.recipe.input.CraftingRecipeInput;
-import net.minecraft.recipe.input.RecipeInput;
-import net.minecraft.recipe.input.SmithingRecipeInput;
-import net.minecraft.registry.DynamicRegistryManager;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.text.Text;
-import net.minecraft.util.BlockRotation;
-import net.minecraft.util.DyeColor;
-import net.minecraft.util.Identifier;
+import net.minecraft.core.RegistryAccess;
+import net.minecraft.core.component.DataComponents;
+import net.minecraft.network.chat.Component;
+import net.minecraft.resources.Identifier;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.item.DyeColor;
+import net.minecraft.world.item.DyeItem;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.item.component.ItemContainerContents;
+import net.minecraft.world.item.crafting.CraftingInput;
+import net.minecraft.world.item.crafting.Recipe;
+import net.minecraft.world.item.crafting.RecipeInput;
+import net.minecraft.world.item.crafting.RecipeManager;
+import net.minecraft.world.item.crafting.RecipeType;
+import net.minecraft.world.item.crafting.SmithingRecipeInput;
+import net.minecraft.world.level.block.Rotation;
 
 import atonkish.reinfcore.gametest.TestFunction;
 import atonkish.reinfcore.util.ReinforcingMaterials;
@@ -66,8 +66,8 @@ public class RecipeTests {
           for (DyeColor color : SHULKER_BOX_MAP.keySet()) {
             ItemStack baseShulkerBox = new ItemStack(SHULKER_BOX_MAP.get(color));
             baseShulkerBox.set(
-                DataComponentTypes.CONTAINER,
-                ContainerComponent.fromStacks(List.of(new ItemStack(Items.DIRT))));
+                DataComponents.CONTAINER,
+                ItemContainerContents.fromItems(List.of(new ItemStack(Items.DIRT))));
             ItemStack material = new ItemStack(Items.COPPER_INGOT);
             ItemStack shulkerBox =
                 new ItemStack(
@@ -75,14 +75,14 @@ public class RecipeTests {
                         .get(ReinforcingMaterials.MAP.get("copper"))
                         .get(color));
             shulkerBox.set(
-                DataComponentTypes.CONTAINER,
-                ContainerComponent.fromStacks(List.of(new ItemStack(Items.DIRT))));
+                DataComponents.CONTAINER,
+                ItemContainerContents.fromItems(List.of(new ItemStack(Items.DIRT))));
 
             add(
                 RecipeTests.createTest(
                     String.format("Craft %s", baseShulkerBox.getItem().getName().getString()),
                     RecipeType.CRAFTING,
-                    CraftingRecipeInput.create(
+                    CraftingInput.of(
                         3,
                         3,
                         List.of(
@@ -110,8 +110,8 @@ public class RecipeTests {
                           .get(ReinforcingMaterials.MAP.get("copper"))
                           .get(baseColor));
               baseShulkerBox.set(
-                  DataComponentTypes.CONTAINER,
-                  ContainerComponent.fromStacks(List.of(new ItemStack(Items.DIRT))));
+                  DataComponents.CONTAINER,
+                  ItemContainerContents.fromItems(List.of(new ItemStack(Items.DIRT))));
               ItemStack dye = new ItemStack(DyeItem.byColor(dyeColor));
               ItemStack dyedShulkerBox =
                   new ItemStack(
@@ -119,8 +119,8 @@ public class RecipeTests {
                           .get(ReinforcingMaterials.MAP.get("copper"))
                           .get(dyeColor));
               dyedShulkerBox.set(
-                  DataComponentTypes.CONTAINER,
-                  ContainerComponent.fromStacks(List.of(new ItemStack(Items.DIRT))));
+                  DataComponents.CONTAINER,
+                  ItemContainerContents.fromItems(List.of(new ItemStack(Items.DIRT))));
 
               add(
                   RecipeTests.createTest(
@@ -129,7 +129,7 @@ public class RecipeTests {
                           baseShulkerBox.getItem().getName().getString(),
                           dyedShulkerBox.getItem().getName().getString()),
                       RecipeType.CRAFTING,
-                      CraftingRecipeInput.create(
+                      CraftingInput.of(
                           2, 2, List.of(baseShulkerBox, dye, ItemStack.EMPTY, ItemStack.EMPTY)),
                       dyedShulkerBox));
             }
@@ -152,7 +152,7 @@ public class RecipeTests {
                 RecipeTests.createTest(
                     "Craft Copper Shulker Box from Reinforced Copper Chest",
                     RecipeType.CRAFTING,
-                    CraftingRecipeInput.create(
+                    CraftingInput.of(
                         3,
                         3,
                         List.of(
@@ -194,7 +194,7 @@ public class RecipeTests {
                           "Craft Copper Shulker Box from %s",
                           chest.getItem().getName().getString()),
                       RecipeType.CRAFTING,
-                      CraftingRecipeInput.create(
+                      CraftingInput.of(
                           3,
                           3,
                           List.of(
@@ -219,8 +219,8 @@ public class RecipeTests {
                         .get(ReinforcingMaterials.MAP.get("copper"))
                         .get(color));
             baseShulkerBox.set(
-                DataComponentTypes.CONTAINER,
-                ContainerComponent.fromStacks(List.of(new ItemStack(Items.DIRT))));
+                DataComponents.CONTAINER,
+                ItemContainerContents.fromItems(List.of(new ItemStack(Items.DIRT))));
             ItemStack material = new ItemStack(Items.IRON_INGOT);
             ItemStack shulkerBox =
                 new ItemStack(
@@ -228,14 +228,14 @@ public class RecipeTests {
                         .get(ReinforcingMaterials.MAP.get("iron"))
                         .get(color));
             shulkerBox.set(
-                DataComponentTypes.CONTAINER,
-                ContainerComponent.fromStacks(List.of(new ItemStack(Items.DIRT))));
+                DataComponents.CONTAINER,
+                ItemContainerContents.fromItems(List.of(new ItemStack(Items.DIRT))));
 
             add(
                 RecipeTests.createTest(
                     String.format("Craft %s", baseShulkerBox.getItem().getName().getString()),
                     RecipeType.CRAFTING,
-                    CraftingRecipeInput.create(
+                    CraftingInput.of(
                         3,
                         3,
                         List.of(
@@ -263,8 +263,8 @@ public class RecipeTests {
                           .get(ReinforcingMaterials.MAP.get("iron"))
                           .get(baseColor));
               baseShulkerBox.set(
-                  DataComponentTypes.CONTAINER,
-                  ContainerComponent.fromStacks(List.of(new ItemStack(Items.DIRT))));
+                  DataComponents.CONTAINER,
+                  ItemContainerContents.fromItems(List.of(new ItemStack(Items.DIRT))));
               ItemStack dye = new ItemStack(DyeItem.byColor(dyeColor));
               ItemStack dyedShulkerBox =
                   new ItemStack(
@@ -272,8 +272,8 @@ public class RecipeTests {
                           .get(ReinforcingMaterials.MAP.get("iron"))
                           .get(dyeColor));
               dyedShulkerBox.set(
-                  DataComponentTypes.CONTAINER,
-                  ContainerComponent.fromStacks(List.of(new ItemStack(Items.DIRT))));
+                  DataComponents.CONTAINER,
+                  ItemContainerContents.fromItems(List.of(new ItemStack(Items.DIRT))));
 
               add(
                   RecipeTests.createTest(
@@ -282,7 +282,7 @@ public class RecipeTests {
                           baseShulkerBox.getItem().getName().getString(),
                           dyedShulkerBox.getItem().getName().getString()),
                       RecipeType.CRAFTING,
-                      CraftingRecipeInput.create(
+                      CraftingInput.of(
                           2, 2, List.of(baseShulkerBox, dye, ItemStack.EMPTY, ItemStack.EMPTY)),
                       dyedShulkerBox));
             }
@@ -307,7 +307,7 @@ public class RecipeTests {
                         shulkerBox.getItem().getName().getString(),
                         chest.getItem().getName().getString()),
                     RecipeType.CRAFTING,
-                    CraftingRecipeInput.create(
+                    CraftingInput.of(
                         3,
                         3,
                         List.of(
@@ -331,8 +331,8 @@ public class RecipeTests {
                         .get(ReinforcingMaterials.MAP.get("iron"))
                         .get(color));
             baseShulkerBox.set(
-                DataComponentTypes.CONTAINER,
-                ContainerComponent.fromStacks(List.of(new ItemStack(Items.DIRT))));
+                DataComponents.CONTAINER,
+                ItemContainerContents.fromItems(List.of(new ItemStack(Items.DIRT))));
             ItemStack material = new ItemStack(Items.GOLD_INGOT);
             ItemStack shulkerBox =
                 new ItemStack(
@@ -340,14 +340,14 @@ public class RecipeTests {
                         .get(ReinforcingMaterials.MAP.get("gold"))
                         .get(color));
             shulkerBox.set(
-                DataComponentTypes.CONTAINER,
-                ContainerComponent.fromStacks(List.of(new ItemStack(Items.DIRT))));
+                DataComponents.CONTAINER,
+                ItemContainerContents.fromItems(List.of(new ItemStack(Items.DIRT))));
 
             add(
                 RecipeTests.createTest(
                     String.format("Craft %s", baseShulkerBox.getItem().getName().getString()),
                     RecipeType.CRAFTING,
-                    CraftingRecipeInput.create(
+                    CraftingInput.of(
                         3,
                         3,
                         List.of(
@@ -375,8 +375,8 @@ public class RecipeTests {
                           .get(ReinforcingMaterials.MAP.get("gold"))
                           .get(baseColor));
               baseShulkerBox.set(
-                  DataComponentTypes.CONTAINER,
-                  ContainerComponent.fromStacks(List.of(new ItemStack(Items.DIRT))));
+                  DataComponents.CONTAINER,
+                  ItemContainerContents.fromItems(List.of(new ItemStack(Items.DIRT))));
               ItemStack dye = new ItemStack(DyeItem.byColor(dyeColor));
               ItemStack dyedShulkerBox =
                   new ItemStack(
@@ -384,8 +384,8 @@ public class RecipeTests {
                           .get(ReinforcingMaterials.MAP.get("gold"))
                           .get(dyeColor));
               dyedShulkerBox.set(
-                  DataComponentTypes.CONTAINER,
-                  ContainerComponent.fromStacks(List.of(new ItemStack(Items.DIRT))));
+                  DataComponents.CONTAINER,
+                  ItemContainerContents.fromItems(List.of(new ItemStack(Items.DIRT))));
 
               add(
                   RecipeTests.createTest(
@@ -394,7 +394,7 @@ public class RecipeTests {
                           baseShulkerBox.getItem().getName().getString(),
                           dyedShulkerBox.getItem().getName().getString()),
                       RecipeType.CRAFTING,
-                      CraftingRecipeInput.create(
+                      CraftingInput.of(
                           2, 2, List.of(baseShulkerBox, dye, ItemStack.EMPTY, ItemStack.EMPTY)),
                       dyedShulkerBox));
             }
@@ -419,7 +419,7 @@ public class RecipeTests {
                         shulkerBox.getItem().getName().getString(),
                         chest.getItem().getName().getString()),
                     RecipeType.CRAFTING,
-                    CraftingRecipeInput.create(
+                    CraftingInput.of(
                         3,
                         3,
                         List.of(
@@ -443,8 +443,8 @@ public class RecipeTests {
                         .get(ReinforcingMaterials.MAP.get("gold"))
                         .get(color));
             baseShulkerBox.set(
-                DataComponentTypes.CONTAINER,
-                ContainerComponent.fromStacks(List.of(new ItemStack(Items.DIRT))));
+                DataComponents.CONTAINER,
+                ItemContainerContents.fromItems(List.of(new ItemStack(Items.DIRT))));
             ItemStack material = new ItemStack(Items.DIAMOND);
             ItemStack shulkerBox =
                 new ItemStack(
@@ -452,14 +452,14 @@ public class RecipeTests {
                         .get(ReinforcingMaterials.MAP.get("diamond"))
                         .get(color));
             shulkerBox.set(
-                DataComponentTypes.CONTAINER,
-                ContainerComponent.fromStacks(List.of(new ItemStack(Items.DIRT))));
+                DataComponents.CONTAINER,
+                ItemContainerContents.fromItems(List.of(new ItemStack(Items.DIRT))));
 
             add(
                 RecipeTests.createTest(
                     String.format("Craft %s", baseShulkerBox.getItem().getName().getString()),
                     RecipeType.CRAFTING,
-                    CraftingRecipeInput.create(
+                    CraftingInput.of(
                         3,
                         3,
                         List.of(
@@ -487,8 +487,8 @@ public class RecipeTests {
                           .get(ReinforcingMaterials.MAP.get("diamond"))
                           .get(baseColor));
               baseShulkerBox.set(
-                  DataComponentTypes.CONTAINER,
-                  ContainerComponent.fromStacks(List.of(new ItemStack(Items.DIRT))));
+                  DataComponents.CONTAINER,
+                  ItemContainerContents.fromItems(List.of(new ItemStack(Items.DIRT))));
               ItemStack dye = new ItemStack(DyeItem.byColor(dyeColor));
               ItemStack dyedShulkerBox =
                   new ItemStack(
@@ -496,8 +496,8 @@ public class RecipeTests {
                           .get(ReinforcingMaterials.MAP.get("diamond"))
                           .get(dyeColor));
               dyedShulkerBox.set(
-                  DataComponentTypes.CONTAINER,
-                  ContainerComponent.fromStacks(List.of(new ItemStack(Items.DIRT))));
+                  DataComponents.CONTAINER,
+                  ItemContainerContents.fromItems(List.of(new ItemStack(Items.DIRT))));
 
               add(
                   RecipeTests.createTest(
@@ -506,7 +506,7 @@ public class RecipeTests {
                           baseShulkerBox.getItem().getName().getString(),
                           dyedShulkerBox.getItem().getName().getString()),
                       RecipeType.CRAFTING,
-                      CraftingRecipeInput.create(
+                      CraftingInput.of(
                           2, 2, List.of(baseShulkerBox, dye, ItemStack.EMPTY, ItemStack.EMPTY)),
                       dyedShulkerBox));
             }
@@ -531,7 +531,7 @@ public class RecipeTests {
                         shulkerBox.getItem().getName().getString(),
                         chest.getItem().getName().getString()),
                     RecipeType.CRAFTING,
-                    CraftingRecipeInput.create(
+                    CraftingInput.of(
                         3,
                         3,
                         List.of(
@@ -556,8 +556,8 @@ public class RecipeTests {
                         .get(ReinforcingMaterials.MAP.get("diamond"))
                         .get(color));
             baseShulkerBox.set(
-                DataComponentTypes.CONTAINER,
-                ContainerComponent.fromStacks(List.of(new ItemStack(Items.DIRT))));
+                DataComponents.CONTAINER,
+                ItemContainerContents.fromItems(List.of(new ItemStack(Items.DIRT))));
             ItemStack material = new ItemStack(Items.NETHERITE_INGOT);
             ItemStack shulkerBox =
                 new ItemStack(
@@ -565,8 +565,8 @@ public class RecipeTests {
                         .get(ReinforcingMaterials.MAP.get("netherite"))
                         .get(color));
             shulkerBox.set(
-                DataComponentTypes.CONTAINER,
-                ContainerComponent.fromStacks(List.of(new ItemStack(Items.DIRT))));
+                DataComponents.CONTAINER,
+                ItemContainerContents.fromItems(List.of(new ItemStack(Items.DIRT))));
 
             add(
                 RecipeTests.createTest(
@@ -588,8 +588,8 @@ public class RecipeTests {
                           .get(ReinforcingMaterials.MAP.get("netherite"))
                           .get(baseColor));
               baseShulkerBox.set(
-                  DataComponentTypes.CONTAINER,
-                  ContainerComponent.fromStacks(List.of(new ItemStack(Items.DIRT))));
+                  DataComponents.CONTAINER,
+                  ItemContainerContents.fromItems(List.of(new ItemStack(Items.DIRT))));
               ItemStack dye = new ItemStack(DyeItem.byColor(dyeColor));
               ItemStack dyedShulkerBox =
                   new ItemStack(
@@ -597,8 +597,8 @@ public class RecipeTests {
                           .get(ReinforcingMaterials.MAP.get("netherite"))
                           .get(dyeColor));
               dyedShulkerBox.set(
-                  DataComponentTypes.CONTAINER,
-                  ContainerComponent.fromStacks(List.of(new ItemStack(Items.DIRT))));
+                  DataComponents.CONTAINER,
+                  ItemContainerContents.fromItems(List.of(new ItemStack(Items.DIRT))));
 
               add(
                   RecipeTests.createTest(
@@ -607,7 +607,7 @@ public class RecipeTests {
                           baseShulkerBox.getItem().getName().getString(),
                           dyedShulkerBox.getItem().getName().getString()),
                       RecipeType.CRAFTING,
-                      CraftingRecipeInput.create(
+                      CraftingInput.of(
                           2, 2, List.of(baseShulkerBox, dye, ItemStack.EMPTY, ItemStack.EMPTY)),
                       dyedShulkerBox));
             }
@@ -632,7 +632,7 @@ public class RecipeTests {
                         shulkerBox.getItem().getName().getString(),
                         chest.getItem().getName().getString()),
                     RecipeType.CRAFTING,
-                    CraftingRecipeInput.create(
+                    CraftingInput.of(
                         3,
                         3,
                         List.of(
@@ -662,32 +662,32 @@ public class RecipeTests {
         20,
         0,
         true,
-        BlockRotation.NONE,
+        Rotation.NONE,
         false,
         1,
         1,
         false,
         (context) -> {
           // Arrange
-          ServerWorld world = context.getWorld();
-          ServerRecipeManager recipeManager = world.getRecipeManager();
-          DynamicRegistryManager registryManager = world.getRegistryManager();
-          T recipe = recipeManager.getFirstMatch(type, input, world).orElseThrow().value();
+          ServerLevel world = context.getLevel();
+          RecipeManager recipeManager = world.recipeAccess();
+          RegistryAccess registryManager = world.registryAccess();
+          T recipe = recipeManager.getRecipeFor(type, input, world).orElseThrow().value();
 
           // Act
-          ItemStack actual = recipe.craft(input, registryManager);
+          ItemStack actual = recipe.assemble(input, registryManager);
 
           // Assert
           try {
             context.assertTrue(
-                ItemStack.areEqual(actual, expected),
-                Text.of("Recipe result differs from expected."));
+                ItemStack.matches(actual, expected),
+                Component.nullToEmpty("Recipe result differs from expected."));
           } catch (Exception e) {
             ReinforcedShulkerBoxesMod.LOGGER.error("[{}] {}", testIdentifier, e.getMessage());
             throw e;
           }
 
-          context.complete();
+          context.succeed();
         });
   }
 }

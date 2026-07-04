@@ -2,11 +2,11 @@ package atonkish.reinfshulker.gametest.util;
 
 import java.util.Locale;
 
-import net.minecraft.util.Identifier;
+import net.minecraft.resources.Identifier;
 
 public class TestIdentifier {
   public static Identifier of(String namespace, Class<?> testClass, String name) {
-    return Identifier.of(
+    return Identifier.fromNamespaceAndPath(
         namespace,
         camelToSnake(String.format("%s/%s", testClass.getSimpleName(), name).replace(" ", "_")));
   }

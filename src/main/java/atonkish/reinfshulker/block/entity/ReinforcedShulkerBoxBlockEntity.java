@@ -2,17 +2,17 @@ package atonkish.reinfshulker.block.entity;
 
 import java.util.stream.IntStream;
 
-import net.minecraft.block.BlockState;
-import net.minecraft.block.entity.BlockEntityType;
-import net.minecraft.block.entity.ShulkerBoxBlockEntity;
-import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.item.ItemStack;
-import net.minecraft.screen.ScreenHandler;
-import net.minecraft.text.Text;
-import net.minecraft.util.DyeColor;
-import net.minecraft.util.collection.DefaultedList;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.core.NonNullList;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.network.chat.Component;
+import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.inventory.AbstractContainerMenu;
+import net.minecraft.world.item.DyeColor;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.block.entity.ShulkerBoxBlockEntity;
+import net.minecraft.world.level.block.state.BlockState;
 
 import org.jetbrains.annotations.Nullable;
 
@@ -28,7 +28,7 @@ public class ReinforcedShulkerBoxBlockEntity extends ShulkerBoxBlockEntity {
     super(color, pos, state);
     ((BlockEntityAccessor) this)
         .setType(ModBlockEntityType.REINFORCED_SHULKER_BOX_MAP.get(material));
-    this.setHeldStacks(DefaultedList.ofSize(material.getSize(), ItemStack.EMPTY));
+    this.setItems(NonNullList.withSize(material.getSize(), ItemStack.EMPTY));
     this.cachedMaterial = material;
   }
 
@@ -37,20 +37,20 @@ public class ReinforcedShulkerBoxBlockEntity extends ShulkerBoxBlockEntity {
     super(pos, state);
     ((BlockEntityAccessor) this)
         .setType(ModBlockEntityType.REINFORCED_SHULKER_BOX_MAP.get(material));
-    this.setHeldStacks(DefaultedList.ofSize(material.getSize(), ItemStack.EMPTY));
+    this.setItems(NonNullList.withSize(material.getSize(), ItemStack.EMPTY));
     this.cachedMaterial = material;
   }
 
   @Override
-  protected Text getContainerName() {
-    String namespace = BlockEntityType.getId(this.getType()).getNamespace();
-    return Text.translatable(
+  protected Component getDefaultName() {
+    String namespace = BuiltInRegistries.BLOCK_ENTITY_TYPE.getKey(this.getType()).getNamespace();
+    return Component.translatable(
         "container." + namespace + "." + this.cachedMaterial.getName() + "ShulkerBox");
   }
 
   @Override
-  public int[] getAvailableSlots(Direction side) {
-    return IntStream.range(0, this.size()).toArray();
+  public int[] getSlotsForFace(Direction side) {
+    return IntStream.range(0, this.getContainerSize()).toArray();
   }
 
   public ReinforcingMaterial getMaterial() {
@@ -58,7 +58,7 @@ public class ReinforcedShulkerBoxBlockEntity extends ShulkerBoxBlockEntity {
   }
 
   @Override
-  protected ScreenHandler createScreenHandler(int syncId, PlayerInventory playerInventory) {
+  protected AbstractContainerMenu createMenu(int syncId, Inventory playerInventory) {
     return ReinforcedStorageScreenHandler.createShulkerBoxScreen(
         this.cachedMaterial, syncId, playerInventory, this);
   }

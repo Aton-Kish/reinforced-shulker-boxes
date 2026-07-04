@@ -8,19 +8,19 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 
-import net.minecraft.advancement.AdvancementEntry;
-import net.minecraft.advancement.AdvancementProgress;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
-import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.text.Text;
-import net.minecraft.util.BlockRotation;
-import net.minecraft.util.DyeColor;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Vec3d;
-import net.minecraft.world.GameMode;
+import net.minecraft.advancements.AdvancementHolder;
+import net.minecraft.advancements.AdvancementProgress;
+import net.minecraft.core.BlockPos;
+import net.minecraft.network.chat.Component;
+import net.minecraft.resources.Identifier;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.item.DyeColor;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.level.GameType;
+import net.minecraft.world.level.block.Rotation;
+import net.minecraft.world.phys.Vec3;
 
 import atonkish.reinfchest.ReinforcedChestsMod;
 import atonkish.reinfcore.gametest.TestFunction;
@@ -69,7 +69,7 @@ public class AdvancementTests {
                         "Obtain Copper Shulker Box recipe advancement by having %s",
                         item.getName().getString()),
                     item,
-                    Identifier.of(
+                    Identifier.fromNamespaceAndPath(
                         ReinforcedShulkerBoxesMod.MOD_ID,
                         "recipes/decorations/copper_shulker_box")));
           }
@@ -77,14 +77,14 @@ public class AdvancementTests {
               AdvancementTests.createTest(
                   "Obtain Copper Shulker Box recipe advancement by having Copper Ingot",
                   Items.COPPER_INGOT,
-                  Identifier.of(
+                  Identifier.fromNamespaceAndPath(
                       ReinforcedShulkerBoxesMod.MOD_ID, "recipes/decorations/copper_shulker_box")));
           add(
               AdvancementTests.createTest(
                   "Obtain Copper Shulker Box recipe advancement by having Reinforced Copper Chest",
                   atonkish.reinfchest.item.ModItems.REINFORCED_CHEST_MAP.get(
                       ReinforcingMaterials.MAP.get("copper")),
-                  Identifier.of(
+                  Identifier.fromNamespaceAndPath(
                       ReinforcedShulkerBoxesMod.MOD_ID,
                       "recipes/decorations/copper_shulker_box_from_reinforced_copper_chest")));
           for (Item item :
@@ -103,7 +103,7 @@ public class AdvancementTests {
                         "Obtain Copper Shulker Box recipe advancement by having %s",
                         item.getName().getString()),
                     item,
-                    Identifier.of(
+                    Identifier.fromNamespaceAndPath(
                         ReinforcedChestsMod.MOD_ID,
                         "recipes/decorations/iron_chest_from_copper_chests")));
           }
@@ -119,21 +119,21 @@ public class AdvancementTests {
                         "Obtain Iron Shulker Box recipe advancement by having %s",
                         item.getName().getString()),
                     item,
-                    Identifier.of(
+                    Identifier.fromNamespaceAndPath(
                         ReinforcedShulkerBoxesMod.MOD_ID, "recipes/decorations/iron_shulker_box")));
           }
           add(
               AdvancementTests.createTest(
                   "Obtain Iron Shulker Box recipe advancement by having Iron Ingot",
                   Items.IRON_INGOT,
-                  Identifier.of(
+                  Identifier.fromNamespaceAndPath(
                       ReinforcedShulkerBoxesMod.MOD_ID, "recipes/decorations/iron_shulker_box")));
           add(
               AdvancementTests.createTest(
                   "Obtain Iron Shulker Box recipe advancement by having Iron Chest",
                   atonkish.reinfchest.item.ModItems.REINFORCED_CHEST_MAP.get(
                       ReinforcingMaterials.MAP.get("iron")),
-                  Identifier.of(
+                  Identifier.fromNamespaceAndPath(
                       ReinforcedShulkerBoxesMod.MOD_ID,
                       "recipes/decorations/iron_shulker_box_from_iron_chest")));
 
@@ -148,21 +148,21 @@ public class AdvancementTests {
                         "Obtain Gold Shulker Box recipe advancement by having %s",
                         item.getName().getString()),
                     item,
-                    Identifier.of(
+                    Identifier.fromNamespaceAndPath(
                         ReinforcedShulkerBoxesMod.MOD_ID, "recipes/decorations/gold_shulker_box")));
           }
           add(
               AdvancementTests.createTest(
                   "Obtain Gold Shulker Box recipe advancement by having Gold Ingot",
                   Items.GOLD_INGOT,
-                  Identifier.of(
+                  Identifier.fromNamespaceAndPath(
                       ReinforcedShulkerBoxesMod.MOD_ID, "recipes/decorations/gold_shulker_box")));
           add(
               AdvancementTests.createTest(
                   "Obtain Gold Shulker Box recipe advancement by having Gold Chest",
                   atonkish.reinfchest.item.ModItems.REINFORCED_CHEST_MAP.get(
                       ReinforcingMaterials.MAP.get("gold")),
-                  Identifier.of(
+                  Identifier.fromNamespaceAndPath(
                       ReinforcedShulkerBoxesMod.MOD_ID,
                       "recipes/decorations/gold_shulker_box_from_gold_chest")));
 
@@ -177,7 +177,7 @@ public class AdvancementTests {
                         "Obtain Diamond Shulker Box recipe advancement by having %s",
                         item.getName().getString()),
                     item,
-                    Identifier.of(
+                    Identifier.fromNamespaceAndPath(
                         ReinforcedShulkerBoxesMod.MOD_ID,
                         "recipes/decorations/diamond_shulker_box")));
           }
@@ -185,7 +185,7 @@ public class AdvancementTests {
               AdvancementTests.createTest(
                   "Obtain Diamond Shulker Box recipe advancement by having Diamond Ingot",
                   Items.DIAMOND,
-                  Identifier.of(
+                  Identifier.fromNamespaceAndPath(
                       ReinforcedShulkerBoxesMod.MOD_ID,
                       "recipes/decorations/diamond_shulker_box")));
           add(
@@ -193,7 +193,7 @@ public class AdvancementTests {
                   "Obtain Diamond Shulker Box recipe advancement by having Diamond Chest",
                   atonkish.reinfchest.item.ModItems.REINFORCED_CHEST_MAP.get(
                       ReinforcingMaterials.MAP.get("diamond")),
-                  Identifier.of(
+                  Identifier.fromNamespaceAndPath(
                       ReinforcedShulkerBoxesMod.MOD_ID,
                       "recipes/decorations/diamond_shulker_box_from_diamond_chest")));
 
@@ -208,7 +208,7 @@ public class AdvancementTests {
                         "Obtain Netherite Shulker Box recipe advancement by having %s",
                         item.getName().getString()),
                     item,
-                    Identifier.of(
+                    Identifier.fromNamespaceAndPath(
                         ReinforcedShulkerBoxesMod.MOD_ID,
                         "recipes/decorations/netherite_shulker_box_smithing")));
           }
@@ -216,7 +216,7 @@ public class AdvancementTests {
               AdvancementTests.createTest(
                   "Obtain Netherite Shulker Box recipe advancement by having Netherite Ingot",
                   Items.NETHERITE_INGOT,
-                  Identifier.of(
+                  Identifier.fromNamespaceAndPath(
                       ReinforcedShulkerBoxesMod.MOD_ID,
                       "recipes/decorations/netherite_shulker_box_smithing")));
           add(
@@ -224,7 +224,7 @@ public class AdvancementTests {
                   "Obtain Netherite Shulker Box recipe advancement by having Netherite Chest",
                   atonkish.reinfchest.item.ModItems.REINFORCED_CHEST_MAP.get(
                       ReinforcingMaterials.MAP.get("netherite")),
-                  Identifier.of(
+                  Identifier.fromNamespaceAndPath(
                       ReinforcedShulkerBoxesMod.MOD_ID,
                       "recipes/decorations/netherite_shulker_box_from_netherite_chest")));
         }
@@ -241,18 +241,19 @@ public class AdvancementTests {
         20,
         0,
         true,
-        BlockRotation.NONE,
+        Rotation.NONE,
         false,
         1,
         1,
         false,
         (context) -> {
           // Arrange
-          ServerPlayerEntity player =
-              MockServerPlayerHelper.spawn(context, GameMode.SURVIVAL, Vec3d.of(BlockPos.ORIGIN));
-          AdvancementEntry entry =
-              context.getWorld().getServer().getAdvancementLoader().get(advancementId);
-          AdvancementProgress progress = player.getAdvancementTracker().getProgress(entry);
+          ServerPlayer player =
+              MockServerPlayerHelper.spawn(
+                  context, GameType.SURVIVAL, Vec3.atLowerCornerOf(BlockPos.ZERO));
+          AdvancementHolder entry =
+              context.getLevel().getServer().getAdvancements().get(advancementId);
+          AdvancementProgress progress = player.getAdvancements().getOrStartProgress(entry);
 
           // Act
           CompletableFuture<Void> futurePartialAct1 = new CompletableFuture<>();
@@ -263,18 +264,18 @@ public class AdvancementTests {
           String progressMapKeyAfterHavingItem = "afterHavingItem";
 
           long tickOrigin = 0;
-          context.runAtTick(
+          context.runAtTickTime(
               tickOrigin,
               () -> {
                 progressMap.put(progressMapKeyBeforeHavingItem, progress.isDone());
 
-                player.giveItemStack(new ItemStack(item));
+                player.addItem(new ItemStack(item));
 
                 futurePartialAct1.complete(null);
               });
 
           long tickObtained = 1;
-          context.runAtTick(
+          context.runAtTickTime(
               tickObtained,
               () -> {
                 progressMap.put(progressMapKeyAfterHavingItem, progress.isDone());
@@ -289,13 +290,13 @@ public class AdvancementTests {
                     try {
                       context.assertFalse(
                           progressMap.get(progressMapKeyBeforeHavingItem),
-                          Text.of(
+                          Component.nullToEmpty(
                               String.format(
                                   "Expected that advancement %s has not been done yet, but it has been already done.",
                                   entry)));
                       context.assertTrue(
                           progressMap.get(progressMapKeyAfterHavingItem),
-                          Text.of(
+                          Component.nullToEmpty(
                               String.format(
                                   "Expected that advancement %s has been done, but it has not been done yet.",
                                   entry)));
@@ -307,7 +308,7 @@ public class AdvancementTests {
                       MockServerPlayerHelper.destroy(context, player);
                     }
 
-                    context.complete();
+                    context.succeed();
                   });
         });
   }

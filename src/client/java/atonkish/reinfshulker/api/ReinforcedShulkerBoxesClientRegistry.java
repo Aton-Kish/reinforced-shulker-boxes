@@ -2,10 +2,11 @@ package atonkish.reinfshulker.api;
 
 import java.util.List;
 
-import net.minecraft.client.render.RenderLayer;
-import net.minecraft.client.render.TexturedRenderLayers;
-import net.minecraft.client.util.SpriteIdentifier;
-import net.minecraft.util.Identifier;
+import net.minecraft.client.renderer.Sheets;
+import net.minecraft.client.renderer.rendertype.RenderType;
+import net.minecraft.client.renderer.rendertype.RenderTypes;
+import net.minecraft.client.resources.model.sprite.SpriteId;
+import net.minecraft.resources.Identifier;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -18,21 +19,21 @@ public class ReinforcedShulkerBoxesClientRegistry {
   @Deprecated
   public static Identifier registerMaterialAtlasTexture(
       String namespace, ReinforcingMaterial material) {
-    return TexturedRenderLayers.SHULKER_BOXES_ATLAS_TEXTURE;
+    return Sheets.SHULKER_SHEET;
   }
 
   @Deprecated
-  public static RenderLayer registerMaterialRenderLayer(
+  public static RenderType registerMaterialRenderLayer(
       String namespace, ReinforcingMaterial material) {
-    return TexturedRenderLayers.getShulkerBoxes();
+    return RenderTypes.entityCutout(Sheets.SHULKER_SHEET);
   }
 
-  public static SpriteIdentifier registerMaterialDefaultSprite(
+  public static SpriteId registerMaterialDefaultSprite(
       String namespace, ReinforcingMaterial material) {
     return ModTexturedRenderLayers.registerMaterialDefaultSprite(namespace, material);
   }
 
-  public static List<SpriteIdentifier> registerMaterialColoringSprites(
+  public static List<SpriteId> registerMaterialColoringSprites(
       String namespace, ReinforcingMaterial material) {
     return ModTexturedRenderLayers.registerMaterialColoringSprites(namespace, material);
   }

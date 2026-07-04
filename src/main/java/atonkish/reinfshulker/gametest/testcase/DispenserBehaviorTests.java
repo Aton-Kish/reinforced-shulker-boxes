@@ -4,15 +4,15 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.concurrent.CompletableFuture;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.Blocks;
-import net.minecraft.block.DispenserBlock;
-import net.minecraft.block.entity.DispenserBlockEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.BlockRotation;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.resources.Identifier;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.DispenserBlock;
+import net.minecraft.world.level.block.Rotation;
+import net.minecraft.world.level.block.entity.DispenserBlockEntity;
 
 import atonkish.reinfcore.gametest.TestFunction;
 import atonkish.reinfcore.util.ReinforcingMaterials;
@@ -91,37 +91,39 @@ public class DispenserBehaviorTests {
         20,
         0,
         true,
-        BlockRotation.NONE,
+        Rotation.NONE,
         false,
         1,
         1,
         false,
         (context) -> {
           // Arrange
-          BlockPos blockPos = BlockPos.ORIGIN;
-          context.setBlockState(
+          BlockPos blockPos = BlockPos.ZERO;
+          context.setBlock(
               blockPos,
-              Blocks.DISPENSER.getDefaultState().with(DispenserBlock.FACING, Direction.SOUTH));
+              Blocks.DISPENSER
+                  .defaultBlockState()
+                  .setValue(DispenserBlock.FACING, Direction.SOUTH));
 
           DispenserBlockEntity entity =
               context.getBlockEntity(blockPos, DispenserBlockEntity.class);
-          entity.setStack(0, new ItemStack(shulkerBoxBlock.asItem()));
+          entity.setItem(0, new ItemStack(shulkerBoxBlock.asItem()));
 
           // Act
           CompletableFuture<Void> futurePartialAct1 = new CompletableFuture<>();
           CompletableFuture<Void> futurePartialAct2 = new CompletableFuture<>();
 
           long tickOrigin = 0;
-          context.runAtTick(
+          context.runAtTickTime(
               tickOrigin,
               () -> {
-                context.putAndRemoveRedstoneBlock(blockPos.up(1), 0);
+                context.pulseRedstone(blockPos.above(1), 0);
 
                 futurePartialAct1.complete(null);
               });
 
           long tickShulkerBoxPlaced = 4;
-          context.runAtTick(
+          context.runAtTickTime(
               tickShulkerBoxPlaced,
               () -> {
                 futurePartialAct2.complete(null);
@@ -132,14 +134,14 @@ public class DispenserBehaviorTests {
               .thenRun(
                   () -> {
                     try {
-                      context.expectBlock(shulkerBoxBlock, blockPos.south(1));
+                      context.assertBlockPresent(shulkerBoxBlock, blockPos.south(1));
                     } catch (Exception e) {
                       ReinforcedShulkerBoxesMod.LOGGER.error(
                           "[{}] {}", testIdentifier, e.getMessage());
                       throw e;
                     }
 
-                    context.complete();
+                    context.succeed();
                   });
         });
   }

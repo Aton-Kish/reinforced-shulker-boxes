@@ -1,5 +1,5 @@
 plugins {
-	id "net.fabricmc.fabric-loom-remap" version "${loom_version}"
+	id "net.fabricmc.fabric-loom" version "${loom_version}"
 	id "maven-publish"
 	id "com.modrinth.minotaur" version "2.+"
 	id 'checkstyle'
@@ -79,24 +79,46 @@ loom {
 	accessWidenerPath = file("src/main/resources/${project.mod_id}.accesswidener")
 }
 
+sourceSets {
+	main {
+		java {
+			exclude "atonkish/reinfshulker/gametest/**"
+			exclude "atonkish/reinfshulker/integration/shulkerboxtooltip/**"
+		}
+	}
+}
+
 dependencies {
 	// To change the versions see the gradle.properties file
 	minecraft "com.mojang:minecraft:${project.minecraft_version}"
-	mappings "net.fabricmc:yarn:${project.yarn_mappings}:v2"
-	modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
+
+	implementation "net.fabricmc:fabric-loader:${project.loader_version}"
 
 	// Fabric API. This is technically optional, but you probably want it anyway.
-	modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
+	implementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
+	compileOnly files(
+		".gradle/loom-cache/remapped_mods/remapped/net/fabricmc/fabric-api/fabric-item-group-api-v1-4abd26ae-common/4.2.36+4fc5413f3e/fabric-item-group-api-v1-4abd26ae-common-4.2.36+4fc5413f3e.jar"
+	)
+	clientCompileOnly files(
+		".gradle/loom-cache/remapped_mods/remapped/net/fabricmc/fabric-api/fabric-rendering-v1-4abd26ae-client/16.2.9+7edacff13e/fabric-rendering-v1-4abd26ae-client-16.2.9+7edacff13e.jar"
+	)
 
 	// Reinforced Core
-	modImplementation "atonkish.reinfcore:reinforced-core:${project.reinforced_core_version}"
-	include "atonkish.reinfcore:reinforced-core:${project.reinforced_core_version}"
-
+	implementation files(
+		".gradle/loom-cache/remapped_mods/remapped/atonkish/reinfcore/reinforced-core-4abd26ae-common/${project.reinforced_core_version}/reinforced-core-4abd26ae-common-${project.reinforced_core_version}.jar"
+	)
+	clientImplementation files(
+		".gradle/loom-cache/remapped_mods/remapped/atonkish/reinfcore/reinforced-core-4abd26ae-client/${project.reinforced_core_version}/reinforced-core-4abd26ae-client-${project.reinforced_core_version}.jar"
+	)
 	// Reinforced Chests
-	modImplementation "atonkish.reinfchest:reinforced-chests:${project.reinforced_chests_version}"
+	compileOnly files(
+		".gradle/loom-cache/remapped_mods/remapped/atonkish/reinfchest/reinforced-chests-4abd26ae-common/${project.reinforced_chests_version}/reinforced-chests-4abd26ae-common-${project.reinforced_chests_version}.jar"
+	)
 
 	// Shulker Box Tooltip
-	modImplementation "com.misterpemodder:shulkerboxtooltip-fabric:${project.shulker_box_tooltip_version}"
+	compileOnly("com.misterpemodder:shulkerboxtooltip-fabric:${project.shulker_box_tooltip_version}") {
+		transitive = false
+	}
 
 	// // Quick Shulker
 	// modImplementation "net.kyrptonaught:quickshulker:${project.quick_shulker_version}"
@@ -114,7 +136,7 @@ processResources {
 
 tasks.withType(JavaCompile).configureEach {
 	// Minecraft 1.18 (1.18-pre2) upwards uses Java 17.
-	it.options.release = 21
+	it.options.release = 25
 }
 
 java {
@@ -123,13 +145,19 @@ java {
 	// If you remove this line, sources will not be generated.
 	withSourcesJar()
 
-	sourceCompatibility = JavaVersion.VERSION_21
-	targetCompatibility = JavaVersion.VERSION_21
+	sourceCompatibility = JavaVersion.VERSION_25
+	targetCompatibility = JavaVersion.VERSION_25
 }
 
 jar {
 	from("LICENSE") {
 		rename { "${it}_${inputs.properties.archivesName}"}
+	}
+	from(zipTree(".gradle/loom-cache/remapped_mods/remapped/atonkish/reinfcore/reinforced-core-4abd26ae-common/${project.reinforced_core_version}/reinforced-core-4abd26ae-common-${project.reinforced_core_version}.jar")) {
+		exclude "fabric.mod.json", "META-INF/**", "LICENSE*", "NOTICE*"
+	}
+	from(zipTree(".gradle/loom-cache/remapped_mods/remapped/atonkish/reinfcore/reinforced-core-4abd26ae-client/${project.reinforced_core_version}/reinforced-core-4abd26ae-client-${project.reinforced_core_version}.jar")) {
+		exclude "fabric.mod.json", "META-INF/**", "LICENSE*", "NOTICE*"
 	}
 }
 
@@ -223,13 +251,13 @@ modrinth {
 
 	projectId = project.modrinth_id
 
-	uploadFile = remapJar
+	uploadFile = jar
 	versionNumber = project.version
 	versionName = "Reinforced Shulker Boxes v${project.version}"
 	versionType = "beta"
 	changelog = "[v${project.version}](https://github.com/Aton-Kish/reinforced-shulker-boxes/releases/tag/v" + java.net.URLEncoder.encode(project.version, "UTF-8") + ")"
 
-	gameVersions = ["1.21.11"]
+	gameVersions = ["26.2"]
 	loaders = ["fabric"]
 
 	dependencies {

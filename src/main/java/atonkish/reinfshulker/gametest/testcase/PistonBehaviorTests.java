@@ -4,11 +4,11 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.concurrent.CompletableFuture;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.Blocks;
-import net.minecraft.util.BlockRotation;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.math.BlockPos;
+import net.minecraft.core.BlockPos;
+import net.minecraft.resources.Identifier;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.Rotation;
 
 import atonkish.reinfcore.gametest.TestFunction;
 import atonkish.reinfcore.util.ReinforcingMaterials;
@@ -87,32 +87,32 @@ public class PistonBehaviorTests {
         20,
         0,
         true,
-        BlockRotation.NONE,
+        Rotation.NONE,
         false,
         1,
         1,
         false,
         (context) -> {
           // Arrange
-          BlockPos blockPos = BlockPos.ORIGIN;
-          context.setBlockState(blockPos, shulkerBoxBlock);
-          context.setBlockState(blockPos.south(1), Blocks.PISTON);
+          BlockPos blockPos = BlockPos.ZERO;
+          context.setBlock(blockPos, shulkerBoxBlock);
+          context.setBlock(blockPos.south(1), Blocks.PISTON);
 
           // Act
           CompletableFuture<Void> futurePartialAct1 = new CompletableFuture<>();
           CompletableFuture<Void> futurePartialAct2 = new CompletableFuture<>();
 
           long tickOrigin = 0;
-          context.runAtTick(
+          context.runAtTickTime(
               tickOrigin,
               () -> {
-                context.putAndRemoveRedstoneBlock(blockPos.south(1).up(1), 1);
+                context.pulseRedstone(blockPos.south(1).above(1), 1);
 
                 futurePartialAct1.complete(null);
               });
 
           long tickShulkerBoxBreaking = 2;
-          context.runAtTick(
+          context.runAtTickTime(
               tickShulkerBoxBreaking,
               () -> {
                 futurePartialAct2.complete(null);
@@ -123,15 +123,15 @@ public class PistonBehaviorTests {
               .thenRun(
                   () -> {
                     try {
-                      context.expectBlock(Blocks.AIR, blockPos);
-                      context.expectItemAt(shulkerBoxBlock.asItem(), blockPos, 1);
+                      context.assertBlockPresent(Blocks.AIR, blockPos);
+                      context.assertItemEntityPresent(shulkerBoxBlock.asItem(), blockPos, 1);
                     } catch (Exception e) {
                       ReinforcedShulkerBoxesMod.LOGGER.error(
                           "[{}] {}", testIdentifier, e.getMessage());
                       throw e;
                     }
 
-                    context.complete();
+                    context.succeed();
                   });
         });
   }

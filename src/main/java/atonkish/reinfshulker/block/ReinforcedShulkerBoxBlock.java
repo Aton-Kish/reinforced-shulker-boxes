@@ -1,25 +1,26 @@
 package atonkish.reinfshulker.block;
 
-import net.minecraft.block.AbstractBlock;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.ShulkerBoxBlock;
-import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.block.entity.BlockEntityTicker;
-import net.minecraft.block.entity.BlockEntityType;
-import net.minecraft.block.entity.ShulkerBoxBlockEntity;
-import net.minecraft.entity.mob.PiglinBrain;
-import net.minecraft.entity.mob.ShulkerEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.DyeColor;
-import net.minecraft.util.hit.BlockHitResult;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Box;
-import net.minecraft.util.math.Direction;
-import net.minecraft.world.World;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.monster.Shulker;
+import net.minecraft.world.entity.monster.piglin.PiglinAi;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.DyeColor;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.ShulkerBoxBlock;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntityTicker;
+import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.world.level.block.entity.ShulkerBoxBlockEntity;
+import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.AABB;
+import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.phys.Vec3;
 
 import org.jetbrains.annotations.Nullable;
 
@@ -32,52 +33,52 @@ public class ReinforcedShulkerBoxBlock extends ShulkerBoxBlock {
   private final ReinforcingMaterial material;
 
   public ReinforcedShulkerBoxBlock(
-      ReinforcingMaterial material, @Nullable DyeColor color, AbstractBlock.Settings settings) {
+      ReinforcingMaterial material, @Nullable DyeColor color, BlockBehaviour.Properties settings) {
     super(color, settings);
     this.material = material;
   }
 
   @Override
-  public BlockEntity createBlockEntity(BlockPos pos, BlockState state) {
+  public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
     return new ReinforcedShulkerBoxBlockEntity(this.material, this.getColor(), pos, state);
   }
 
   @Override
   @Nullable public <T extends BlockEntity> BlockEntityTicker<T> getTicker(
-      World world, BlockState state, BlockEntityType<T> type) {
-    return ReinforcedShulkerBoxBlock.validateTicker(
+      Level world, BlockState state, BlockEntityType<T> type) {
+    return ReinforcedShulkerBoxBlock.createTickerHelper(
         type,
         ModBlockEntityType.REINFORCED_SHULKER_BOX_MAP.get(this.material),
         ReinforcedShulkerBoxBlockEntity::tick);
   }
 
   @Override
-  public ActionResult onUse(
-      BlockState state, World world, BlockPos pos, PlayerEntity player, BlockHitResult hit) {
-    if (world instanceof ServerWorld serverWorld) {
+  public InteractionResult useWithoutItem(
+      BlockState state, Level world, BlockPos pos, Player player, BlockHitResult hit) {
+    if (world instanceof ServerLevel serverWorld) {
       BlockEntity blockEntity = world.getBlockEntity(pos);
       if (blockEntity instanceof ShulkerBoxBlockEntity shulkerBoxBlockEntity) {
         if (canOpen(state, world, pos, shulkerBoxBlockEntity)) {
-          player.openHandledScreen(shulkerBoxBlockEntity);
-          player.incrementStat(ModStats.OPEN_REINFORCED_SHULKER_BOX_MAP.get(this.material));
-          PiglinBrain.onGuardedBlockInteracted(serverWorld, player, true);
+          player.openMenu(shulkerBoxBlockEntity);
+          player.awardStat(ModStats.OPEN_REINFORCED_SHULKER_BOX_MAP.get(this.material));
+          PiglinAi.angerNearbyPiglins(serverWorld, player, true);
         }
       }
     }
 
-    return ActionResult.SUCCESS;
+    return InteractionResult.SUCCESS;
   }
 
   private static boolean canOpen(
-      BlockState state, World world, BlockPos pos, ShulkerBoxBlockEntity entity) {
-    if (entity.getAnimationStage() != ShulkerBoxBlockEntity.AnimationStage.CLOSED) {
+      BlockState state, Level world, BlockPos pos, ShulkerBoxBlockEntity entity) {
+    if (entity.getAnimationStatus() != ShulkerBoxBlockEntity.AnimationStatus.CLOSED) {
       return true;
     } else {
-      Box box =
-          ShulkerEntity.calculateBoundingBox(
-                  1.0F, (Direction) state.get(FACING), 0.0F, 0.5F, pos.toBottomCenterPos())
-              .contract(1.0E-6D);
-      return world.isSpaceEmpty(box);
+      AABB box =
+          Shulker.getProgressDeltaAabb(
+                  1.0F, (Direction) state.getValue(FACING), 0.0F, 0.5F, Vec3.atBottomCenterOf(pos))
+              .deflate(1.0E-6D);
+      return world.noCollision(box);
     }
   }
 

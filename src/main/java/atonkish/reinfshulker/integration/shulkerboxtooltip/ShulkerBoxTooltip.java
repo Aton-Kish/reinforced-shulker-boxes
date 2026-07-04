@@ -1,8 +1,8 @@
 package atonkish.reinfshulker.integration.shulkerboxtooltip;
 
-import net.minecraft.block.entity.BlockEntityType;
-import net.minecraft.item.Item;
-import net.minecraft.util.Identifier;
+import net.minecraft.resources.Identifier;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.level.block.entity.BlockEntityType;
 
 import com.misterpemodder.shulkerboxtooltip.api.ShulkerBoxTooltipApi;
 import com.misterpemodder.shulkerboxtooltip.api.provider.PreviewProvider;
@@ -20,14 +20,14 @@ public class ShulkerBoxTooltip implements ShulkerBoxTooltipApi {
       String id,
       PreviewProvider provider,
       Item... items) {
-    registry.register(Identifier.of(namespace, id), provider, items);
+    registry.register(Identifier.fromNamespaceAndPath(namespace, id), provider, items);
   }
 
   @Override
   public void registerProviders(PreviewProviderRegistry registry) {
     for (ReinforcingMaterial material : ReinforcingMaterials.MAP.values()) {
       String namespace =
-          BlockEntityType.getId(ModBlockEntityType.REINFORCED_SHULKER_BOX_MAP.get(material))
+          BlockEntityType.getKey(ModBlockEntityType.REINFORCED_SHULKER_BOX_MAP.get(material))
               .getNamespace();
       String id = material.getName() + "_shulker_box";
       Item[] items =

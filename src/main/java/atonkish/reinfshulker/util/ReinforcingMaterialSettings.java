@@ -1,17 +1,16 @@
 package atonkish.reinfshulker.util;
 
-import net.minecraft.block.AbstractBlock;
-import net.minecraft.block.Block;
-import net.minecraft.block.Blocks;
-import net.minecraft.block.MapColor;
-import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.block.entity.ShulkerBoxBlockEntity;
-import net.minecraft.block.enums.NoteBlockInstrument;
-import net.minecraft.block.piston.PistonBehavior;
-import net.minecraft.item.Item;
-import net.minecraft.item.Items;
-import net.minecraft.sound.BlockSoundGroup;
-import net.minecraft.util.DyeColor;
+import net.minecraft.world.item.DyeColor;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.SoundType;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.ShulkerBoxBlockEntity;
+import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.minecraft.world.level.block.state.properties.NoteBlockInstrument;
+import net.minecraft.world.level.material.MapColor;
+import net.minecraft.world.level.material.PushReaction;
 
 import atonkish.reinfcore.api.ReinforcedCoreRegistry;
 import atonkish.reinfcore.util.ReinforcingMaterial;
@@ -19,69 +18,71 @@ import atonkish.reinfcore.util.ReinforcingMaterial;
 public enum ReinforcingMaterialSettings {
   COPPER(
       ReinforcedCoreRegistry.registerReinforcingMaterial("copper", 45, Items.COPPER_INGOT),
-      AbstractBlock.Settings.create().strength(2.0F, 6.0F).sounds(BlockSoundGroup.COPPER),
-      new Item.Settings()),
+      BlockBehaviour.Properties.of().strength(2.0F, 6.0F).sound(SoundType.COPPER),
+      new Item.Properties()),
   IRON(
       ReinforcedCoreRegistry.registerReinforcingMaterial("iron", 54, Items.IRON_INGOT),
-      AbstractBlock.Settings.create()
+      BlockBehaviour.Properties.of()
           .instrument(NoteBlockInstrument.IRON_XYLOPHONE)
           .strength(2.0F, 6.0F)
-          .sounds(BlockSoundGroup.METAL),
-      new Item.Settings()),
+          .sound(SoundType.METAL),
+      new Item.Properties()),
   GOLD(
       ReinforcedCoreRegistry.registerReinforcingMaterial("gold", 81, Items.GOLD_INGOT),
-      AbstractBlock.Settings.create()
+      BlockBehaviour.Properties.of()
           .instrument(NoteBlockInstrument.BELL)
           .strength(2.0F, 6.0F)
-          .sounds(BlockSoundGroup.METAL),
-      new Item.Settings()),
+          .sound(SoundType.METAL),
+      new Item.Properties()),
   DIAMOND(
       ReinforcedCoreRegistry.registerReinforcingMaterial("diamond", 108, Items.DIAMOND),
-      AbstractBlock.Settings.create().strength(2.0F, 6.0F).sounds(BlockSoundGroup.METAL),
-      new Item.Settings()),
+      BlockBehaviour.Properties.of().strength(2.0F, 6.0F).sound(SoundType.METAL),
+      new Item.Properties()),
   NETHERITE(
       ReinforcedCoreRegistry.registerReinforcingMaterial("netherite", 108, Items.NETHERITE_INGOT),
-      AbstractBlock.Settings.create().strength(2.0F, 1200.0F).sounds(BlockSoundGroup.NETHERITE),
-      new Item.Settings().fireproof());
+      BlockBehaviour.Properties.of().strength(2.0F, 1200.0F).sound(SoundType.NETHERITE_BLOCK),
+      new Item.Properties().fireResistant());
 
   private final ReinforcingMaterial material;
-  private final Block.Settings blockSettings;
-  private final Item.Settings itemSettings;
+  private final BlockBehaviour.Properties blockSettings;
+  private final Item.Properties itemSettings;
 
   private ReinforcingMaterialSettings(
-      ReinforcingMaterial material, Block.Settings blockSettings, Item.Settings itemSettings) {
-    AbstractBlock.ContextPredicate contextPredicate =
+      ReinforcingMaterial material,
+      BlockBehaviour.Properties blockSettings,
+      Item.Properties itemSettings) {
+    BlockBehaviour.StatePredicate contextPredicate =
         (state, world, pos) -> {
           BlockEntity blockEntity = world.getBlockEntity(pos);
           if (!(blockEntity instanceof ShulkerBoxBlockEntity)) {
             return true;
           }
           ShulkerBoxBlockEntity shulkerBoxBlockEntity = (ShulkerBoxBlockEntity) blockEntity;
-          return shulkerBoxBlockEntity.suffocates();
+          return shulkerBoxBlockEntity.isClosed();
         };
 
     this.material = material;
     this.blockSettings =
         blockSettings
-            .solid()
-            .dynamicBounds()
-            .nonOpaque()
-            .suffocates(contextPredicate)
-            .blockVision(contextPredicate)
-            .pistonBehavior(PistonBehavior.DESTROY)
-            .solidBlock(Blocks::always);
-    this.itemSettings = itemSettings.maxCount(1);
+            .forceSolidOn()
+            .dynamicShape()
+            .noOcclusion()
+            .isSuffocating(contextPredicate)
+            .isViewBlocking(contextPredicate)
+            .pushReaction(PushReaction.DESTROY)
+            .isRedstoneConductor(Blocks::always);
+    this.itemSettings = itemSettings.stacksTo(1);
   }
 
   public ReinforcingMaterial getMaterial() {
     return this.material;
   }
 
-  public Block.Settings getBlockSettings() {
-    return this.blockSettings.mapColor(MapColor.PURPLE);
+  public BlockBehaviour.Properties getBlockSettings() {
+    return this.blockSettings.mapColor(MapColor.COLOR_PURPLE);
   }
 
-  public Block.Settings getColorBlockSettings(DyeColor color) {
+  public BlockBehaviour.Properties getColorBlockSettings(DyeColor color) {
     MapColor mapColor =
         switch (color) {
           case PURPLE -> MapColor.TERRACOTTA_PURPLE;
@@ -91,7 +92,7 @@ public enum ReinforcingMaterialSettings {
     return this.blockSettings.mapColor(mapColor);
   }
 
-  public Item.Settings getItemSettings() {
+  public Item.Properties getItemSettings() {
     return this.itemSettings;
   }
 }

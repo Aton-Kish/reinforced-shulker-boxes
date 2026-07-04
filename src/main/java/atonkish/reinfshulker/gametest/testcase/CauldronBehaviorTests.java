@@ -6,20 +6,20 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 
-import net.minecraft.block.Blocks;
-import net.minecraft.item.ItemStack;
-import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.stat.Stat;
-import net.minecraft.stat.Stats;
-import net.minecraft.state.property.Properties;
-import net.minecraft.text.Text;
-import net.minecraft.util.BlockRotation;
-import net.minecraft.util.DyeColor;
-import net.minecraft.util.Hand;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Vec3d;
-import net.minecraft.world.GameMode;
+import net.minecraft.core.BlockPos;
+import net.minecraft.network.chat.Component;
+import net.minecraft.resources.Identifier;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.stats.Stat;
+import net.minecraft.stats.Stats;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.item.DyeColor;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.GameType;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.Rotation;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.phys.Vec3;
 
 import atonkish.reinfcore.gametest.TestFunction;
 import atonkish.reinfcore.util.ReinforcingMaterials;
@@ -122,23 +122,27 @@ public class CauldronBehaviorTests {
         20,
         0,
         true,
-        BlockRotation.NONE,
+        Rotation.NONE,
         false,
         1,
         1,
         false,
         (context) -> {
           // Arrange
-          BlockPos blockPos = BlockPos.ORIGIN;
-          context.setBlockState(
-              blockPos, Blocks.WATER_CAULDRON.getDefaultState().with(Properties.LEVEL_3, 3));
+          BlockPos blockPos = BlockPos.ZERO;
+          context.setBlock(
+              blockPos,
+              Blocks.WATER_CAULDRON
+                  .defaultBlockState()
+                  .setValue(BlockStateProperties.LEVEL_CAULDRON, 3));
 
-          ServerPlayerEntity player =
-              MockServerPlayerHelper.spawn(context, GameMode.SURVIVAL, Vec3d.of(blockPos.south(4)));
-          player.setStackInHand(Hand.MAIN_HAND, new ItemStack(shulkerBoxBlock.asItem()));
+          ServerPlayer player =
+              MockServerPlayerHelper.spawn(
+                  context, GameType.SURVIVAL, Vec3.atLowerCornerOf(blockPos.south(4)));
+          player.setItemInHand(InteractionHand.MAIN_HAND, new ItemStack(shulkerBoxBlock.asItem()));
 
           Stat<Identifier> stat =
-              Stats.CUSTOM.getOrCreateStat(
+              Stats.CUSTOM.get(
                   ModStats.CLEAN_REINFORCED_SHULKER_BOX_MAP.get(shulkerBoxBlock.getMaterial()));
 
           // Act
@@ -150,10 +154,10 @@ public class CauldronBehaviorTests {
           String statMapKeyAfterCleaning = "afterCleaning";
 
           long tickOrigin = 0;
-          context.runAtTick(
+          context.runAtTickTime(
               tickOrigin,
               () -> {
-                statMap.put(statMapKeyBeforeCleaning, player.getStatHandler().getStat(stat));
+                statMap.put(statMapKeyBeforeCleaning, player.getStats().getValue(stat));
 
                 context.useBlock(blockPos, player);
 
@@ -161,10 +165,10 @@ public class CauldronBehaviorTests {
               });
 
           long tickShulkerBoxCleaning = 1;
-          context.runAtTick(
+          context.runAtTickTime(
               tickShulkerBoxCleaning,
               () -> {
-                statMap.put(statMapKeyAfterCleaning, player.getStatHandler().getStat(stat));
+                statMap.put(statMapKeyAfterCleaning, player.getStats().getValue(stat));
 
                 futurePartialAct2.complete(null);
               });
@@ -174,21 +178,23 @@ public class CauldronBehaviorTests {
               .thenRun(
                   () -> {
                     try {
-                      context.assertEquals(
-                          player.getMainHandStack().getItem(),
+                      context.assertValueEqual(
+                          player.getMainHandItem().getItem(),
                           ModItems.REINFORCED_SHULKER_BOX_MAP
                               .get(shulkerBoxBlock.getMaterial())
                               .get((DyeColor) null),
-                          Text.of("main hand item"));
-                      context.assertEquals(
-                          context.getBlockState(blockPos).get(Properties.LEVEL_3),
+                          Component.nullToEmpty("main hand item"));
+                      context.assertValueEqual(
+                          context
+                              .getBlockState(blockPos)
+                              .getValue(BlockStateProperties.LEVEL_CAULDRON),
                           2,
-                          Text.of("fluid level"));
-                      context.assertEquals(
+                          Component.nullToEmpty("fluid level"));
+                      context.assertValueEqual(
                           statMap.get(statMapKeyAfterCleaning)
                               - statMap.get(statMapKeyBeforeCleaning),
                           1,
-                          Text.of(String.format("diff %s value", stat.getName())));
+                          Component.nullToEmpty(String.format("diff %s value", stat.getName())));
                     } catch (Exception e) {
                       ReinforcedShulkerBoxesMod.LOGGER.error(
                           "[{}] {}", testIdentifier, e.getMessage());
@@ -197,7 +203,7 @@ public class CauldronBehaviorTests {
                       MockServerPlayerHelper.destroy(context, player);
                     }
 
-                    context.complete();
+                    context.succeed();
                   });
         });
   }

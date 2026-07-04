@@ -5,10 +5,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Stream;
 
-import net.minecraft.client.render.TexturedRenderLayers;
-import net.minecraft.client.util.SpriteIdentifier;
-import net.minecraft.util.DyeColor;
-import net.minecraft.util.Identifier;
+import net.minecraft.client.renderer.Sheets;
+import net.minecraft.client.resources.model.sprite.SpriteId;
+import net.minecraft.resources.Identifier;
+import net.minecraft.world.item.DyeColor;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -19,18 +19,18 @@ import atonkish.reinfcore.util.ReinforcingMaterial;
 
 @Environment(EnvType.CLIENT)
 public class ModTexturedRenderLayers {
-  public static final Map<ReinforcingMaterial, SpriteIdentifier> REINFORCED_SHULKER_TEXTURE_ID_MAP =
+  public static final Map<ReinforcingMaterial, SpriteId> REINFORCED_SHULKER_TEXTURE_ID_MAP =
       new LinkedHashMap<>();
-  public static final Map<ReinforcingMaterial, List<SpriteIdentifier>>
+  public static final Map<ReinforcingMaterial, List<SpriteId>>
       COLORED_REINFORCED_SHULKER_BOXES_TEXTURES_MAP = new LinkedHashMap<>();
 
-  public static SpriteIdentifier registerMaterialDefaultSprite(
+  public static SpriteId registerMaterialDefaultSprite(
       String namespace, ReinforcingMaterial material) {
     if (!REINFORCED_SHULKER_TEXTURE_ID_MAP.containsKey(material)) {
-      SpriteIdentifier identifier =
-          new SpriteIdentifier(
-              TexturedRenderLayers.SHULKER_BOXES_ATLAS_TEXTURE,
-              Identifier.of(
+      SpriteId identifier =
+          new SpriteId(
+              Sheets.SHULKER_SHEET,
+              Identifier.fromNamespaceAndPath(
                   namespace, String.format("entity/shulker/%s/shulker", material.getName())));
       REINFORCED_SHULKER_TEXTURE_ID_MAP.put(material, identifier);
     }
@@ -38,16 +38,16 @@ public class ModTexturedRenderLayers {
     return REINFORCED_SHULKER_TEXTURE_ID_MAP.get(material);
   }
 
-  public static List<SpriteIdentifier> registerMaterialColoringSprites(
+  public static List<SpriteId> registerMaterialColoringSprites(
       String namespace, ReinforcingMaterial material) {
     if (!COLORED_REINFORCED_SHULKER_BOXES_TEXTURES_MAP.containsKey(material)) {
-      List<SpriteIdentifier> identifiers =
+      List<SpriteId> identifiers =
           Stream.of(DyeColor.values())
               .map(
                   (color) -> {
-                    return new SpriteIdentifier(
-                        TexturedRenderLayers.SHULKER_BOXES_ATLAS_TEXTURE,
-                        Identifier.of(
+                    return new SpriteId(
+                        Sheets.SHULKER_SHEET,
+                        Identifier.fromNamespaceAndPath(
                             namespace,
                             String.format(
                                 "entity/shulker/%s/shulker_%s",

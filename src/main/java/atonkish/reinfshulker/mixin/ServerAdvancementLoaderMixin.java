@@ -3,10 +3,10 @@ package atonkish.reinfshulker.mixin;
 import java.util.ArrayList;
 import java.util.Map;
 
-import net.minecraft.resource.ResourceManager;
-import net.minecraft.server.ServerAdvancementLoader;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.profiler.Profiler;
+import net.minecraft.resources.Identifier;
+import net.minecraft.server.ServerAdvancementManager;
+import net.minecraft.server.packs.resources.ResourceManager;
+import net.minecraft.util.profiling.ProfilerFiller;
 
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -17,13 +17,13 @@ import com.google.gson.JsonElement;
 
 import atonkish.reinfshulker.ReinforcedShulkerBoxesMod;
 
-@Mixin(ServerAdvancementLoader.class)
+@Mixin(ServerAdvancementManager.class)
 public class ServerAdvancementLoaderMixin {
   @Inject(method = "apply", at = @At("HEAD"))
   private void removeMissingIdentifier(
       Map<Identifier, JsonElement> map,
       ResourceManager resourceManager,
-      Profiler profiler,
+      ProfilerFiller profiler,
       CallbackInfo info) {
     if (ReinforcedShulkerBoxesMod.IS_REINFCHEST_LOADED) {
       return;

@@ -1,13 +1,13 @@
 package atonkish.reinfshulker.mixin;
 
-import net.minecraft.block.BlockState;
-import net.minecraft.block.ShulkerBoxBlock;
-import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.block.entity.ShulkerBoxBlockEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.ShulkerBoxBlock;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.ShulkerBoxBlockEntity;
+import net.minecraft.world.level.block.state.BlockState;
 
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -21,18 +21,18 @@ import atonkish.reinfshulker.block.entity.ReinforcedShulkerBoxBlockEntity;
 @Mixin(ShulkerBoxBlock.class)
 public class ShulkerBoxBlockMixin {
   @Inject(
-      method = "onBreak",
+      method = "playerWillDestroy",
       at =
           @At(
               value = "INVOKE",
               target =
-                  "Lnet/minecraft/item/ItemStack;applyComponentsFrom(Lnet/minecraft/component/ComponentMap;)V"),
+                  "Lnet/minecraft/world/item/ItemStack;applyComponents(Lnet/minecraft/core/component/DataComponentMap;)V"),
       locals = LocalCapture.CAPTURE_FAILHARD)
   public void onBreak(
-      World world,
+      Level world,
       BlockPos pos,
       BlockState state,
-      PlayerEntity player,
+      Player player,
       CallbackInfoReturnable<BlockState> cir,
       BlockEntity blockEntity,
       ShulkerBoxBlockEntity shulkerBoxBlockEntity,

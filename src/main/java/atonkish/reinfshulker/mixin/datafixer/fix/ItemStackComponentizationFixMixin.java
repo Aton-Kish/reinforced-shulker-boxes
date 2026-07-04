@@ -1,16 +1,18 @@
 package atonkish.reinfshulker.mixin.datafixer.fix;
 
+import java.lang.reflect.Method;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
 import com.mojang.serialization.Dynamic;
 
-import net.minecraft.datafixer.fix.ItemStackComponentizationFix;
-import net.minecraft.util.DyeColor;
+import net.minecraft.util.datafix.fixes.ItemStackComponentizationFix;
+import net.minecraft.world.item.DyeColor;
 
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Coerce;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
@@ -20,9 +22,9 @@ import atonkish.reinfshulker.ReinforcedShulkerBoxesMod;
 
 @Mixin(ItemStackComponentizationFix.class)
 public class ItemStackComponentizationFixMixin {
-  @Inject(at = @At("RETURN"), method = "fixBlockEntityData", cancellable = true)
+  @Inject(at = @At("RETURN"), method = "fixBlockEntityTag", cancellable = true)
   private static <T> void fixBlockEntityData(
-      ItemStackComponentizationFix.StackData data,
+      @Coerce Object data,
       Dynamic<T> dynamic,
       String blockEntityId,
       CallbackInfoReturnable<Dynamic<T>> cir) {
@@ -38,7 +40,7 @@ public class ItemStackComponentizationFixMixin {
       }
     }
 
-    if (data.itemMatches(itemIds)) {
+    if (itemMatches(data, itemIds)) {
       List<Dynamic<T>> list =
           dynamic
               .get("Items")
@@ -52,9 +54,30 @@ public class ItemStackComponentizationFixMixin {
                                   itemsDynamic.get("Slot").asByte((byte) 0) & 255))
                           .set("item", itemsDynamic.remove("Slot")));
       if (!list.isEmpty()) {
-        data.setComponent("minecraft:container", dynamic.createList(list.stream()));
+        setComponent(data, "minecraft:container", dynamic.createList(list.stream()));
       }
       cir.setReturnValue(dynamic.remove("Items"));
+    }
+  }
+
+  private static boolean itemMatches(Object data, Set<String> itemIds) {
+    try {
+      Method method = data.getClass().getDeclaredMethod("is", Set.class);
+      method.setAccessible(true);
+      return (boolean) method.invoke(data, itemIds);
+    } catch (ReflectiveOperationException e) {
+      throw new RuntimeException(e);
+    }
+  }
+
+  private static <T> void setComponent(Object data, String id, Dynamic<T> value) {
+    try {
+      Method method =
+          data.getClass().getDeclaredMethod("setComponent", String.class, Dynamic.class);
+      method.setAccessible(true);
+      method.invoke(data, id, value);
+    } catch (ReflectiveOperationException e) {
+      throw new RuntimeException(e);
     }
   }
 }

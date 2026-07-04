@@ -3,12 +3,12 @@ package atonkish.reinfshulker.gametest.testcase;
 import java.util.ArrayList;
 import java.util.Collection;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.entity.ShulkerBoxBlockEntity;
-import net.minecraft.text.Text;
-import net.minecraft.util.BlockRotation;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.math.BlockPos;
+import net.minecraft.core.BlockPos;
+import net.minecraft.network.chat.Component;
+import net.minecraft.resources.Identifier;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Rotation;
+import net.minecraft.world.level.block.entity.ShulkerBoxBlockEntity;
 
 import atonkish.reinfcore.gametest.TestFunction;
 import atonkish.reinfcore.util.ReinforcingMaterials;
@@ -87,15 +87,15 @@ public class InventoryTests {
         20,
         0,
         true,
-        BlockRotation.NONE,
+        Rotation.NONE,
         false,
         1,
         1,
         false,
         (context) -> {
           // Arrange
-          BlockPos blockPos = BlockPos.ORIGIN;
-          context.setBlockState(blockPos, shulkerBoxBlock);
+          BlockPos blockPos = BlockPos.ZERO;
+          context.setBlock(blockPos, shulkerBoxBlock);
 
           // Act
           ShulkerBoxBlockEntity entity =
@@ -103,16 +103,17 @@ public class InventoryTests {
 
           // Assert
           try {
-            context.assertEquals(
-                entity.size(),
+            context.assertValueEqual(
+                entity.getContainerSize(),
                 size,
-                Text.of(String.format("%s inventory size", shulkerBoxBlock.getName().getString())));
+                Component.nullToEmpty(
+                    String.format("%s inventory size", shulkerBoxBlock.getName().getString())));
           } catch (Exception e) {
             ReinforcedShulkerBoxesMod.LOGGER.error("[{}] {}", testIdentifier, e.getMessage());
             throw e;
           }
 
-          context.complete();
+          context.succeed();
         });
   }
 }

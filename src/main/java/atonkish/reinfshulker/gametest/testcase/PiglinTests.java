@@ -6,20 +6,20 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 
-import net.minecraft.block.Block;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.EquipmentSlot;
-import net.minecraft.entity.ai.brain.MemoryModuleType;
-import net.minecraft.entity.mob.PiglinEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
-import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.text.Text;
-import net.minecraft.util.BlockRotation;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Vec3d;
-import net.minecraft.world.GameMode;
+import net.minecraft.core.BlockPos;
+import net.minecraft.network.chat.Component;
+import net.minecraft.resources.Identifier;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.ai.memory.MemoryModuleType;
+import net.minecraft.world.entity.monster.piglin.Piglin;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.level.GameType;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Rotation;
+import net.minecraft.world.phys.Vec3;
 
 import atonkish.reinfcore.gametest.TestFunction;
 import atonkish.reinfcore.util.ReinforcingMaterials;
@@ -104,21 +104,22 @@ public class PiglinTests {
         100,
         0,
         true,
-        BlockRotation.NONE,
+        Rotation.NONE,
         false,
         1,
         1,
         false,
         (context) -> {
           // Arrange
-          BlockPos blockPos = BlockPos.ORIGIN;
-          context.setBlockState(blockPos, shulkerBoxBlock);
+          BlockPos blockPos = BlockPos.ZERO;
+          context.setBlock(blockPos, shulkerBoxBlock);
 
-          ServerPlayerEntity player =
-              MockServerPlayerHelper.spawn(context, GameMode.SURVIVAL, Vec3d.of(blockPos.south(4)));
-          player.equipStack(EquipmentSlot.CHEST, new ItemStack(Items.GOLDEN_CHESTPLATE));
+          ServerPlayer player =
+              MockServerPlayerHelper.spawn(
+                  context, GameType.SURVIVAL, Vec3.atLowerCornerOf(blockPos.south(4)));
+          player.setItemSlot(EquipmentSlot.CHEST, new ItemStack(Items.GOLDEN_CHESTPLATE));
 
-          PiglinEntity piglin = context.spawnMob(EntityType.PIGLIN, blockPos.east(1));
+          Piglin piglin = context.spawnWithNoFreeWill(EntityType.PIGLIN, blockPos.east(1));
 
           // Act
           CompletableFuture<Void> futurePartialAct1 = new CompletableFuture<>();
@@ -129,14 +130,12 @@ public class PiglinTests {
           String angryAtMapKeyAfterAngryAtPlayer = "afterAngryAtPlayer";
 
           long tickChestOpen = 20;
-          context.runAtTick(
+          context.runAtTickTime(
               tickChestOpen,
               () -> {
                 angryAtMap.put(
                     angryAtMapKeyBeforeAngryAtPlayer,
-                    piglin
-                        .getBrain()
-                        .hasMemoryModuleWithValue(MemoryModuleType.ANGRY_AT, player.getUuid()));
+                    piglin.getBrain().isMemoryValue(MemoryModuleType.ANGRY_AT, player.getUUID()));
 
                 context.useBlock(blockPos, player);
 
@@ -144,14 +143,12 @@ public class PiglinTests {
               });
 
           long tickAngryAtPlayer = 21;
-          context.runAtTick(
+          context.runAtTickTime(
               tickAngryAtPlayer,
               () -> {
                 angryAtMap.put(
                     angryAtMapKeyAfterAngryAtPlayer,
-                    piglin
-                        .getBrain()
-                        .hasMemoryModuleWithValue(MemoryModuleType.ANGRY_AT, player.getUuid()));
+                    piglin.getBrain().isMemoryValue(MemoryModuleType.ANGRY_AT, player.getUUID()));
 
                 futurePartialAct2.complete(null);
               });
@@ -163,11 +160,11 @@ public class PiglinTests {
                     try {
                       context.assertFalse(
                           angryAtMap.get(angryAtMapKeyBeforeAngryAtPlayer),
-                          Text.of(
+                          Component.nullToEmpty(
                               "Expected that the piglin is not angry at player, but it has been already angry."));
                       context.assertTrue(
                           angryAtMap.get(angryAtMapKeyAfterAngryAtPlayer),
-                          Text.of(
+                          Component.nullToEmpty(
                               "Expected that the piglin is angry at player, but it has not been angry yet."));
                     } catch (Exception e) {
                       ReinforcedShulkerBoxesMod.LOGGER.error(
@@ -177,7 +174,7 @@ public class PiglinTests {
                       MockServerPlayerHelper.destroy(context, player);
                     }
 
-                    context.complete();
+                    context.succeed();
                   });
         });
   }

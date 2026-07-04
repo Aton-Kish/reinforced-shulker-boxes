@@ -1,10 +1,11 @@
 package atonkish.reinfshulker.api;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.entity.BlockEntityType;
-import net.minecraft.item.Item;
-import net.minecraft.util.DyeColor;
-import net.minecraft.util.Identifier;
+import net.minecraft.resources.Identifier;
+import net.minecraft.world.item.DyeColor;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.world.level.block.state.BlockBehaviour;
 
 import atonkish.reinfcore.util.ReinforcingMaterial;
 import atonkish.reinfshulker.block.ModBlocks;
@@ -25,7 +26,10 @@ public class ReinforcedShulkerBoxesRegistry {
   }
 
   public static Block registerMaterialDyeColorBlock(
-      String namespace, ReinforcingMaterial material, DyeColor color, Block.Settings settings) {
+      String namespace,
+      ReinforcingMaterial material,
+      DyeColor color,
+      BlockBehaviour.Properties settings) {
     return ModBlocks.registerMaterialDyeColor(namespace, material, color, settings);
   }
 
@@ -35,7 +39,7 @@ public class ReinforcedShulkerBoxesRegistry {
   }
 
   public static Item registerMaterialDyeColorItem(
-      String namespace, ReinforcingMaterial material, DyeColor color, Item.Settings settings) {
+      String namespace, ReinforcingMaterial material, DyeColor color, Item.Properties settings) {
     return ModItems.registerMaterialDyeColor(material, color, settings);
   }
 
